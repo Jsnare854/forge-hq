@@ -1,0 +1,47 @@
+{
+  "niche": "Florida gulf coast scalloping families",
+  "spec": {
+    "lines": [
+      {
+        "text": "Gulf Coast",
+        "size": "md"
+      },
+      {
+        "text": "Scallop Season",
+        "size": "xl"
+      },
+      {
+        "text": "Bucket Crew",
+        "size": "lg"
+      }
+    ],
+    "style": "stack",
+    "font": "Bebas Neue",
+    "ink": "#0b3d59",
+    "accent": "#12a4a0",
+    "shirt": "sand"
+  },
+  "title": "Scallop Season Shirt, Gulf Coast Scalloping Tee, Bay Scallop Family Shirt, Florida Summer Gift, Snorkel Bucket List Tee",
+  "tags": [
+    "scallop season",
+    "bay scalloping",
+    "gulf coast tee",
+    "family boat day",
+    "snorkel shirt",
+    "florida summer",
+    "scallop hunter",
+    "bucket list gift",
+    "beach family tee",
+    "scalloping crew",
+    "gulf coast gift",
+    "snorkel family",
+    "summer tradition"
+  ],
+  "description": "Made for the families who circle scallop season on the calendar every single year. If your crew knows the drill of mesh bags, fogged-up masks, and counting scallops back at the dock, this one's for you.\n\nPrinted on a soft, unisex tee that fits everyone from Dad to the kid who found the most scallops. Relaxed cut, breathable fabric, easy to wear straight from the boat to dinner.\n\nGrab it as a fun gift for the family scalloping trip, a boat captain, or anyone who counts down to bucket season. Design created by our shop with the help of AI tools and printed on demand by our production partner.",
+  "price": 26.99,
+  "risk": "low",
+  "risk_notes": "Uses generic scalloping season language with no branded or copyrighted references.",
+  "image_prompt": "flat vector retro screen-print style illustration of a family snorkeling over seagrass scooping scallops into a mesh dive bag, sun rays and small fish, transparent background, no text",
+  "seed": "Florida fishing and boating families",
+  "flags": []
+}

@@ -1,0 +1,43 @@
+{
+  "niche": "Florida tarpon fishing captains",
+  "spec": {
+    "lines": [
+      {
+        "text": "Chase The",
+        "size": "md"
+      },
+      {
+        "text": "Silver King",
+        "size": "xl"
+      }
+    ],
+    "style": "stack",
+    "font": "Anton",
+    "ink": "#1c2b45",
+    "accent": "#c0c0c0",
+    "shirt": "heather"
+  },
+  "title": "Chase The Silver King Shirt, Tarpon Fishing Tee, Guide Gift, Florida Tarpon Angler Shirt, Saltwater Fishing Tee",
+  "tags": [
+    "silver king tee",
+    "tarpon fishing",
+    "charter guide gift",
+    "florida angler",
+    "saltwater tee",
+    "tarpon hunter",
+    "flats fishing gift",
+    "captain shirt",
+    "tarpon jump",
+    "fishing tee men",
+    "inshore captain",
+    "gulf coast angler",
+    "tarpon addict"
+  ],
+  "description": "For the anglers and guides whose whole season revolves around one jump, one shake of the head, and one silver king coming unbuttoned at the boat. This shirt is for the chase, not just the catch.\n\nSoft unisex heather tee, comfortable enough for the ride out and tough enough for the ride back covered in salt spray.\n\nGreat gift for a tarpon guide, first mate, or the angler still chasing their personal best. Design created by our shop with the help of AI tools and printed on demand by our production partner.",
+  "price": 27.99,
+  "risk": "low",
+  "risk_notes": "Uses common angler nickname for tarpon, no protected marks or names referenced.",
+  "image_prompt": "flat vector retro screen-print style illustration of a large tarpon leaping out of the water at sunrise, minimal color palette, transparent background, no text",
+  "seed": "Florida fishing and boating families",
+  "flags": []
+}

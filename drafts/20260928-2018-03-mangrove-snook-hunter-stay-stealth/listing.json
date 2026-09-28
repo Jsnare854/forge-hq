@@ -1,0 +1,47 @@
+{
+  "niche": "Florida snook fishing anglers",
+  "spec": {
+    "lines": [
+      {
+        "text": "Mangrove",
+        "size": "lg"
+      },
+      {
+        "text": "Snook Hunter",
+        "size": "xl"
+      },
+      {
+        "text": "Stay Stealth",
+        "size": "sm"
+      }
+    ],
+    "style": "stamp",
+    "font": "Anton",
+    "ink": "#f2f2f2",
+    "accent": "#ff8c1a",
+    "shirt": "forest"
+  },
+  "title": "Snook Hunter Shirt, Mangrove Fishing Tee, Inshore Angler Gift, Stealthy Backwater Fisherman Shirt, Florida Snook Tee",
+  "tags": [
+    "snook hunter",
+    "mangrove fishing",
+    "inshore angler",
+    "backwater tee",
+    "stealth fishing",
+    "florida snook",
+    "fishing dad gift",
+    "angler shirt",
+    "mangrove tunnel",
+    "snook season",
+    "inshore gift",
+    "fishing guide tee",
+    "stalk and cast"
+  ],
+  "description": "Built for the anglers who ghost through mangrove tunnels at first light, hunting the one snook that won't stop them. If you know the sound of a snook blowing up on a topwater, this shirt speaks your language.\n\nSoft, breathable unisex tee that holds up to salt, sun, and long days poling the backwater flats.\n\nA solid gift for the mangrove regular, the topwater purist, or the guide who lives for that one perfect cast. Design created by our shop with the help of AI tools and printed on demand by our production partner.",
+  "price": 27.99,
+  "risk": "low",
+  "risk_notes": "Original inshore fishing phrasing with no brand, team, or celebrity references.",
+  "image_prompt": "flat vector retro screen-print style illustration of a snook fish weaving through mangrove roots at dusk, minimal shading, transparent background, no text",
+  "seed": "Florida fishing and boating families",
+  "flags": []
+}

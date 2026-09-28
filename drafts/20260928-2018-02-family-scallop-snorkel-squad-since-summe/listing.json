@@ -1,0 +1,51 @@
+{
+  "niche": "Florida gulf coast scalloping families",
+  "spec": {
+    "lines": [
+      {
+        "text": "Family Scallop",
+        "size": "sm"
+      },
+      {
+        "text": "Snorkel",
+        "size": "xl"
+      },
+      {
+        "text": "Squad",
+        "size": "lg"
+      },
+      {
+        "text": "Since Summer",
+        "size": "sm"
+      }
+    ],
+    "style": "badge",
+    "font": "Alfa Slab One",
+    "ink": "#0e7a72",
+    "accent": "#ff7a45",
+    "shirt": "white"
+  },
+  "title": "Snorkel Squad Shirt, Family Scalloping Badge Tee, Gulf Coast Boat Day Gift, Bay Scallop Family Shirt, Florida Vacation Tee",
+  "tags": [
+    "snorkel squad",
+    "scallop badge",
+    "family boat tee",
+    "gulf coast crew",
+    "scalloping gift",
+    "bay scallop tee",
+    "florida vacation",
+    "dive bag squad",
+    "boat day shirt",
+    "summer scallop",
+    "coastal family",
+    "snorkel gift",
+    "scallop crest"
+  ],
+  "description": "For the crew that shows up every scallop season with the same coolers, the same boat, and the same competitive scallop count. This badge-style tee wears that pride loud and proud.\n\nSoft unisex fit, built for salt air and long days on the water, so it moves from the boat ramp to the tiki bar without missing a beat.\n\nA great gift for the family scalloping trip, a boat captain, or the sibling who always finds the biggest scallop. Design created by our shop with the help of AI tools and printed on demand by our production partner.",
+  "price": 25.99,
+  "risk": "low",
+  "risk_notes": "Original badge phrasing about family scalloping tradition with no protected marks.",
+  "image_prompt": "flat vector retro badge style illustration of a scallop shell and snorkel mask crest with wave lines, coastal colors, transparent background, no text",
+  "seed": "Florida fishing and boating families",
+  "flags": []
+}

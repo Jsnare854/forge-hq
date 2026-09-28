@@ -1,0 +1,49 @@
+{
+  "niche": "Florida snook fishing anglers",
+  "spec": {
+    "lines": [
+      {
+        "text": "Snook",
+        "size": "xl"
+      },
+      {
+        "text": "Or Nothing",
+        "size": "lg"
+      }
+    ],
+    "style": "split",
+    "font": "Bebas Neue",
+    "ink": "#e6e6e6",
+    "accent": "#c6ff33",
+    "shirt": "navy"
+  },
+  "title": "Snook Or Nothing Shirt, Inshore Fishing Tee, Mangrove Angler Gift, Florida Snook Fisherman Shirt, Backwater Fishing Tee",
+  "tags": [
+    "snook or nothing",
+    "inshore fishing",
+    "mangrove angler",
+    "snook fisherman",
+    "florida flats",
+    "backwater tee",
+    "fishing gift men",
+    "snook shirt",
+    "topwater angler",
+    "stealth angler",
+    "saltwater fishing",
+    "angler pride",
+    "flats fishing tee"
+  ],
+  "description": "For the anglers who target one species and one species only, no matter how many tarpon or reds swim by. This is for the snook-obsessed, mangrove-lurking, topwater-loving crowd.\n\nSoft unisex tee designed to be lived in, from predawn launches to post-trip cold ones at the ramp.\n\nMakes a great gift for the snook-only purist in your boat or your life. Design created by our shop with the help of AI tools and printed on demand by our production partner.",
+  "price": 26.99,
+  "risk": "low",
+  "risk_notes": "Simple original fishing slogan, no third-party marks or references used.",
+  "image_prompt": "flat vector retro screen-print style illustration of a jumping snook fish near mangrove shoreline, high contrast, transparent background, no text",
+  "seed": "Florida fishing and boating families",
+  "flags": [
+    {
+      "bad": false,
+      "kind": "trademark",
+      "msg": "Contains \"target\", which is also a brand name. Fine as a normal word; not fine as the brand."
+    }
+  ]
+}

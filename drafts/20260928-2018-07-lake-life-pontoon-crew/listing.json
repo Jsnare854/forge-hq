@@ -1,0 +1,43 @@
+{
+  "niche": "Florida pontoon boat lake day families",
+  "spec": {
+    "lines": [
+      {
+        "text": "Lake Life",
+        "size": "lg"
+      },
+      {
+        "text": "Pontoon Crew",
+        "size": "xl"
+      }
+    ],
+    "style": "sunset",
+    "font": "Anton",
+    "ink": "#123456",
+    "accent": "#ffb84d",
+    "shirt": "heather"
+  },
+  "title": "Pontoon Crew Shirt, Lake Life Family Tee, Pontoon Boat Gift, Lake Day Shirt, Family Boating Tee",
+  "tags": [
+    "pontoon crew",
+    "lake life tee",
+    "boat day shirt",
+    "family lake gift",
+    "cooler day tee",
+    "lake weekend",
+    "pontoon family",
+    "summer lake tee",
+    "boat crew shirt",
+    "lake vacation",
+    "float day gift",
+    "weekend boater",
+    "lake house tee"
+  ],
+  "description": "For the family that measures summer in pontoon miles, cooler ice, and how many times someone jumped off the bow. If lake weekends are sacred in your house, this tee fits right in.\n\nSoft unisex tee made for lazy floats, sunscreen, and long afternoons tied up at the sandbar.\n\nA fun gift for the family boat captain, the cooler packer, or anyone who counts down to lake season. Design created by our shop with the help of AI tools and printed on demand by our production partner.",
+  "price": 25.99,
+  "risk": "low",
+  "risk_notes": "Generic lake and pontoon boating phrase with no brand or trademark dependency.",
+  "image_prompt": "flat vector retro screen-print style illustration of a family pontoon boat floating on a calm lake at sunset with a cooler on deck, transparent background, no text",
+  "seed": "Florida fishing and boating families",
+  "flags": []
+}

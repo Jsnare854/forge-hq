@@ -1,0 +1,51 @@
+{
+  "niche": "Florida tarpon fishing captains",
+  "spec": {
+    "lines": [
+      {
+        "text": "Silver King",
+        "size": "sm"
+      },
+      {
+        "text": "Tarpon",
+        "size": "xl"
+      },
+      {
+        "text": "Chaser",
+        "size": "lg"
+      },
+      {
+        "text": "Captain Grade",
+        "size": "sm"
+      }
+    ],
+    "style": "badge",
+    "font": "Alfa Slab One",
+    "ink": "#f4d35e",
+    "accent": "#ffffff",
+    "shirt": "maroon"
+  },
+  "title": "Silver King Chaser Shirt, Tarpon Fishing Tee, Captain Gift, Florida Tarpon Guide Shirt, Saltwater Angler Tee",
+  "tags": [
+    "silver king tee",
+    "tarpon chaser",
+    "tarpon captain",
+    "guide gift shirt",
+    "florida tarpon",
+    "saltwater angler",
+    "tarpon season",
+    "captain grade tee",
+    "flats guide",
+    "tarpon fishing gift",
+    "silver king fish",
+    "charter captain",
+    "tarpon crew"
+  ],
+  "description": "Made for the captains and anglers who live for that first silver flash rolling on the surface. If tarpon season runs your whole summer schedule, this badge tee is for you.\n\nSoft, durable unisex fit that handles long charter days and still looks sharp at the dock afterward.\n\nA perfect gift for a fishing guide, charter captain, or the angler chasing their first hundred-pound tarpon. Design created by our shop with the help of AI tools and printed on demand by our production partner.",
+  "price": 28.99,
+  "risk": "low",
+  "risk_notes": "Generic tarpon fishing nickname 'silver king' is common industry language, not a trademark.",
+  "image_prompt": "flat vector retro badge style illustration of a jumping tarpon crest with crossed fishing rods, coastal color palette, transparent background, no text",
+  "seed": "Florida fishing and boating families",
+  "flags": []
+}

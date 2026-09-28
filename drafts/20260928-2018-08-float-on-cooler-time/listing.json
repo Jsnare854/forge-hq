@@ -1,0 +1,47 @@
+{
+  "niche": "Florida pontoon boat lake day families",
+  "spec": {
+    "lines": [
+      {
+        "text": "Float",
+        "size": "xl"
+      },
+      {
+        "text": "On Cooler",
+        "size": "lg"
+      },
+      {
+        "text": "Time",
+        "size": "md"
+      }
+    ],
+    "style": "script",
+    "font": "Pacifico",
+    "ink": "#1d5c63",
+    "accent": "#f2c14e",
+    "shirt": "sand"
+  },
+  "title": "Float On Cooler Time Shirt, Pontoon Lake Day Tee, Family Boating Gift, Lake Weekend Shirt, Summer Lake Tee",
+  "tags": [
+    "cooler time tee",
+    "pontoon lake gift",
+    "float day shirt",
+    "lake weekend tee",
+    "family boating",
+    "summer float",
+    "lake life gift",
+    "boat weekend tee",
+    "lake house shirt",
+    "float squad",
+    "weekend cooler",
+    "pontoon family gift",
+    "lake summer tee"
+  ],
+  "description": "For the families who run on lake time, where the only schedule is when the cooler runs low. This laid-back script tee captures that slow, floaty, sun-soaked lake day feeling.\n\nSoft unisex fit, perfect for lounging on the pontoon, floating in the shallows, or grilling lakeside with the crew.\n\nMakes a great gift for the family boat owner or anyone counting down to their next lake weekend. Design created by our shop with the help of AI tools and printed on demand by our production partner.",
+  "price": 24.99,
+  "risk": "low",
+  "risk_notes": "Original lake-day phrase with no references to brands, media, or public figures.",
+  "image_prompt": "flat vector retro screen-print style illustration of a floating cooler and inflatable tube on a calm lake, sun in background, transparent background, no text",
+  "seed": "Florida fishing and boating families",
+  "flags": []
+}
