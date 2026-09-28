@@ -1,0 +1,178 @@
+{
+  "niche": "Swim mom humor/chaos identity shirts",
+  "spec": {
+    "lines": [
+      {
+        "text": "Runs On",
+        "size": "lg"
+      },
+      {
+        "text": "Cold Coffee",
+        "size": "xl"
+      },
+      {
+        "text": "And Chlorine",
+        "size": "sm"
+      }
+    ],
+    "style": "stamp",
+    "font": "Anton",
+    "ink": "#1d3557",
+    "accent": "#e63946",
+    "shirt": "sand"
+  },
+  "mode": "type",
+  "art_prompt": "Bold retro badge illustration, stopwatch and swim cap icon centered, sunburst rays background, distressed screen-print texture, colors sand, navy, red, mustard, text stacked above and below the circular badge",
+  "title": "Swim Mom Funny Shirt, Chaotic Swim Meet Tee, Retro Badge Design, Gift for Swim Team Mom",
+  "tags": [
+    "swim mom shirt",
+    "funny swim mom",
+    "swim meet gift",
+    "retro badge tee",
+    "swim team parent",
+    "chaotic swim mom",
+    "swim season shirt",
+    "swim mama gift",
+    "early morning swim",
+    "swim parent tee",
+    "comfort colors swim",
+    "swim mom gift idea",
+    "cold coffee mom"
+  ],
+  "description": "For the mom who's run on cold coffee and pool deck fumes since 6 a.m. This retro badge design brings a fresh, bold graphic to the usual swim mom shirt lineup.\n\nThe distressed screen-print look and sunburst badge stand out at a glance, while the humor hits exactly how every swim season actually feels.\n\nA comfy, true-to-size tee perfect for meet days, carpool lines, and everything in between. Design created by our shop with the help of AI tools and printed on demand by our production partner.",
+  "price": 26.99,
+  "risk": "low",
+  "risk_notes": "Original badge artwork and wording with no references to existing trademarked phrases.",
+  "seed": "Sports families",
+  "evidence": [
+    {
+      "id": 4575816242,
+      "title": "Smells Like Chlorine and Chaos Shirt | Funny Swim Mom Shirt | Swim Parent Tee | Swimming Shirt | Swim Meet Mom Gift",
+      "tags": [
+        "chlorine and chaos",
+        "swim mom shirt",
+        "swim parent shirt",
+        "funny swim shirt",
+        "swimming shirt",
+        "swim meet shirt",
+        "swimmer mom gift",
+        "swim mom gift",
+        "swimming mom",
+        "swim team mom",
+        "competitive swim",
+        "swim life shirt",
+        "pool mom shirt"
+      ],
+      "price": 26.99,
+      "favorites": 7,
+      "views": 62,
+      "age_days": 13,
+      "momentum": 0.53,
+      "url": "https://www.etsy.com/listing/4575816242/smells-like-chlorine-and-chaos-shirt"
+    },
+    {
+      "id": 1878378704,
+      "title": "Swim Mom Shirt, Comfort Colors Swimming Mama Tarot Card T-shirt, Fall Halloween Swim Tee, Gift for Swim Team Mom, Swim Mother&#39;s Day Gift",
+      "tags": [
+        "swim mom shirt",
+        "swimming mama tee",
+        "swim mom tarot",
+        "skeleton tarot card",
+        "skeleton swim mom",
+        "tarot card shirt",
+        "comfort colors\u00ae",
+        "swim meet t-shirt",
+        "funny swim mom",
+        "mothers day gift",
+        "gift for swim mom",
+        "swim mom gift",
+        "swimming mama gift"
+      ],
+      "price": 28.99,
+      "favorites": 103,
+      "views": 1777,
+      "age_days": 554,
+      "momentum": 0.19,
+      "url": "https://www.etsy.com/listing/1878378704/swim-mom-shirt-comfort-colors-swimming"
+    },
+    {
+      "id": 1745302802,
+      "title": "What Heat Are They On, Retro Swim Mom Shirt, Swim Mama T-shirt, Swim Competition, Swimming Sweatshirt, Swim Mom Life, Swim Mom Gift",
+      "tags": [
+        "swim mom shirt",
+        "swim mama shirt",
+        "swim mom gift",
+        "swim team mom",
+        "swim meet shirt",
+        "swimming shirt",
+        "proud swim mom",
+        "mama shirt",
+        "mothers day gift",
+        "tshirt shirt tee",
+        "swim mom life",
+        "swim competition",
+        "swim team"
+      ],
+      "price": 17.95,
+      "favorites": 150,
+      "views": 4259,
+      "age_days": 811,
+      "momentum": 0.18,
+      "url": "https://www.etsy.com/listing/1745302802/what-heat-are-they-on-retro-swim-mom"
+    },
+    {
+      "id": 4476979503,
+      "title": "Swim Mom Shirt, My Heart Is In That Pool Sweatshirt, Swimming Mom Shirt, Swim Team Mom Tee, Pool Mom Shirt, Swim Meet Outfit",
+      "tags": [
+        "swim mom shirt",
+        "pool mom shirt",
+        "swim team mom",
+        "swimming mom",
+        "swim meet shirt",
+        "swimmer mom gift",
+        "swim mom sweatshirt",
+        "pool life shirt",
+        "swim season tee",
+        "swim team shirt",
+        "front back shirt",
+        "mom life shirt",
+        "swimming gift"
+      ],
+      "price": 33.0,
+      "favorites": 44,
+      "views": 663,
+      "age_days": 188,
+      "momentum": 0.23,
+      "url": "https://www.etsy.com/listing/4476979503/swim-mom-shirt-my-heart-is-in-that-pool"
+    }
+  ],
+  "brief": {
+    "why": "Despite 3096 active listings, a brand-new 13-day-old listing already hit mom=0.53 and a tarot-card design listing hit 605 lifetime favorites, showing real appetite for a fresher comedic/visual hook in a crowded but not hopeless space.",
+    "what_wins": "Humor built on sensory chaos (heat/smell/exhaustion) rather than generic pride statements, novelty visual gimmicks (tarot card, retro badge) that stand out in search thumbnails, mid-price sweatshirt/tee combo ($24-33)",
+    "visual_style": "Retro mystic/tarot-card frame or bold retro badge, muted vintage color tees (sand, faded navy), comfort-colors fabric look",
+    "price_band": "$24-30",
+    "demand": 6,
+    "competition": 5,
+    "passion": 7
+  },
+  "flags": [
+    {
+      "bad": false,
+      "kind": "art",
+      "msg": "Illustrations didn't pass the Art Director, so this uses a typography layout instead."
+    }
+  ],
+  "draft_id": "20260928-2216-08-runs-on-cold-coffee-and-chlorine",
+  "product_id": "6abae77381b30e554801baa2",
+  "colors": [
+    "Soft Cream",
+    "White",
+    "Athletic Heather",
+    "Natural"
+  ],
+  "mockups": [
+    "https://images.printify.com/mockup/6abae77381b30e554801baa2/18542/102044/swim-mom-funny-shirt-chaotic-swim-meet-tee-retro-badge-design-gift-for-swim-team-mom.jpg?camera_label=front-2",
+    "https://images.printify.com/mockup/6abae77381b30e554801baa2/18390/102044/swim-mom-funny-shirt-chaotic-swim-meet-tee-retro-badge-design-gift-for-swim-team-mom.jpg?camera_label=front-2",
+    "https://images.printify.com/mockup/6abae77381b30e554801baa2/18462/102044/swim-mom-funny-shirt-chaotic-swim-meet-tee-retro-badge-design-gift-for-swim-team-mom.jpg?camera_label=front-2"
+  ]
+}

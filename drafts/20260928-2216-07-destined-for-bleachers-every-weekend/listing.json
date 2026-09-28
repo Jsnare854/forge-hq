@@ -1,0 +1,166 @@
+{
+  "niche": "Swim mom humor/chaos identity shirts",
+  "spec": {
+    "lines": [
+      {
+        "text": "Destined For",
+        "size": "lg"
+      },
+      {
+        "text": "Bleachers",
+        "size": "xl"
+      },
+      {
+        "text": "Every Weekend",
+        "size": "sm"
+      }
+    ],
+    "style": "badge",
+    "font": "Bebas Neue",
+    "ink": "#f4e8d0",
+    "accent": "#c9a24b",
+    "shirt": "navy"
+  },
+  "mode": "type",
+  "art_prompt": "Retro tarot card style illustration, ornate mystical border frame, swim goggles and lane rope icon centered, small celestial stars and crescent moon accents, muted vintage colors navy, gold, cream, dusty rose, text arched inside the card frame above and below the central icon",
+  "title": "Swim Mom Tarot Card Shirt, Funny Swim Meet Tee, Retro Mystic Design, Swim Team Parent Gift",
+  "tags": [
+    "swim mom shirt",
+    "tarot card tee",
+    "swim meet gift",
+    "swim team parent",
+    "retro swim shirt",
+    "funny swim tee",
+    "swim mama gift",
+    "mystic tarot tee",
+    "swim season shirt",
+    "swim parent gift",
+    "comfort colors tee",
+    "swim mom gift idea",
+    "chaotic swim mom"
+  ],
+  "description": "Part fortune card, part survival badge, this design captures the never-ending cycle of early meets and endless bleacher hours in one striking graphic. A fresh, fun spin on standard swim mom merch.\n\nThe mystical tarot-inspired frame stands out in a sea of plain text shirts, making it an easy scroll-stopper for gift shopping or team spirit wear.\n\nSoft, comfortable fit that's ready for early call times and long meet days. Design created by our shop with the help of AI tools and printed on demand by our production partner.",
+  "price": 28.99,
+  "risk": "low",
+  "risk_notes": "Original tarot-inspired illustration with no references to real tarot brands or copyrighted card designs.",
+  "seed": "Sports families",
+  "evidence": [
+    {
+      "id": 4575816242,
+      "title": "Smells Like Chlorine and Chaos Shirt | Funny Swim Mom Shirt | Swim Parent Tee | Swimming Shirt | Swim Meet Mom Gift",
+      "tags": [
+        "chlorine and chaos",
+        "swim mom shirt",
+        "swim parent shirt",
+        "funny swim shirt",
+        "swimming shirt",
+        "swim meet shirt",
+        "swimmer mom gift",
+        "swim mom gift",
+        "swimming mom",
+        "swim team mom",
+        "competitive swim",
+        "swim life shirt",
+        "pool mom shirt"
+      ],
+      "price": 26.99,
+      "favorites": 7,
+      "views": 62,
+      "age_days": 13,
+      "momentum": 0.53,
+      "url": "https://www.etsy.com/listing/4575816242/smells-like-chlorine-and-chaos-shirt"
+    },
+    {
+      "id": 1878378704,
+      "title": "Swim Mom Shirt, Comfort Colors Swimming Mama Tarot Card T-shirt, Fall Halloween Swim Tee, Gift for Swim Team Mom, Swim Mother&#39;s Day Gift",
+      "tags": [
+        "swim mom shirt",
+        "swimming mama tee",
+        "swim mom tarot",
+        "skeleton tarot card",
+        "skeleton swim mom",
+        "tarot card shirt",
+        "comfort colors\u00ae",
+        "swim meet t-shirt",
+        "funny swim mom",
+        "mothers day gift",
+        "gift for swim mom",
+        "swim mom gift",
+        "swimming mama gift"
+      ],
+      "price": 28.99,
+      "favorites": 103,
+      "views": 1777,
+      "age_days": 554,
+      "momentum": 0.19,
+      "url": "https://www.etsy.com/listing/1878378704/swim-mom-shirt-comfort-colors-swimming"
+    },
+    {
+      "id": 1745302802,
+      "title": "What Heat Are They On, Retro Swim Mom Shirt, Swim Mama T-shirt, Swim Competition, Swimming Sweatshirt, Swim Mom Life, Swim Mom Gift",
+      "tags": [
+        "swim mom shirt",
+        "swim mama shirt",
+        "swim mom gift",
+        "swim team mom",
+        "swim meet shirt",
+        "swimming shirt",
+        "proud swim mom",
+        "mama shirt",
+        "mothers day gift",
+        "tshirt shirt tee",
+        "swim mom life",
+        "swim competition",
+        "swim team"
+      ],
+      "price": 17.95,
+      "favorites": 150,
+      "views": 4259,
+      "age_days": 811,
+      "momentum": 0.18,
+      "url": "https://www.etsy.com/listing/1745302802/what-heat-are-they-on-retro-swim-mom"
+    },
+    {
+      "id": 4476979503,
+      "title": "Swim Mom Shirt, My Heart Is In That Pool Sweatshirt, Swimming Mom Shirt, Swim Team Mom Tee, Pool Mom Shirt, Swim Meet Outfit",
+      "tags": [
+        "swim mom shirt",
+        "pool mom shirt",
+        "swim team mom",
+        "swimming mom",
+        "swim meet shirt",
+        "swimmer mom gift",
+        "swim mom sweatshirt",
+        "pool life shirt",
+        "swim season tee",
+        "swim team shirt",
+        "front back shirt",
+        "mom life shirt",
+        "swimming gift"
+      ],
+      "price": 33.0,
+      "favorites": 44,
+      "views": 663,
+      "age_days": 188,
+      "momentum": 0.23,
+      "url": "https://www.etsy.com/listing/4476979503/swim-mom-shirt-my-heart-is-in-that-pool"
+    }
+  ],
+  "brief": {
+    "why": "Despite 3096 active listings, a brand-new 13-day-old listing already hit mom=0.53 and a tarot-card design listing hit 605 lifetime favorites, showing real appetite for a fresher comedic/visual hook in a crowded but not hopeless space.",
+    "what_wins": "Humor built on sensory chaos (heat/smell/exhaustion) rather than generic pride statements, novelty visual gimmicks (tarot card, retro badge) that stand out in search thumbnails, mid-price sweatshirt/tee combo ($24-33)",
+    "visual_style": "Retro mystic/tarot-card frame or bold retro badge, muted vintage color tees (sand, faded navy), comfort-colors fabric look",
+    "price_band": "$24-30",
+    "demand": 6,
+    "competition": 5,
+    "passion": 7
+  },
+  "flags": [
+    {
+      "bad": false,
+      "kind": "art",
+      "msg": "Illustrations didn't pass the Art Director, so this uses a typography layout instead."
+    }
+  ],
+  "draft_id": "20260928-2216-07-destined-for-bleachers-every-weekend"
+}

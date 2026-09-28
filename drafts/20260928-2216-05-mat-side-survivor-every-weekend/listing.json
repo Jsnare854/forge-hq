@@ -1,0 +1,181 @@
+{
+  "niche": "Wrestling 'season' sweatshirts with sarcastic/retro spin",
+  "spec": {
+    "lines": [
+      {
+        "text": "Mat Side",
+        "size": "lg"
+      },
+      {
+        "text": "Survivor",
+        "size": "xl"
+      },
+      {
+        "text": "Every Weekend",
+        "size": "sm"
+      }
+    ],
+    "style": "badge",
+    "font": "Alfa Slab One",
+    "ink": "#ffffff",
+    "accent": "#e0b400",
+    "shirt": "maroon"
+  },
+  "mode": "type",
+  "art_prompt": "Retro collage badge illustration, distressed wrestling headgear and singlet icon centered, varsity patch style border with stitched edge, puff print texture look, colors maroon, mustard gold, charcoal, cream, arched text above the badge and stacked text below it",
+  "title": "Wrestling Mom Sweatshirt, Funny Season Crewneck, Retro Varsity Patch Style, Wrestling Parent Gift",
+  "tags": [
+    "wrestling sweatshirt",
+    "wrestling mom gift",
+    "retro varsity patch",
+    "wrestling crewneck",
+    "wrestling parent tee",
+    "funny wrestling gift",
+    "mat mom sweater",
+    "collage badge tee",
+    "cozy wrestling gift",
+    "wrestling dad gift",
+    "fall sports sweater"
+  ],
+  "description": "This isn't just another wrestling dad shirt. It's a cozy, retro-inspired crewneck built for the parents who spend entire winters in gyms cheering from the mat side.\n\nThe distressed varsity patch graphic gives it a collected-over-years feel, while the sarcastic tone keeps it fun instead of generic. Perfect layered piece for tournament days and chilly bleachers.\n\nA warm, wearable way to celebrate a whole season of takedowns and travel meets. Design created by our shop with the help of AI tools and printed on demand by our production partner.",
+  "price": 27.99,
+  "risk": "low",
+  "risk_notes": "Original collage-style artwork with no real team or league branding involved.",
+  "seed": "Sports families",
+  "evidence": [
+    {
+      "id": 4425335402,
+      "title": "Wrestling Sweatshirt, Take Down Season Shirt, Wrestling Mom Sweater, Wrestling Mom Shirt, Wrestling mom shirt, Gift For Wrestler, Sports mom",
+      "tags": [
+        "funny retro shirt",
+        "funny gift shirt",
+        "best friends gift",
+        "sarcasm sweatshirt",
+        "sarcastic shirt",
+        "best seller shirt",
+        "funny gift",
+        "wrestling sweatshirt",
+        "take down season",
+        "wrestling mom",
+        "wrestling shirt",
+        "wrestling mom shirt",
+        "take down shirt"
+      ],
+      "price": 12.5,
+      "favorites": 154,
+      "views": 2695,
+      "age_days": 287,
+      "momentum": 0.54,
+      "url": "https://www.etsy.com/listing/4425335402/wrestling-sweatshirt-take-down-season"
+    },
+    {
+      "id": 4437693334,
+      "title": "Vintage Wrestling Collage Sweatshirt, Match Day Wrestling Shirt, Retro Wrestling Tee, Take Down Season Shirt, Wrestler Shirt, Wrestling Gift",
+      "tags": [
+        "wrestling",
+        "match day",
+        "retro wrestler",
+        "take down",
+        "vintage tee",
+        "wrestler gift",
+        "sports shirt",
+        "season tee",
+        "grappler top",
+        "athlete shirt",
+        "wrestle fan",
+        "retro style",
+        "wrestling tee"
+      ],
+      "price": 19.18,
+      "favorites": 80,
+      "views": 1179,
+      "age_days": 263,
+      "momentum": 0.3,
+      "url": "https://www.etsy.com/listing/4437693334/vintage-wrestling-collage-sweatshirt"
+    },
+    {
+      "id": 739444262,
+      "title": "Wrestling Season Mom Shirt: Soft Cotton Sports Tee",
+      "tags": [
+        "wrestling mom shirt",
+        "unisex shirt t-shirt",
+        "cute graphic design",
+        "boy or girl wrestler",
+        "club team group",
+        "mom nana grandma",
+        "christmas gift",
+        "birthday gift her",
+        "tournament match",
+        "freestyle greco",
+        "custom wrestle name",
+        "id love to but its",
+        "wrestling season"
+      ],
+      "price": 25.5,
+      "favorites": 605,
+      "views": 7247,
+      "age_days": 2510,
+      "momentum": 0.24,
+      "url": "https://www.etsy.com/listing/739444262/wrestling-season-mom-shirt-soft-cotton"
+    },
+    {
+      "id": 1835264420,
+      "title": "Wrestling Sweatshirt, Take Down Season Shirt, Wrestling Mom Sweater, Wrestling Mom Shirt, Wrestling mom shirt",
+      "tags": [
+        "funny retro shirt",
+        "funny gift shirt",
+        "best friends gift",
+        "sarcasm sweatshirt",
+        "sarcastic shirt",
+        "best seller shirt",
+        "funny gift",
+        "wrestling sweatshirt",
+        "take down season",
+        "wrestling mom",
+        "wrestling shirt",
+        "wrestling mom shirt",
+        "take down shirt"
+      ],
+      "price": 13.33,
+      "favorites": 153,
+      "views": 4929,
+      "age_days": 641,
+      "momentum": 0.24,
+      "url": "https://www.etsy.com/listing/1835264420/wrestling-sweatshirt-take-down-season"
+    }
+  ],
+  "brief": {
+    "why": "Active listings only 447 (vs 1769 for the generic 'wrestling dad' query) while four listings show momentum 0.54, 0.3, 0.24, 0.24 \u2014 strong engagement in a much thinner field.",
+    "what_wins": "Sarcastic/relatable mom-humor copy, retro collage or varsity-patch visual style, sweatshirt format (not tee) at lower price points ($12-20) driving the fastest favorites, coquette/bow feminine variant also gaining traction",
+    "visual_style": "Retro collage badge or varsity patch, distressed puff-print text, crewneck sweatshirt mockups, mustard/maroon/charcoal palette",
+    "price_band": "$18-26",
+    "demand": 6,
+    "competition": 3,
+    "passion": 7
+  },
+  "flags": [
+    {
+      "bad": false,
+      "kind": "tags",
+      "msg": "Only 11 tags. Use all 13."
+    },
+    {
+      "bad": false,
+      "kind": "art",
+      "msg": "Illustrations didn't pass the Art Director, so this uses a typography layout instead."
+    }
+  ],
+  "draft_id": "20260928-2216-05-mat-side-survivor-every-weekend",
+  "product_id": "6abae760970cf6d28208e473",
+  "colors": [
+    "Maroon",
+    "Black",
+    "Navy",
+    "Forest"
+  ],
+  "mockups": [
+    "https://images.printify.com/mockup/6abae760970cf6d28208e473/18102/102044/wrestling-mom-sweatshirt-funny-season-crewneck-retro-varsity-patch-style-wrestling-parent-gift.jpg?camera_label=front-2",
+    "https://images.printify.com/mockup/6abae760970cf6d28208e473/18182/102044/wrestling-mom-sweatshirt-funny-season-crewneck-retro-varsity-patch-style-wrestling-parent-gift.jpg?camera_label=front-2",
+    "https://images.printify.com/mockup/6abae760970cf6d28208e473/18398/102044/wrestling-mom-sweatshirt-funny-season-crewneck-retro-varsity-patch-style-wrestling-parent-gift.jpg?camera_label=front-2"
+  ]
+}

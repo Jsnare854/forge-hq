@@ -1,0 +1,178 @@
+{
+  "niche": "Cheer sibling/brother support tees",
+  "spec": {
+    "lines": [
+      {
+        "text": "Front Row",
+        "size": "lg"
+      },
+      {
+        "text": "Snacks Only",
+        "size": "xl"
+      },
+      {
+        "text": "That's My Job",
+        "size": "sm"
+      }
+    ],
+    "style": "stack",
+    "font": "Bebas Neue",
+    "ink": "#1a1a1a",
+    "accent": "#2b6cb0",
+    "shirt": "heather"
+  },
+  "mode": "type",
+  "art_prompt": "Minimal bold vector illustration of a folding bleacher chair beside a snack bag, flat single-color line art, clean simple shapes, no glitter or pink tones, unisex plain graphic placed below the text, subtle shadow for depth",
+  "title": "Cheer Sibling Shirt, Funny Brother of Cheerleader Tee, Sarcastic Sports Gift, Unisex Comfort Fit",
+  "tags": [
+    "cheer sibling tee",
+    "cheer brother gift",
+    "funny sibling shirt",
+    "supportive sibling",
+    "cheer meet shirt",
+    "brother of cheer",
+    "unisex cheer tee",
+    "sibling gift shirt",
+    "cheer family gift",
+    "bored sibling tee",
+    "cheer competition",
+    "funny brother tee",
+    "sibling support"
+  ],
+  "description": "Every cheer family needs one person who shows up, sits down, and eats the snacks. This shirt is for that sibling, worn proudly at every meet and competition.\n\nNo glitter, no pink, just a clean unisex tee with deadpan humor that actually fits how bored (but loyal) siblings really feel. A perfect low-key gift from a cheer sister or brother.\n\nComfy, simple, and easy to wear on repeat all season long. Design created by our shop with the help of AI tools and printed on demand by our production partner.",
+  "price": 25.99,
+  "risk": "low",
+  "risk_notes": "Purely original humor text and generic icon artwork with no brand or meme references.",
+  "seed": "Sports families",
+  "evidence": [
+    {
+      "id": 4463679648,
+      "title": "Baseball Brother Shirt, Baseball Sis Tee, Baseball Lover Bro Sweatshirt, Toddler Baseball Fan Gift, Custom Player Name Tees, Cheer Sister",
+      "tags": [
+        "baseball bro shirt",
+        "baseball number",
+        "baseball sister tee",
+        "toddler baseball tee",
+        "baseball brother",
+        "baseball spring",
+        "custom baseball tee",
+        "baseball fan shirt",
+        "baseball gift shirt",
+        "baseball season tee",
+        "baseball shirts",
+        "cheer sister shirt",
+        "sport kids shirt"
+      ],
+      "price": 24.99,
+      "favorites": 153,
+      "views": 2927,
+      "age_days": 214,
+      "momentum": 0.72,
+      "url": "https://www.etsy.com/listing/4463679648/baseball-brother-shirt-baseball-sis-tee"
+    },
+    {
+      "id": 1593550979,
+      "title": "Dance bro Tshirt cheer bro gift shirt dance competitions cheer gift when sister dances| funny gift to brother from sister| bruh shirt",
+      "tags": [
+        "dance brother shirt",
+        "gift brother dance",
+        "competition dance",
+        "cheer brother gift",
+        "cheer brother shirt",
+        "dance comp shirt boy",
+        "cheer comp shirt boy",
+        "brother shirt funny",
+        "bruh tshirt brother",
+        "supportive brother",
+        "older brother dance",
+        "little sister dance",
+        "bruh game day shirt"
+      ],
+      "price": 35.28,
+      "favorites": 588,
+      "views": 10452,
+      "age_days": 1072,
+      "momentum": 0.55,
+      "url": "https://www.etsy.com/listing/1593550979/dance-bro-tshirt-cheer-bro-gift-shirt"
+    },
+    {
+      "id": 1775214516,
+      "title": "Cheer Brother Supportive But Bored T-shirt Funny Football Cheerleader Brother Tee",
+      "tags": [
+        "cheer brothers",
+        "supportive but bored",
+        "funny football",
+        "cheerleader brothers",
+        "cheerleading tees",
+        "football cheer",
+        "cheerleader siblings",
+        "cheer family",
+        "brother t-shirts",
+        "brother gifts",
+        "cheerleading shirts",
+        "cheer bro",
+        "brother birthday"
+      ],
+      "price": 45.0,
+      "favorites": 242,
+      "views": 4318,
+      "age_days": 753,
+      "momentum": 0.32,
+      "url": "https://www.etsy.com/listing/1775214516/cheer-brother-supportive-but-bored"
+    },
+    {
+      "id": 4409432403,
+      "title": "Cheer Brother svg, Cheer Bro Tshirt, Cheer Competition, Cheerleader brother, Six Seven, Bruh 6 7 meme, png, digital download",
+      "tags": [
+        "6 7 meme",
+        "cheer brother",
+        "cheer comp shirt",
+        "cheer competition",
+        "cheer brother shirt",
+        "cheerleader brother",
+        "brother shirt",
+        "cheer sibling",
+        "six seven",
+        "cheer tshirt",
+        "png svg",
+        "digital download",
+        "cheer bro bruh"
+      ],
+      "price": 3.0,
+      "favorites": 49,
+      "views": 1038,
+      "age_days": 311,
+      "momentum": 0.16,
+      "url": "https://www.etsy.com/listing/4409432403/cheer-brother-svg-cheer-bro-tshirt-cheer"
+    }
+  ],
+  "brief": {
+    "why": "375 active listings (much less saturated than mom/dad cheer searches) yet the top 4 listings post momentum 0.72, 0.55, 0.42 and 0.32 \u2014 a cluster of fast-moving new designs, signalling an underserved sub-audience.",
+    "what_wins": "Deadpan humor ('supportive but bored'), current teen-meme references, masculine-friendly plain tee (no glitter/pink), sold as a gift item from sister-to-brother, cross-sells into baseball/football/soccer sibling versions of the same joke format",
+    "visual_style": "Simple bold sans-serif statement type, single accent color, minimal graphic (maybe a bench/chair icon or crossed-arms figure), unisex fit, comfort-colors muted tones",
+    "price_band": "$20-26",
+    "demand": 7,
+    "competition": 4,
+    "passion": 8
+  },
+  "flags": [
+    {
+      "bad": false,
+      "kind": "art",
+      "msg": "Illustrations didn't pass the Art Director, so this uses a typography layout instead."
+    }
+  ],
+  "draft_id": "20260928-2216-03-front-row-snacks-only-that-s-my-job",
+  "product_id": "6abae757ff2f412aa9041df8",
+  "colors": [
+    "Athletic Heather",
+    "White",
+    "Soft Cream",
+    "Natural"
+  ],
+  "mockups": [
+    "https://images.printify.com/mockup/6abae757ff2f412aa9041df8/18542/102044/cheer-sibling-shirt-funny-brother-of-cheerleader-tee-sarcastic-sports-gift-unisex-comfort-fit.jpg?camera_label=front-2",
+    "https://images.printify.com/mockup/6abae757ff2f412aa9041df8/18390/102044/cheer-sibling-shirt-funny-brother-of-cheerleader-tee-sarcastic-sports-gift-unisex-comfort-fit.jpg?camera_label=front-2",
+    "https://images.printify.com/mockup/6abae757ff2f412aa9041df8/18462/102044/cheer-sibling-shirt-funny-brother-of-cheerleader-tee-sarcastic-sports-gift-unisex-comfort-fit.jpg?camera_label=front-2"
+  ]
+}

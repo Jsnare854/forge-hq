@@ -1,0 +1,77 @@
+{
+  "niche": "Softball/baseball travel-team bootleg player tees",
+  "spec": {
+    "lines": [
+      {
+        "text": "Dugout",
+        "size": "lg"
+      },
+      {
+        "text": "Royalty",
+        "size": "xl"
+      },
+      {
+        "text": "Since First Pitch",
+        "size": "sm"
+      }
+    ],
+    "style": "badge",
+    "font": "Alfa Slab One",
+    "ink": "#ffffff",
+    "accent": "#ffcc00",
+    "shirt": "black"
+  },
+  "mode": "type",
+  "art_prompt": "Vintage bootleg-style baseball graphic, faded distressed texture, blank oval photo insert frame with dotted stitch outline for a player photo, arched ribbon banner at top, crossed bat and ball icon below, halftone shading, colors black, white, mustard gold, brick red, customizable team-color trim, text arched above the illustration and stacked beneath the photo frame",
+  "title": "Custom Softball Baseball Player Shirt, Personalized Name Number, Vintage Style Tee, Team Color Gift for Kids",
+  "tags": [
+    "softball shirt",
+    "baseball shirt",
+    "custom player tee",
+    "personalized name",
+    "team number shirt",
+    "travel team gift",
+    "baseball mom gift",
+    "softball mom gift",
+    "kids sports tee",
+    "custom jersey shirt",
+    "team color shirt",
+    "youth baseball tee",
+    "softball gift idea"
+  ],
+  "description": "Give your ballplayer a shirt as loud as your cheering section. This personalized design gets your kid's name, number, and team colors printed right on a distressed, retro-inspired graphic that looks straight out of an old-school locker room.\n\nEvery order can be customized with your player's info and team palette, so no two shirts look alike. Soft, durable print built to survive a full tournament schedule of dugouts, dirt, and doubleheaders.\n\nA fun, affordable gift for birthdays, team parties, or the first game of a new season. Design created by our shop with the help of AI tools and printed on demand by our production partner.",
+  "price": 24.99,
+  "risk": "low",
+  "risk_notes": "Generic sports imagery and original wording with no team names or logos referenced.",
+  "seed": "Sports families",
+  "evidence": [],
+  "brief": {
+    "why": null,
+    "what_wins": null,
+    "visual_style": null,
+    "price_band": null,
+    "demand": null,
+    "competition": null,
+    "passion": null
+  },
+  "flags": [
+    {
+      "bad": false,
+      "kind": "art",
+      "msg": "Illustrations didn't pass the Art Director, so this uses a typography layout instead."
+    }
+  ],
+  "draft_id": "20260928-2216-01-dugout-royalty-since-first-pitch",
+  "product_id": "6abae748ff2f412aa9041df0",
+  "colors": [
+    "Black",
+    "Navy",
+    "Forest",
+    "Maroon"
+  ],
+  "mockups": [
+    "https://images.printify.com/mockup/6abae748ff2f412aa9041df0/18102/102044/custom-softball-baseball-player-shirt-personalized-name-number-vintage-style-tee-team-color-gift-for-kids.jpg?camera_label=front-2",
+    "https://images.printify.com/mockup/6abae748ff2f412aa9041df0/18182/102044/custom-softball-baseball-player-shirt-personalized-name-number-vintage-style-tee-team-color-gift-for-kids.jpg?camera_label=front-2",
+    "https://images.printify.com/mockup/6abae748ff2f412aa9041df0/18398/102044/custom-softball-baseball-player-shirt-personalized-name-number-vintage-style-tee-team-color-gift-for-kids.jpg?camera_label=front-2"
+  ]
+}

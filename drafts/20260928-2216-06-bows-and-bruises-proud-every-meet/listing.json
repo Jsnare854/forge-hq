@@ -1,0 +1,179 @@
+{
+  "niche": "Wrestling 'season' sweatshirts with sarcastic/retro spin",
+  "spec": {
+    "lines": [
+      {
+        "text": "Bows And",
+        "size": "lg"
+      },
+      {
+        "text": "Bruises",
+        "size": "xl"
+      },
+      {
+        "text": "Proud Every Meet",
+        "size": "sm"
+      }
+    ],
+    "style": "script",
+    "font": "Pacifico",
+    "ink": "#7a2e2e",
+    "accent": "#d48fb0",
+    "shirt": "sand"
+  },
+  "mode": "type",
+  "art_prompt": "Vintage collage illustration blending a delicate ribbon bow with wrestling headgear, soft distressed texture, coquette-inspired aesthetic, colors blush pink, cream, maroon, charcoal, centered beneath the text with subtle floral accents",
+  "title": "Wrestling Mom Sweatshirt, Coquette Bow Style, Cute Wrestling Season Crewneck, Gift for Wrestling Mom",
+  "tags": [
+    "wrestling sweatshirt",
+    "coquette wrestling",
+    "wrestling mom gift",
+    "cute wrestling tee",
+    "wrestling crewneck",
+    "bow style sweater",
+    "feminine sports tee",
+    "cozy wrestling gift",
+    "mat mom sweater"
+  ],
+  "description": "A softer take on wrestling season gear, blending a delicate bow motif with a nod to the sport's toughest moments. Perfect for the mom who wants cozy and cute, not just bold and sporty.\n\nThe vintage collage graphic feels collected, not printed, giving this crewneck a one-of-a-kind, boutique-style look. Great layering piece for chilly gym bleachers all winter long.\n\nA sweet, sturdy way to show up for every meet in comfort and style. Design created by our shop with the help of AI tools and printed on demand by our production partner.",
+  "price": 28.99,
+  "risk": "low",
+  "risk_notes": "Fully original artwork combining generic sports and floral motifs, no brand references used.",
+  "seed": "Sports families",
+  "evidence": [
+    {
+      "id": 4425335402,
+      "title": "Wrestling Sweatshirt, Take Down Season Shirt, Wrestling Mom Sweater, Wrestling Mom Shirt, Wrestling mom shirt, Gift For Wrestler, Sports mom",
+      "tags": [
+        "funny retro shirt",
+        "funny gift shirt",
+        "best friends gift",
+        "sarcasm sweatshirt",
+        "sarcastic shirt",
+        "best seller shirt",
+        "funny gift",
+        "wrestling sweatshirt",
+        "take down season",
+        "wrestling mom",
+        "wrestling shirt",
+        "wrestling mom shirt",
+        "take down shirt"
+      ],
+      "price": 12.5,
+      "favorites": 154,
+      "views": 2695,
+      "age_days": 287,
+      "momentum": 0.54,
+      "url": "https://www.etsy.com/listing/4425335402/wrestling-sweatshirt-take-down-season"
+    },
+    {
+      "id": 4437693334,
+      "title": "Vintage Wrestling Collage Sweatshirt, Match Day Wrestling Shirt, Retro Wrestling Tee, Take Down Season Shirt, Wrestler Shirt, Wrestling Gift",
+      "tags": [
+        "wrestling",
+        "match day",
+        "retro wrestler",
+        "take down",
+        "vintage tee",
+        "wrestler gift",
+        "sports shirt",
+        "season tee",
+        "grappler top",
+        "athlete shirt",
+        "wrestle fan",
+        "retro style",
+        "wrestling tee"
+      ],
+      "price": 19.18,
+      "favorites": 80,
+      "views": 1179,
+      "age_days": 263,
+      "momentum": 0.3,
+      "url": "https://www.etsy.com/listing/4437693334/vintage-wrestling-collage-sweatshirt"
+    },
+    {
+      "id": 739444262,
+      "title": "Wrestling Season Mom Shirt: Soft Cotton Sports Tee",
+      "tags": [
+        "wrestling mom shirt",
+        "unisex shirt t-shirt",
+        "cute graphic design",
+        "boy or girl wrestler",
+        "club team group",
+        "mom nana grandma",
+        "christmas gift",
+        "birthday gift her",
+        "tournament match",
+        "freestyle greco",
+        "custom wrestle name",
+        "id love to but its",
+        "wrestling season"
+      ],
+      "price": 25.5,
+      "favorites": 605,
+      "views": 7247,
+      "age_days": 2510,
+      "momentum": 0.24,
+      "url": "https://www.etsy.com/listing/739444262/wrestling-season-mom-shirt-soft-cotton"
+    },
+    {
+      "id": 1835264420,
+      "title": "Wrestling Sweatshirt, Take Down Season Shirt, Wrestling Mom Sweater, Wrestling Mom Shirt, Wrestling mom shirt",
+      "tags": [
+        "funny retro shirt",
+        "funny gift shirt",
+        "best friends gift",
+        "sarcasm sweatshirt",
+        "sarcastic shirt",
+        "best seller shirt",
+        "funny gift",
+        "wrestling sweatshirt",
+        "take down season",
+        "wrestling mom",
+        "wrestling shirt",
+        "wrestling mom shirt",
+        "take down shirt"
+      ],
+      "price": 13.33,
+      "favorites": 153,
+      "views": 4929,
+      "age_days": 641,
+      "momentum": 0.24,
+      "url": "https://www.etsy.com/listing/1835264420/wrestling-sweatshirt-take-down-season"
+    }
+  ],
+  "brief": {
+    "why": "Active listings only 447 (vs 1769 for the generic 'wrestling dad' query) while four listings show momentum 0.54, 0.3, 0.24, 0.24 \u2014 strong engagement in a much thinner field.",
+    "what_wins": "Sarcastic/relatable mom-humor copy, retro collage or varsity-patch visual style, sweatshirt format (not tee) at lower price points ($12-20) driving the fastest favorites, coquette/bow feminine variant also gaining traction",
+    "visual_style": "Retro collage badge or varsity patch, distressed puff-print text, crewneck sweatshirt mockups, mustard/maroon/charcoal palette",
+    "price_band": "$18-26",
+    "demand": 6,
+    "competition": 3,
+    "passion": 7
+  },
+  "flags": [
+    {
+      "bad": false,
+      "kind": "tags",
+      "msg": "Only 9 tags. Use all 13."
+    },
+    {
+      "bad": false,
+      "kind": "art",
+      "msg": "Illustrations didn't pass the Art Director, so this uses a typography layout instead."
+    }
+  ],
+  "draft_id": "20260928-2216-06-bows-and-bruises-proud-every-meet",
+  "product_id": "6abae769970cf6d28208e477",
+  "colors": [
+    "Soft Cream",
+    "White",
+    "Athletic Heather",
+    "Natural"
+  ],
+  "mockups": [
+    "https://images.printify.com/mockup/6abae769970cf6d28208e477/18542/102044/wrestling-mom-sweatshirt-coquette-bow-style-cute-wrestling-season-crewneck-gift-for-wrestling-mom.jpg?camera_label=front-2",
+    "https://images.printify.com/mockup/6abae769970cf6d28208e477/18390/102044/wrestling-mom-sweatshirt-coquette-bow-style-cute-wrestling-season-crewneck-gift-for-wrestling-mom.jpg?camera_label=front-2",
+    "https://images.printify.com/mockup/6abae769970cf6d28208e477/18462/102044/wrestling-mom-sweatshirt-coquette-bow-style-cute-wrestling-season-crewneck-gift-for-wrestling-mom.jpg?camera_label=front-2"
+  ]
+}

@@ -1,0 +1,77 @@
+{
+  "niche": "Softball/baseball travel-team bootleg player tees",
+  "spec": {
+    "lines": [
+      {
+        "text": "Backyard",
+        "size": "lg"
+      },
+      {
+        "text": "Baller",
+        "size": "xl"
+      },
+      {
+        "text": "Weekend Warrior",
+        "size": "sm"
+      }
+    ],
+    "style": "stamp",
+    "font": "Anton",
+    "ink": "#000000",
+    "accent": "#d62828",
+    "shirt": "white"
+  },
+  "mode": "type",
+  "art_prompt": "Bold vector baseball illustration, distressed stitched texture, catcher's mitt and ball centered, blank circular photo cutout frame above for a player photo, varsity stripe accents on sides, retro screen-print shading, colors white, red, navy, mustard, customizable stripe for team color, text arched above graphic and stacked below the number area",
+  "title": "Personalized Player Shirt, Custom Name Number Softball Baseball Tee, Retro Team Style, Youth Sports Gift",
+  "tags": [
+    "custom baseball tee",
+    "softball player gift",
+    "personalized jersey",
+    "team number tee",
+    "youth softball tee",
+    "baseball dad gift",
+    "softball dad gift",
+    "custom sports tee",
+    "travel roster gift",
+    "kids baseball gift",
+    "team color tee",
+    "retro sports shirt",
+    "tournament tee"
+  ],
+  "description": "Built for the kid who lives for the diamond every weekend. This retro-inspired design features a custom photo frame, name, number, and your team's exact colors for a shirt that feels personal, not generic.\n\nPerfect for tournament merch tables, team gifts, or a proud parent's new favorite tee. The distressed print style gives it that broken-in, vintage look right out of the bag.\n\nEasy to personalize, quick to order, and priced right for buying a fresh one every season. Design created by our shop with the help of AI tools and printed on demand by our production partner.",
+  "price": 25.99,
+  "risk": "low",
+  "risk_notes": "Original generic sports graphic with no real team or league references.",
+  "seed": "Sports families",
+  "evidence": [],
+  "brief": {
+    "why": null,
+    "what_wins": null,
+    "visual_style": null,
+    "price_band": null,
+    "demand": null,
+    "competition": null,
+    "passion": null
+  },
+  "flags": [
+    {
+      "bad": false,
+      "kind": "art",
+      "msg": "Illustrations didn't pass the Art Director, so this uses a typography layout instead."
+    }
+  ],
+  "draft_id": "20260928-2216-02-backyard-baller-weekend-warrior",
+  "product_id": "6abae750dfa237a26c086b7d",
+  "colors": [
+    "White",
+    "Athletic Heather",
+    "Soft Cream",
+    "Natural"
+  ],
+  "mockups": [
+    "https://images.printify.com/mockup/6abae750dfa237a26c086b7d/18542/102044/personalized-player-shirt-custom-name-number-softball-baseball-tee-retro-team-style-youth-sports-gift.jpg?camera_label=front-2",
+    "https://images.printify.com/mockup/6abae750dfa237a26c086b7d/18390/102044/personalized-player-shirt-custom-name-number-softball-baseball-tee-retro-team-style-youth-sports-gift.jpg?camera_label=front-2",
+    "https://images.printify.com/mockup/6abae750dfa237a26c086b7d/18462/102044/personalized-player-shirt-custom-name-number-softball-baseball-tee-retro-team-style-youth-sports-gift.jpg?camera_label=front-2"
+  ]
+}
