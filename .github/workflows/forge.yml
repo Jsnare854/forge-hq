@@ -1,0 +1,106 @@
+name: Forge HQ
+
+on:
+  schedule:
+    - cron: "7 11 * * *"
+  issues:
+    types: [labeled]
+  workflow_dispatch:
+    inputs:
+      task:
+        description: "What to run"
+        type: choice
+        options: [check, draft, publish, unpack, test]
+        default: check
+      seed:
+        description: "Draft: seed idea (blank = next line in seeds.txt)"
+        default: ""
+      issue:
+        description: "Publish: issue number"
+        default: ""
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  unpack:
+    if: github.event_name == 'workflow_dispatch' && inputs.task == 'unpack'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          test -f forge-hq.zip || { echo "Upload forge-hq.zip to the repo first."; exit 1; }
+          unzip -o -q forge-hq.zip
+          git rm -q forge-hq.zip
+          git config user.name "forge-hq bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Unpack Forge HQ code"
+          git push
+
+  check:
+    if: github.event_name == 'workflow_dispatch' && inputs.task == 'check'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.11"}
+      - run: pip install -r requirements.txt
+      - run: python -m forge check
+        env:
+          PRINTIFY_API_TOKEN: ${{ secrets.PRINTIFY_API_TOKEN }}
+          ETSY_API_KEY: ${{ secrets.ETSY_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+
+  draft:
+    if: github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && inputs.task == 'draft')
+    runs-on: ubuntu-latest
+    concurrency: {group: forge-draft}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.11"}
+      - run: pip install -r requirements.txt
+      - run: python -m forge draft --seed "$SEED"
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          ETSY_API_KEY: ${{ secrets.ETSY_API_KEY }}
+          SEED: ${{ inputs.seed }}
+      - run: |
+          git config user.name "forge-hq bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add drafts
+          git diff --cached --quiet && exit 0
+          git commit -m "Drafts $(date -u +%F)"
+          git pull --rebase
+          git push
+      - run: python -m forge file-issues
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+
+  publish:
+    if: (github.event_name == 'issues' && github.event.label.name == 'approved') || (github.event_name == 'workflow_dispatch' && inputs.task == 'publish')
+    runs-on: ubuntu-latest
+    concurrency: {group: "forge-publish-${{ github.event.issue.number || inputs.issue }}"}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.11"}
+      - run: pip install -r requirements.txt
+      - run: python -m forge publish --issue "$ISSUE" --actor "$ACTOR"
+        env:
+          PRINTIFY_API_TOKEN: ${{ secrets.PRINTIFY_API_TOKEN }}
+          GITHUB_TOKEN: ${{ github.token }}
+          ISSUE: ${{ github.event.issue.number || inputs.issue }}
+          ACTOR: ${{ github.actor }}
+
+  test:
+    if: github.event_name == 'workflow_dispatch' && inputs.task == 'test'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.11"}
+      - run: pip install -r requirements.txt
+      - run: pytest -q
