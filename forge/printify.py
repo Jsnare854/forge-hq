@@ -1,0 +1,193 @@
+"""Printify API client: upload the print file, build a Bella+Canvas 3001 product, publish it to Etsy."""
+from __future__ import annotations
+
+import base64
+import time
+
+import requests
+
+from .spec import SHIRT_TO_PRINTIFY, luminance
+
+BASE = "https://api.printify.com/v1"
+
+
+class PrintifyError(RuntimeError):
+    pass
+
+
+class Printify:
+    def __init__(self, token: str, session: requests.Session | None = None):
+        self.token = token
+        self.http = session or requests.Session()
+
+    def _req(self, method: str, path: str, **kw):
+        headers = {"Authorization": f"Bearer {self.token}", "User-Agent": "forge-hq", "Content-Type": "application/json"}
+        for attempt in range(4):
+            r = self.http.request(method, BASE + path, headers=headers, timeout=60, **kw)
+            if r.status_code == 429 or r.status_code >= 500:
+                time.sleep(2 ** attempt)
+                continue
+            if r.status_code >= 400:
+                raise PrintifyError(f"Printify {method} {path} failed ({r.status_code}): {r.text[:500]}")
+            return r.json() if r.content else {}
+        raise PrintifyError(f"Printify {method} {path} kept failing ({r.status_code}): {r.text[:300]}")
+
+    # ---- reads
+    def shops(self):
+        return self._req("GET", "/shops.json")
+
+    def blueprints(self):
+        return self._req("GET", "/catalog/blueprints.json")
+
+    def providers(self, blueprint_id: int):
+        return self._req("GET", f"/catalog/blueprints/{blueprint_id}/print_providers.json")
+
+    def variants(self, blueprint_id: int, provider_id: int):
+        out = self._req("GET", f"/catalog/blueprints/{blueprint_id}/print_providers/{provider_id}/variants.json")
+        return out.get("variants", out) if isinstance(out, dict) else out
+
+    # ---- writes
+    def upload_png(self, file_name: str, data: bytes) -> str:
+        out = self._req("POST", "/uploads/images.json", json={"file_name": file_name, "contents": base64.b64encode(data).decode()})
+        return out["id"]
+
+    def create_product(self, shop_id, payload: dict) -> dict:
+        return self._req("POST", f"/shops/{shop_id}/products.json", json=payload)
+
+    def publish(self, shop_id, product_id: str) -> dict:
+        return self._req(
+            "POST",
+            f"/shops/{shop_id}/products/{product_id}/publish.json",
+            json={"title": True, "description": True, "images": True, "variants": True, "tags": True, "keyFeatures": True, "shipping_template": True},
+        )
+
+
+# ---------- selection helpers (pure, tested) ----------
+
+def pick_shop(shops: list[dict], shop_id=None) -> dict:
+    if shop_id:
+        for s in shops:
+            if str(s.get("id")) == str(shop_id):
+                return s
+        raise PrintifyError(f"Shop {shop_id} not found in your Printify account.")
+    etsy = [s for s in shops if str(s.get("sales_channel", "")).lower() == "etsy"]
+    if len(etsy) == 1:
+        return etsy[0]
+    if not etsy:
+        raise PrintifyError("No Etsy shop is connected to Printify. In Printify: Manage my stores → Connect → Etsy.")
+    raise PrintifyError("More than one Etsy shop is connected. Set printify.shop_id in config.yaml (run Check Printify to see IDs).")
+
+
+def pick_blueprint(blueprints: list[dict], brand: str, model: str, blueprint_id=None) -> dict:
+    if blueprint_id:
+        for b in blueprints:
+            if str(b.get("id")) == str(blueprint_id):
+                return b
+    brand_l, model_l = brand.lower().replace(" ", ""), str(model).lower()
+    for b in blueprints:
+        if str(b.get("model", "")).lower() == model_l and brand_l in str(b.get("brand", "")).lower().replace(" ", ""):
+            return b
+    for b in blueprints:
+        if model_l in str(b.get("title", "")).lower() or model_l in str(b.get("model", "")).lower():
+            return b
+    raise PrintifyError(f"Couldn't find the {brand} {model} blueprint in Printify's catalog.")
+
+
+def pick_provider(providers: list[dict], preferred: list[str], provider_id=None) -> dict:
+    if provider_id:
+        for p in providers:
+            if str(p.get("id")) == str(provider_id):
+                return p
+    for name in preferred:
+        for p in providers:
+            if p.get("title", "").lower() == name.lower():
+                return p
+    us = [p for p in providers if str((p.get("location") or {}).get("country", "")).upper() == "US"]
+    if us:
+        return us[0]
+    if providers:
+        return providers[0]
+    raise PrintifyError("No print providers offer this blueprint.")
+
+
+def _color_of(v: dict) -> str:
+    opts = v.get("options") or {}
+    if opts.get("color"):
+        return str(opts["color"])
+    return str(v.get("title", "")).split("/")[0].strip()
+
+
+def _size_of(v: dict) -> str:
+    opts = v.get("options") or {}
+    if opts.get("size"):
+        return str(opts["size"])
+    parts = str(v.get("title", "")).split("/")
+    return parts[-1].strip() if len(parts) > 1 else ""
+
+
+def pick_colors(variants: list[dict], spec: dict, pcfg: dict) -> list[str]:
+    available = []
+    for v in variants:
+        c = _color_of(v)
+        if c and c not in available:
+            available.append(c)
+    lower = {c.lower(): c for c in available}
+    primary = SHIRT_TO_PRINTIFY.get(spec["shirt"], "Black")
+    light_ink = luminance(spec["ink"]) > 0.5
+    pool = pcfg.get("dark_shirts" if light_ink else "light_shirts") or []
+    want = [primary] + [c for c in pool if c.lower() != primary.lower()]
+    chosen = []
+    for w in want:
+        if w.lower() in lower and lower[w.lower()] not in chosen:
+            chosen.append(lower[w.lower()])
+        if len(chosen) >= int(pcfg.get("colors_per_product", 4)):
+            break
+    if not chosen:
+        fallback = "Black" if light_ink else "White"
+        if fallback.lower() in lower:
+            chosen = [lower[fallback.lower()]]
+    if not chosen:
+        raise PrintifyError(f"None of the configured shirt colors exist for this provider. Available: {', '.join(available[:20])}")
+    return chosen
+
+
+def build_variants(variants: list[dict], colors: list[str], sizes: list[str], price: float, upcharge: dict) -> list[dict]:
+    base = int(round(price * 100))
+    out = []
+    for v in variants:
+        c, s = _color_of(v), _size_of(v)
+        if c in colors and s in sizes:
+            out.append({"id": v["id"], "price": base + int(upcharge.get(s, 0)), "is_enabled": True})
+    if not out:
+        raise PrintifyError("No variants matched the chosen colors and sizes.")
+    return out[:100]
+
+
+def build_product(listing: dict, image_id: str, blueprint_id: int, provider_id: int, variant_rows: list[dict], placement: dict) -> dict:
+    return {
+        "title": listing["title"],
+        "description": listing["description"],
+        "tags": listing["tags"],
+        "blueprint_id": blueprint_id,
+        "print_provider_id": provider_id,
+        "variants": variant_rows,
+        "print_areas": [
+            {
+                "variant_ids": [v["id"] for v in variant_rows],
+                "placeholders": [
+                    {
+                        "position": "front",
+                        "images": [
+                            {
+                                "id": image_id,
+                                "x": float(placement.get("x", 0.5)),
+                                "y": float(placement.get("y", 0.42)),
+                                "scale": float(placement.get("scale", 0.9)),
+                                "angle": 0,
+                            }
+                        ],
+                    }
+                ],
+            }
+        ],
+    }

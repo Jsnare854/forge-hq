@@ -1,0 +1,35 @@
+# Forge HQ settings. Edit these on GitHub (pencil icon) — no code changes needed.
+
+# Claude model the agents use.
+model: claude-sonnet-5
+
+drafting:
+  seeds_file: seeds.txt        # daily run rotates through these when no seed is given
+  niches_per_run: 4
+  designs_per_niche: 2
+  max_drafts_per_run: 10       # hard cap per run, protects your API spend
+  candidate_multiplier: 2      # Scout proposes 2x niches, Analyst keeps the best
+
+pricing:
+  default_price: 27.99
+  min_price: 24.99
+  max_price: 32.99
+
+printify:
+  # Leave these null and run the "Check Printify" workflow once; it prints the IDs to paste here.
+  shop_id: null
+  blueprint_id: null
+  print_provider_id: null
+  blueprint_brand: "Bella+Canvas"
+  blueprint_model: "3001"
+  preferred_providers: ["Monster Digital", "SwiftPOD", "Printify Choice", "Awkward Styles", "Print Geek"]
+  sizes: ["S", "M", "L", "XL", "2XL", "3XL"]
+  upcharge_cents: {"2XL": 200, "3XL": 400}
+  colors_per_product: 4
+  # Shirt colors offered with a light-ink design / a dark-ink design (the designer's pick always comes first).
+  dark_shirts: ["Black", "Navy", "Forest", "Maroon", "Dark Grey Heather", "Heather Navy"]
+  light_shirts: ["White", "Athletic Heather", "Soft Cream", "Natural", "Heather Peach"]
+  # Where the design sits on the front print area (0-1). y below 0.5 moves it toward the chest.
+  placement: {x: 0.5, y: 0.42, scale: 0.9}
+  # true = push to Etsy right after creating the product. false = create in Printify only, you publish by hand.
+  publish_to_etsy: true
