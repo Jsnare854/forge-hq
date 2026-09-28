@@ -85,20 +85,51 @@ def phrase(spec: dict) -> str:
 MARKER = "<!-- forge:v1 -->"
 
 
-def format_issue(listing: dict, mockup_url: str | None = None, print_url: str | None = None) -> tuple[str, str]:
+def format_issue(listing: dict, mockup_urls=None, print_url: str | None = None, draft_id: str = "", product_id: str = "") -> tuple[str, str]:
+    """Build the approval issue. mockup_urls may be a single URL or a list (real Printify mockups)."""
     spec = listing["spec"]
+    if isinstance(mockup_urls, str):
+        mockup_urls = [mockup_urls]
+    mockup_urls = [u for u in (mockup_urls or []) if u]
     risk = str(listing.get("risk", "low")).upper()
+    mode = listing.get("mode", "type")
     title = f"{listing.get('niche') or 'Design'}: {phrase(spec)}"[:120]
     flags = listing.get("flags") or []
     flag_md = "\n".join(f"- {'⛔' if f['bad'] else '⚠️'} {f['msg']}" for f in flags) or "- No automatic flags."
+    imgs = " ".join(f'<img src="{u}" width="300">' for u in mockup_urls[:3])
+    brief = listing.get("brief") or {}
+    ev = listing.get("evidence") or []
+    why = []
+    if brief.get("why"):
+        why.append(f"**Why this niche:** {brief['why']}")
+    if brief.get("what_wins"):
+        why.append(f"**What's selling:** {brief['what_wins']}")
+    if brief.get("visual_style"):
+        why.append(f"**Style buyers want:** {brief['visual_style']}  ·  **Price band:** {brief.get('price_band') or 'n/a'}")
+    if ev:
+        why.append("\n| Comparable listing (research only) | Favorites | Age | Price |\n|---|---|---|---|")
+        for e in ev[:5]:
+            t = str(e.get("title", ""))[:70].replace("|", "/")
+            why.append(f"| [{t}]({e.get('url','')}) | {e.get('favorites','')} | {e.get('age_days','')}d | ${e.get('price','')} |")
+    if not why:
+        why.append("_No live Etsy evidence for this one (Claude's judgment only)._")
+    design_note = (
+        "Illustrated artwork was generated for this design. Editing the lines below does NOT redraw the art; reject and redraft instead."
+        if mode == "illustrated"
+        else "Edit lines/style/font/colors to change the design; the publisher re-renders it."
+    )
     parts = [
         MARKER,
-        f"![Shirt mockup]({mockup_url})" if mockup_url else "",
+        f"<!-- forge:draft={draft_id} product={product_id} mode={mode} -->",
+        imgs,
         "",
         f"**Niche:** {listing.get('niche', '')}  ·  **Trademark risk:** {risk}  ·  **Seed:** {listing.get('seed', '')}",
         "",
         "> **Approve:** add the `approved` label. **Reject:** close this issue.",
-        "> You can edit the Title, Tags, Price, Design or Description below before approving. The publisher uses your edits.",
+        "> You can edit the Title, Tags, Price or Description below before approving. The publisher uses your edits.",
+        "",
+        "### Why this design",
+        "\n".join(why),
         "",
         "### Title",
         listing.get("title", ""),
@@ -110,6 +141,7 @@ def format_issue(listing: dict, mockup_url: str | None = None, print_url: str | 
         f"{float(listing.get('price', 27.99)):.2f}",
         "",
         "### Design",
+        f"_{design_note}_",
         "```text",
         f"lines: {lines_to_text(spec['lines'])}",
         f"style: {spec['style']}",
@@ -126,8 +158,8 @@ def format_issue(listing: dict, mockup_url: str | None = None, print_url: str | 
         flag_md,
         f"\n{listing.get('risk_notes', '')}".rstrip(),
         "",
-        "### AI illustration prompt",
-        listing.get("image_prompt", "") or "_none_",
+        "### Art prompt",
+        listing.get("art_prompt", "") or listing.get("image_prompt", "") or "_none_",
         "",
         f"[Full-size print file]({print_url})" if print_url else "",
     ]
@@ -155,7 +187,8 @@ def parse_issue(body: str) -> dict:
     if MARKER not in (body or ""):
         raise ValueError("This issue wasn't created by Forge HQ (marker missing).")
     s = _sections(body)
-    design_raw = re.sub(r"^```\w*\s*|```\s*$", "", s.get("design", ""), flags=re.M).strip()
+    dm = re.search(r"```\w*\n(.*?)```", s.get("design", ""), re.S)
+    design_raw = dm.group(1).strip() if dm else s.get("design", "")
     d: dict = {}
     for line in design_raw.split("\n"):
         if ":" in line:
@@ -169,7 +202,11 @@ def parse_issue(body: str) -> dict:
         price = 27.99
     m = re.search(r"\*\*Trademark risk:\*\*\s*(\w+)", body)
     niche = re.search(r"\*\*Niche:\*\*\s*(.*?)\s*·", body)
+    meta = re.search(r"<!-- forge:draft=(\S*) product=(\S*) mode=(\S*) -->", body)
     return {
+        "draft_id": meta.group(1) if meta else "",
+        "product_id": meta.group(2) if meta else "",
+        "mode": meta.group(3) if meta else "type",
         "title": " ".join(s.get("title", "").split()),
         "tags": tags,
         "price": round(price, 2),
@@ -177,5 +214,5 @@ def parse_issue(body: str) -> dict:
         "description": s.get("description", "").strip(),
         "risk": (m.group(1).lower() if m else "medium"),
         "niche": niche.group(1).strip() if niche else "",
-        "image_prompt": s.get("ai illustration prompt", ""),
+        "art_prompt": s.get("art prompt", "") or s.get("ai illustration prompt", ""),
     }

@@ -4,15 +4,19 @@ AI agents that run a print-on-demand t-shirt shop. They find niches, design typo
 
 ```
  every morning (or when you press Run)
- ┌────────┐   ┌─────────┐   ┌──────────┐   ┌────────────┐   ┌────────────┐
- │ SCOUT  │ → │ ANALYST │ → │ DESIGNER │ → │ COPYWRITER │ → │ COMPLIANCE │ → GitHub Issue (draft)
- └────────┘   └─────────┘   └──────────┘   └────────────┘   └────────────┘
-   live Etsy data when ETSY_API_KEY is set                         │
-                                                                   ▼
-                          you add the `approved` label (phone or web)
-                                                                   ▼
-                  Printify: upload print file → Bella+Canvas 3001 product → publish to Etsy
+ SCOUT → TREND RADAR → ANALYST → DESIGNER + COPYWRITER → ILLUSTRATOR → ART DIRECTOR → COMPLIANCE
+          live Etsy        why it       original phrase,    Ideogram art   Claude checks    trademarks,
+          listings:        sells        title, 13 tags      (transparent)  spelling and     copying,
+          momentum =                                                       quality          Etsy limits
+          favorites/day
+                                          ↓
+         unpublished Printify draft (real mockups) + GitHub Issue with the evidence
+                                          ↓
+         you add `approved`  →  your edits are applied  →  published to Etsy
+         you close the issue →  the Printify draft is deleted
 ```
+
+**How ideas are found:** the Trend Radar scans live Etsy searches and ranks shirts by momentum (favorites per day since listed), so the agents see what's catching fire right now. Competitor listings are research only. Designs must be original, and Compliance blocks any phrase that overlaps a competitor's title.
 
 ## Your daily routine
 
@@ -43,6 +47,7 @@ Go to **Actions → Forge HQ → Run workflow** and pick a task:
 |---|---|---|
 | `ANTHROPIC_API_KEY` | console.anthropic.com → API Keys (set a monthly spend limit) | Yes |
 | `PRINTIFY_API_TOKEN` | Printify → Account → Connections → Generate token | Yes |
+| `IDEOGRAM_API_KEY` | ideogram.ai → API (add credit) | Optional, turns on illustrated designs |
 | `ETSY_API_KEY` | etsy.com/developers/your-apps: your app's keystring and shared secret joined by a colon, like `abc123:xyz789` | Optional, turns on live data |
 
 Keys never go in code, in `config.yaml`, or in chat.
@@ -50,7 +55,8 @@ Keys never go in code, in `config.yaml`, or in chat.
 ## What it costs to run
 
 - **GitHub Actions:** free for this volume.
-- **Claude API:** a few cents to about $1 per daily run.
+- **Claude API:** about $0.50–1.50 per daily run (research, writing, and art review).
+- **Ideogram:** a few cents per image, about 2–4 images per design. Roughly $1–3 per run of 10 designs.
 - **Etsy:** $0.20 per published listing, plus fees when you sell.
 - **Printify:** free. You pay the base cost only when an order comes in.
 

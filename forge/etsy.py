@@ -19,6 +19,19 @@ class Etsy:
         self.key = api_key
         self.http = session or requests.Session()
 
+    def search(self, phrase: str, limit: int = 100, offset: int = 0, sort_on: str = "score") -> dict:
+        """Raw listing search: {"count": int, "results": [ShopListing, ...]}."""
+        params = {"keywords": phrase, "limit": limit, "offset": offset, "sort_on": sort_on}
+        for attempt in range(3):
+            r = self.http.get(API, params=params, headers={"x-api-key": self.key}, timeout=30)
+            if r.status_code == 429:
+                time.sleep(2 * (attempt + 1))
+                continue
+            r.raise_for_status()
+            return r.json()
+        r.raise_for_status()
+        return {}
+
     def search_stats(self, phrase: str, limit: int = 25) -> dict:
         r = self.http.get(
             API,

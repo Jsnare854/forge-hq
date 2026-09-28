@@ -9,6 +9,14 @@ drafting:
   designs_per_niche: 2
   max_drafts_per_run: 10       # hard cap per run, protects your API spend
   candidate_multiplier: 2      # Scout proposes 2x niches, Analyst keeps the best
+  radar_queries: 12            # live Etsy searches the Trend Radar scans per run
+  radar_pages: 1               # 100 listings per page per search
+
+illustrator:                   # used when IDEOGRAM_API_KEY is set
+  candidates: 2                # images generated per design; the Art Director keeps the best
+  attempts: 2                  # extra rounds if every candidate fails review
+  speed: DEFAULT               # TURBO (cheapest), DEFAULT, QUALITY
+  upscale: X2                  # X1, X2, X4 (bigger = sharper prints, costs more)
 
 pricing:
   default_price: 27.99
@@ -33,3 +41,5 @@ printify:
   placement: {x: 0.5, y: 0.42, scale: 0.9}
   # true = push to Etsy right after creating the product. false = create in Printify only, you publish by hand.
   publish_to_etsy: true
+  # true = create an unpublished Printify product for each draft so the issue shows real mockups.
+  draft_products: true

@@ -39,6 +39,18 @@ def check(listing: dict) -> list[dict]:
     for w in WARN_WORDS:
         if re.search(r"(^|[^a-z])" + re.escape(w) + r"([^a-z]|$)", blob):
             flags.append({"bad": False, "kind": "trademark", "msg": f'Contains "{w}", which is also a brand name. Fine as a normal word; not fine as the brand.'})
+    # Too close to a competitor we studied? Flag any 3+ word run of our phrase that appears in their titles.
+    ours = re.findall(r"[a-z']+", phrase(spec).lower()) if spec.get("lines") else []
+    for ev in listing.get("evidence") or []:
+        theirs = " ".join(re.findall(r"[a-z']+", str(ev.get("title", "")).lower()))
+        for i in range(len(ours) - 2):
+            chunk = " ".join(ours[i : i + 3])
+            if f" {chunk} " in f" {theirs} ":
+                flags.append({"bad": True, "kind": "too_close", "msg": f'Phrase overlaps a competitor listing ("{chunk}"). Reword it so the design is clearly original.'})
+                break
+        else:
+            continue
+        break
     title = listing.get("title", "")
     if not title:
         flags.append({"bad": True, "kind": "title", "msg": "Missing title."})

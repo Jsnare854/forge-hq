@@ -54,6 +54,15 @@ class Printify:
     def create_product(self, shop_id, payload: dict) -> dict:
         return self._req("POST", f"/shops/{shop_id}/products.json", json=payload)
 
+    def product(self, shop_id, product_id: str) -> dict:
+        return self._req("GET", f"/shops/{shop_id}/products/{product_id}.json")
+
+    def update_product(self, shop_id, product_id: str, payload: dict) -> dict:
+        return self._req("PUT", f"/shops/{shop_id}/products/{product_id}.json", json=payload)
+
+    def delete_product(self, shop_id, product_id: str) -> dict:
+        return self._req("DELETE", f"/shops/{shop_id}/products/{product_id}.json")
+
     def publish(self, shop_id, product_id: str) -> dict:
         return self._req(
             "POST",
@@ -191,3 +200,32 @@ def build_product(listing: dict, image_id: str, blueprint_id: int, provider_id: 
             }
         ],
     }
+
+
+def mockup_urls(product: dict, limit: int = 3) -> list[str]:
+    imgs = product.get("images") or []
+    imgs = sorted(imgs, key=lambda i: (not i.get("is_default"), i.get("position") != "front"))
+    out = []
+    for i in imgs:
+        u = i.get("src")
+        if u and u not in out:
+            out.append(u)
+        if len(out) >= limit:
+            break
+    return out
+
+
+def resolve_catalog(pf: "Printify", pcfg: dict) -> dict:
+    shop = pick_shop(pf.shops(), pcfg.get("shop_id"))
+    bp = pick_blueprint(pf.blueprints(), pcfg.get("blueprint_brand", "Bella+Canvas"), pcfg.get("blueprint_model", "3001"), pcfg.get("blueprint_id"))
+    prov = pick_provider(pf.providers(bp["id"]), pcfg.get("preferred_providers", []), pcfg.get("print_provider_id"))
+    return {"shop": shop, "bp": bp, "prov": prov, "variants": pf.variants(bp["id"], prov["id"])}
+
+
+def create_draft(pf: "Printify", cat: dict, listing: dict, png: bytes, pcfg: dict, file_name: str) -> dict:
+    """Create an UNPUBLISHED Printify product. Nothing goes to Etsy until publish() is called."""
+    colors = pick_colors(cat["variants"], listing["spec"], pcfg)
+    rows = build_variants(cat["variants"], colors, pcfg.get("sizes", ["S", "M", "L", "XL", "2XL"]), listing["price"], pcfg.get("upcharge_cents", {}))
+    image_id = pf.upload_png(file_name, png)
+    product = pf.create_product(cat["shop"]["id"], build_product(listing, image_id, cat["bp"]["id"], cat["prov"]["id"], rows, pcfg.get("placement", {})))
+    return {"product": product, "colors": colors, "rows": rows}
