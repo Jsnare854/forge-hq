@@ -4,7 +4,7 @@ on:
   schedule:
     - cron: "7 11 * * *"
   issues:
-    types: [labeled]
+    types: [labeled, closed]
   workflow_dispatch:
     inputs:
       task:
@@ -52,10 +52,12 @@ jobs:
           PRINTIFY_API_TOKEN: ${{ secrets.PRINTIFY_API_TOKEN }}
           ETSY_API_KEY: ${{ secrets.ETSY_API_KEY }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          IDEOGRAM_API_KEY: ${{ secrets.IDEOGRAM_API_KEY }}
 
   draft:
     if: github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && inputs.task == 'draft')
     runs-on: ubuntu-latest
+    timeout-minutes: 45
     concurrency: {group: forge-draft}
     steps:
       - uses: actions/checkout@v4
@@ -66,6 +68,8 @@ jobs:
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           ETSY_API_KEY: ${{ secrets.ETSY_API_KEY }}
+          IDEOGRAM_API_KEY: ${{ secrets.IDEOGRAM_API_KEY }}
+          PRINTIFY_API_TOKEN: ${{ secrets.PRINTIFY_API_TOKEN }}
           SEED: ${{ inputs.seed }}
       - run: |
           git config user.name "forge-hq bot"
@@ -80,7 +84,7 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
 
   publish:
-    if: (github.event_name == 'issues' && github.event.label.name == 'approved') || (github.event_name == 'workflow_dispatch' && inputs.task == 'publish')
+    if: (github.event_name == 'issues' && github.event.action == 'labeled' && github.event.label.name == 'approved') || (github.event_name == 'workflow_dispatch' && inputs.task == 'publish')
     runs-on: ubuntu-latest
     concurrency: {group: "forge-publish-${{ github.event.issue.number || inputs.issue }}"}
     steps:
@@ -94,6 +98,20 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
           ISSUE: ${{ github.event.issue.number || inputs.issue }}
           ACTOR: ${{ github.actor }}
+
+  cleanup:
+    if: github.event_name == 'issues' && github.event.action == 'closed'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.11"}
+      - run: pip install -r requirements.txt
+      - run: python -m forge cleanup --issue "$ISSUE"
+        env:
+          PRINTIFY_API_TOKEN: ${{ secrets.PRINTIFY_API_TOKEN }}
+          GITHUB_TOKEN: ${{ github.token }}
+          ISSUE: ${{ github.event.issue.number }}
 
   test:
     if: github.event_name == 'workflow_dispatch' && inputs.task == 'test'
