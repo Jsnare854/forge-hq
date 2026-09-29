@@ -25,7 +25,7 @@ Reply with only a JSON array:
     return [c for c in (out if isinstance(out, list) else []) if isinstance(c, dict) and c.get("niche")]
 
 
-def analyst_from_radar(report: list[dict], keep: int, model: str, ask=ask_json) -> list[dict]:
+def analyst_from_radar(report: list[dict], keep: int, model: str, ask=ask_json, perf_text: str = "") -> list[dict]:
     prompt = f"""You are the Market Analyst for a new Etsy print-on-demand t-shirt shop (zero reviews, so it must pick demand it can actually rank for).
 Below is LIVE Etsy data. For each search query: total active listings (competition) and the top listings by
 momentum (favorites per day since listed; HOT = new and gaining fast) and by total favorites (PROVEN).
@@ -33,7 +33,9 @@ Etsy does not share sales, so favorites + recency are the demand signal.
 
 {trends.compact(report)}
 
-Find the {keep} best opportunities. An opportunity is a specific audience + angle where buyers are clearly engaging
+{perf_text or "The shop has no performance data yet."}
+
+Find the {keep} best opportunities. If the shop has listings that are working, favor related niches/angles (but not duplicates); avoid angles that are not working. An opportunity is a specific audience + angle where buyers are clearly engaging
 (new listings gaining favorites fast), and the space is not hopelessly saturated.
 For each, study the winning listings and describe WHY they win (humor type, identity, gift angle, visual style, colors, price),
 so a designer can make something ORIGINAL that serves the same demand. Never tell the designer to reuse a competitor's phrase.
@@ -48,9 +50,11 @@ Reply with only a JSON array, best first:
     return [c for c in (out if isinstance(out, list) else []) if isinstance(c, dict) and c.get("niche")][:keep]
 
 
-def analyst_no_data(candidates: list[dict], keep: int, model: str, ask=ask_json) -> list[dict]:
+def analyst_no_data(candidates: list[dict], keep: int, model: str, ask=ask_json, perf_text: str = "") -> list[dict]:
     prompt = f"""You are the Market Analyst for a new Etsy print-on-demand t-shirt shop. No live Etsy data is available,
-so score from general knowledge and say so in "why". Score 1-10: demand, competition (10 = LOW), passion. Keep the best {keep}.
+so score from general knowledge and say so in "why".
+{perf_text}
+Score 1-10: demand, competition (10 = LOW), passion. Keep the best {keep}.
 Niches:
 {json.dumps(candidates, indent=1)[:30000]}
 Reply with only a JSON array: [{{"niche":"...","audience":"...","angle":"...","demand":7,"competition":5,"passion":8,"why":"...","what_wins":"...","visual_style":"...","price_band":"$24-28","evidence_ids":[],"avoid_phrases":[]}}]"""
@@ -125,7 +129,7 @@ Reply with only a JSON array, one object per design:
     return listings
 
 
-def run_pipeline(seed: str, cfg: dict, etsy=None, ask=ask_json, log=print) -> tuple[list[dict], list[dict], list[dict]]:
+def run_pipeline(seed: str, cfg: dict, etsy=None, ask=ask_json, log=print, perf_text: str = "") -> tuple[list[dict], list[dict], list[dict]]:
     """Returns (briefs, listings, radar_report)."""
     dr = cfg["drafting"]
     model = cfg["model"]
@@ -149,9 +153,9 @@ def run_pipeline(seed: str, cfg: dict, etsy=None, ask=ask_json, log=print) -> tu
         queries = queries[: int(dr.get("radar_queries", 12))]
         log(f"RADAR      scanning {len(queries)} live Etsy searches…")
         report = trends.scan(etsy, queries, per_query=100, pages=int(dr.get("radar_pages", 1)), top=12, log=log)
-        briefs = analyst_from_radar(report, n, model, ask) if report else analyst_no_data(cands, n, model, ask)
+        briefs = analyst_from_radar(report, n, model, ask, perf_text) if report else analyst_no_data(cands, n, model, ask, perf_text)
     else:
-        briefs = analyst_no_data(cands, n, model, ask)
+        briefs = analyst_no_data(cands, n, model, ask, perf_text)
     for b in briefs:
         b["evidence"] = trends.evidence_for(report, b.get("evidence_ids") or []) if report else []
         log(f"ANALYST    D{b.get('demand')} C{b.get('competition')} P{b.get('passion')}  {b['niche']}  ({b.get('why','')})")

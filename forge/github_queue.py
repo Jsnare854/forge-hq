@@ -12,6 +12,8 @@ LABELS = {
     "risk-high": ("d73a4a", "Possible trademark problem, review carefully"),
     "override-risk": ("8250df", "Publish even though flagged high risk"),
     "publish-failed": ("b60205", "Publishing hit an error; see the comment"),
+    "report": ("0e8a16", "Weekly shop performance report"),
+    "crew-log": ("5319e7", "Every scheduled run reports here"),
 }
 
 
@@ -42,6 +44,32 @@ class GitHub:
 
     def create_issue(self, title, body, labels):
         return self._req("POST", "/issues", json={"title": title, "body": body, "labels": labels})
+
+    def crew_log(self, text: str):
+        found = self._req("GET", "/issues?labels=crew-log&state=open&per_page=5")
+        found = [i for i in found if "pull_request" not in i]
+        if found:
+            number = found[0]["number"]
+        else:
+            self.ensure_labels()
+            number = self.create_issue(
+                "🛠️ Crew log",
+                "Every run of the agent crew adds a comment here: drafted, paused (too many drafts waiting), or failed.\n\n"
+                "Tap **Subscribe** on the right to get a notification each time.",
+                ["crew-log"],
+            )["number"]
+        import datetime as _dt
+        stamp = _dt.datetime.utcnow().strftime("%a %b %d, %H:%M UTC")
+        self.comment(number, f"**{stamp}**: {text}")
+
+    def count_open(self, label: str) -> int:
+        n, page = 0, 1
+        while True:
+            batch = self._req("GET", f"/issues?labels={label}&state=open&per_page=100&page={page}")
+            n += len([i for i in batch if "pull_request" not in i])
+            if len(batch) < 100:
+                return n
+            page += 1
 
     def issue(self, number):
         return self._req("GET", f"/issues/{number}")

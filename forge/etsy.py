@@ -11,7 +11,8 @@ import time
 
 import requests
 
-API = "https://openapi.etsy.com/v3/application/listings/active"
+BASE = "https://openapi.etsy.com/v3/application"
+API = BASE + "/listings/active"
 
 
 class Etsy:
@@ -31,6 +32,28 @@ class Etsy:
             return r.json()
         r.raise_for_status()
         return {}
+
+    def _get(self, url: str, params: dict) -> dict:
+        for attempt in range(3):
+            r = self.http.get(url, params=params, headers={"x-api-key": self.key}, timeout=30)
+            if r.status_code == 429:
+                time.sleep(2 * (attempt + 1))
+                continue
+            r.raise_for_status()
+            return r.json()
+        r.raise_for_status()
+        return {}
+
+    def find_shop(self, name: str) -> dict | None:
+        data = self._get(BASE + "/shops", {"shop_name": name, "limit": 25})
+        for s in data.get("results") or []:
+            if str(s.get("shop_name", "")).lower() == name.lower().replace(" ", ""):
+                return s
+        res = data.get("results") or []
+        return res[0] if len(res) == 1 else None
+
+    def shop_listings(self, shop_id, limit: int = 100) -> list[dict]:
+        return self._get(f"{BASE}/shops/{shop_id}/listings/active", {"limit": limit}).get("results") or []
 
     def search_stats(self, phrase: str, limit: int = 25) -> dict:
         r = self.http.get(

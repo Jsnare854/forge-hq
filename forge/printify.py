@@ -87,19 +87,27 @@ def pick_shop(shops: list[dict], shop_id=None) -> dict:
     raise PrintifyError("More than one Etsy shop is connected. Set printify.shop_id in config.yaml (run Check Printify to see IDs).")
 
 
-def pick_blueprint(blueprints: list[dict], brand: str, model: str, blueprint_id=None) -> dict:
+def pick_blueprint(blueprints: list[dict], brand: str | None, model: str | None, blueprint_id=None, title_has=None) -> dict:
     if blueprint_id:
         for b in blueprints:
             if str(b.get("id")) == str(blueprint_id):
                 return b
-    brand_l, model_l = brand.lower().replace(" ", ""), str(model).lower()
-    for b in blueprints:
-        if str(b.get("model", "")).lower() == model_l and brand_l in str(b.get("brand", "")).lower().replace(" ", ""):
-            return b
-    for b in blueprints:
-        if model_l in str(b.get("title", "")).lower() or model_l in str(b.get("model", "")).lower():
-            return b
-    raise PrintifyError(f"Couldn't find the {brand} {model} blueprint in Printify's catalog.")
+    if model:
+        brand_l, model_l = (brand or "").lower().replace(" ", ""), str(model).lower()
+        for b in blueprints:
+            if str(b.get("model", "")).lower() == model_l and brand_l in str(b.get("brand", "")).lower().replace(" ", ""):
+                return b
+        for b in blueprints:
+            if model_l in str(b.get("title", "")).lower() or model_l in str(b.get("model", "")).lower():
+                return b
+    if title_has:
+        options = title_has if isinstance(title_has[0], (list, tuple)) else [title_has]
+        for words in options:
+            words = [w.lower() for w in words]
+            for b in blueprints:
+                if all(w in str(b.get("title", "")).lower() for w in words):
+                    return b
+    raise PrintifyError(f"Couldn't find the {brand or ''} {model or title_has} blank in Printify's catalog.")
 
 
 def pick_provider(providers: list[dict], preferred: list[str], provider_id=None) -> dict:
@@ -134,45 +142,57 @@ def _size_of(v: dict) -> str:
     return parts[-1].strip() if len(parts) > 1 else ""
 
 
-def pick_colors(variants: list[dict], spec: dict, pcfg: dict) -> list[str]:
+def _has_color(variants: list[dict]) -> bool:
+    return any((v.get("options") or {}).get("color") for v in variants)
+
+
+def pick_colors(variants: list[dict], spec: dict, prof: dict) -> list[str]:
+    """Pick product colors that suit the design. [] means the product has no color choice (e.g. a white mug)."""
+    if not _has_color(variants):
+        return []
     available = []
     for v in variants:
         c = _color_of(v)
         if c and c not in available:
             available.append(c)
+    if prof.get("colors") == "all":
+        return available[: int(prof.get("colors_per_product", 4))]
     lower = {c.lower(): c for c in available}
-    primary = SHIRT_TO_PRINTIFY.get(spec["shirt"], "Black")
+    cmap = prof.get("color_map") or SHIRT_TO_PRINTIFY
+    primary = cmap.get(spec["shirt"], "Black")
     light_ink = luminance(spec["ink"]) > 0.5
-    pool = pcfg.get("dark_shirts" if light_ink else "light_shirts") or []
+    pool = prof.get("dark_shirts" if light_ink else "light_shirts") or []
     want = [primary] + [c for c in pool if c.lower() != primary.lower()]
     chosen = []
     for w in want:
         if w.lower() in lower and lower[w.lower()] not in chosen:
             chosen.append(lower[w.lower()])
-        if len(chosen) >= int(pcfg.get("colors_per_product", 4)):
+        if len(chosen) >= int(prof.get("colors_per_product", 4)):
             break
     if not chosen:
         fallback = "Black" if light_ink else "White"
         if fallback.lower() in lower:
             chosen = [lower[fallback.lower()]]
     if not chosen:
-        raise PrintifyError(f"None of the configured shirt colors exist for this provider. Available: {', '.join(available[:20])}")
+        raise PrintifyError(f"None of the configured colors exist for this provider. Available: {', '.join(available[:20])}")
     return chosen
 
 
-def build_variants(variants: list[dict], colors: list[str], sizes: list[str], price: float, upcharge: dict) -> list[dict]:
+def build_variants(variants: list[dict], colors: list[str], sizes, price: float, upcharge: dict) -> list[dict]:
     base = int(round(price * 100))
     out = []
     for v in variants:
         c, s = _color_of(v), _size_of(v)
-        if c in colors and s in sizes:
+        if (not colors or c in colors) and (not sizes or s in sizes):
             out.append({"id": v["id"], "price": base + int(upcharge.get(s, 0)), "is_enabled": True})
     if not out:
         raise PrintifyError("No variants matched the chosen colors and sizes.")
     return out[:100]
 
 
-def build_product(listing: dict, image_id: str, blueprint_id: int, provider_id: int, variant_rows: list[dict], placement: dict) -> dict:
+def build_product(listing: dict, image_id: str, blueprint_id: int, provider_id: int, variant_rows: list[dict], placement) -> dict:
+    spots = placement if isinstance(placement, list) else [placement or {}]
+    images = [{"id": image_id, "x": float(p.get("x", 0.5)), "y": float(p.get("y", 0.42)), "scale": float(p.get("scale", 0.9)), "angle": 0} for p in spots]
     return {
         "title": listing["title"],
         "description": listing["description"],
@@ -186,15 +206,7 @@ def build_product(listing: dict, image_id: str, blueprint_id: int, provider_id: 
                 "placeholders": [
                     {
                         "position": "front",
-                        "images": [
-                            {
-                                "id": image_id,
-                                "x": float(placement.get("x", 0.5)),
-                                "y": float(placement.get("y", 0.42)),
-                                "scale": float(placement.get("scale", 0.9)),
-                                "angle": 0,
-                            }
-                        ],
+                        "images": images,
                     }
                 ],
             }
@@ -215,17 +227,23 @@ def mockup_urls(product: dict, limit: int = 3) -> list[str]:
     return out
 
 
-def resolve_catalog(pf: "Printify", pcfg: dict) -> dict:
-    shop = pick_shop(pf.shops(), pcfg.get("shop_id"))
-    bp = pick_blueprint(pf.blueprints(), pcfg.get("blueprint_brand", "Bella+Canvas"), pcfg.get("blueprint_model", "3001"), pcfg.get("blueprint_id"))
-    prov = pick_provider(pf.providers(bp["id"]), pcfg.get("preferred_providers", []), pcfg.get("print_provider_id"))
+def resolve_catalog(pf: "Printify", pcfg: dict, prof: dict | None = None, blueprints: list | None = None, shops: list | None = None) -> dict:
+    """Find the shop, blank, provider and variants for one product profile."""
+    prof = prof or {"brand": pcfg.get("blueprint_brand", "Bella+Canvas"), "model": pcfg.get("blueprint_model", "3001"),
+                    "blueprint_id": pcfg.get("blueprint_id"), "print_provider_id": pcfg.get("print_provider_id")}
+    shop = pick_shop(shops if shops is not None else pf.shops(), pcfg.get("shop_id"))
+    bps = blueprints if blueprints is not None else pf.blueprints()
+    bp = pick_blueprint(bps, prof.get("brand"), prof.get("model"), prof.get("blueprint_id"), prof.get("title_has"))
+    prefs = prof.get("preferred_providers") or pcfg.get("preferred_providers", [])
+    prov = pick_provider(pf.providers(bp["id"]), prefs, prof.get("print_provider_id"))
     return {"shop": shop, "bp": bp, "prov": prov, "variants": pf.variants(bp["id"], prov["id"])}
 
 
-def create_draft(pf: "Printify", cat: dict, listing: dict, png: bytes, pcfg: dict, file_name: str) -> dict:
-    """Create an UNPUBLISHED Printify product. Nothing goes to Etsy until publish() is called."""
-    colors = pick_colors(cat["variants"], listing["spec"], pcfg)
-    rows = build_variants(cat["variants"], colors, pcfg.get("sizes", ["S", "M", "L", "XL", "2XL"]), listing["price"], pcfg.get("upcharge_cents", {}))
-    image_id = pf.upload_png(file_name, png)
-    product = pf.create_product(cat["shop"]["id"], build_product(listing, image_id, cat["bp"]["id"], cat["prov"]["id"], rows, pcfg.get("placement", {})))
-    return {"product": product, "colors": colors, "rows": rows}
+def create_draft(pf: "Printify", cat: dict, listing: dict, png_or_image_id, prof: dict, file_name: str = "design.png") -> dict:
+    """Create an UNPUBLISHED Printify product. Nothing goes to Etsy until publish() is called.
+    png_or_image_id: PNG bytes (uploaded here) or an already-uploaded Printify image id."""
+    colors = pick_colors(cat["variants"], listing["spec"], prof)
+    rows = build_variants(cat["variants"], colors, prof.get("sizes"), listing["price"], prof.get("upcharge_cents") or {})
+    image_id = pf.upload_png(file_name, png_or_image_id) if isinstance(png_or_image_id, (bytes, bytearray)) else png_or_image_id
+    product = pf.create_product(cat["shop"]["id"], build_product(listing, image_id, cat["bp"]["id"], cat["prov"]["id"], rows, prof.get("placement", {})))
+    return {"product": product, "colors": colors, "rows": rows, "image_id": image_id}

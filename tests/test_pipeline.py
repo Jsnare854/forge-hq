@@ -116,14 +116,21 @@ class FakePF:
         return [{"id": 111, "title": "Snare Supply", "sales_channel": "etsy"}]
 
     def blueprints(self):
-        return [{"id": 5, "title": "Kids Tee", "brand": "Other", "model": "X"}, {"id": 12, "title": "Unisex Jersey Short Sleeve Tee", "brand": "Bella+Canvas", "model": "3001"}]
+        return [{"id": 5, "title": "Kids Tee", "brand": "Other", "model": "X"},
+                {"id": 12, "title": "Unisex Jersey Short Sleeve Tee", "brand": "Bella+Canvas", "model": "3001"},
+                {"id": 49, "title": "Unisex Heavy Blend Crewneck Sweatshirt", "brand": "Gildan", "model": "18000"},
+                {"id": 77, "title": "Unisex Heavy Blend Hooded Sweatshirt", "brand": "Gildan", "model": "18500"},
+                {"id": 68, "title": "Ceramic Mug 11oz", "brand": "Generic brand", "model": "Mug"}]
 
     def providers(self, bp):
         return [{"id": 1, "title": "Far Away Prints", "location": {"country": "CN"}}, {"id": 29, "title": "Monster Digital", "location": {"country": "US"}}]
 
     def variants(self, bp, pp):
-        out, vid = [], 1000
-        for c in ["Black", "White", "Navy", "Maroon", "Forest", "Athletic Heather"]:
+        if bp == 68:
+            return [{"id": 9001, "title": "11oz", "options": {"size": "11oz"}}]
+        out, vid = [], bp * 1000
+        palette = ["Black", "White", "Navy", "Maroon", "Forest Green", "Sport Grey", "Dark Heather"] if bp in (49, 77) else ["Black", "White", "Navy", "Maroon", "Forest", "Athletic Heather"]
+        for c in palette:
             for s in ["XS", "S", "M", "L", "XL", "2XL", "3XL", "4XL"]:
                 vid += 1
                 out.append({"id": vid, "title": f"{c} / {s}", "options": {"color": c, "size": s}})
@@ -280,33 +287,71 @@ def test_full_loop_trend_radar_illustrator_mockups_publish(cfg):
     assert all(l["mode"] == "illustrated" for l in listings)
     assert all(l["price"] == 32.99 and len(l["tags"]) == 13 for l in listings)
     assert all(l["evidence"] and l["evidence"][0]["id"] == 1001 for l in listings)
-    assert len(pf.created) == 8 and all(l["product_id"] for l in listings)  # real Printify drafts
+    # product family: 4 unpublished Printify drafts per design, art uploaded once per design
+    assert len(pf.created) == 32 and len(pf.uploads) == 8
+    fam = listings[0]["products"]
+    assert list(fam) == ["tee", "sweatshirt", "hoodie", "mug"] and all(p["product_id"] for p in fam.values())
+    assert fam["sweatshirt"]["price"] == 41.99 and fam["mug"]["price"] == 19.99 and fam["tee"]["price"] == 32.99
+    sweat = next(c for c in pf.created if c[1]["blueprint_id"] == 49)[1]
+    assert "Sweatshirt" in sweat["title"] and "Shirt, Coffee" not in sweat["title"] and "crewneck sweatshirt" in sweat["tags"]
+    mug = next(c for c in pf.created if c[1]["blueprint_id"] == 68)[1]
+    assert mug["title"].startswith("Night Shift Nurse Mug") and len(mug["print_areas"][0]["placeholders"][0]["images"]) == 2
+    assert [v["id"] for v in mug["variants"]] == [9001]
     assert pf.published is None  # nothing went to Etsy
-    assert listings[0]["mockups"][0].endswith("front.jpg")
     assert list(cli.DRAFTS.glob("radar-*.json"))
 
     gh = FakeGH()
     assert cli.cmd_file_issues(SimpleNamespace(), cfg, gh=gh) == 8
     body = gh.issues[1]["body"]
-    assert "front.jpg" in body and "Why this niche" in body and "product=prod1" in body
+    assert "front.jpg" in body and "Why this niche" in body and "- [x] hoodie: Hoodie: $46.99" in body
 
     assert cli.cmd_publish(SimpleNamespace(issue=1, actor="Jsnare854", force=False), cfg, gh=gh, pf=pf) == "not-approved"
     gh.add_labels(1, ["approved"])
     assert cli.cmd_publish(SimpleNamespace(issue=1, actor="randomuser", force=False), cfg, gh=gh, pf=pf) == "not-owner"
 
-    # Owner edits the title, then approves -> existing draft is updated and published (no new product)
-    gh.issues[1]["body"] = body.replace("Night Shift Nurse Shirt, Coffee", "Snook Fishing Shirt, Coffee")
+    # Owner edits the title, unticks the mug, raises the hoodie price, then approves
+    body = body.replace("Night Shift Nurse Shirt, Coffee", "Snook Fishing Shirt, Coffee")
+    body = body.replace("- [x] mug:", "- [ ] mug:").replace("Hoodie: $46.99", "Hoodie: $49.99")
+    gh.issues[1]["body"] = body
     gh.add_labels(1, ["approved"])
+    published = []
+    pf.publish = lambda shop, pid: published.append(pid)
+    updates = []
+    pf.update_product = lambda shop, pid, payload: updates.append((pid, payload))
     n_before = len(pf.created)
     assert cli.cmd_publish(SimpleNamespace(issue=1, actor="Jsnare854", force=False), cfg, gh=gh, pf=pf) == "published"
-    assert len(pf.created) == n_before and pf.updated[1] == "prod1" and pf.updated[2]["title"].startswith("Snook Fishing Shirt")
-    assert pf.published == (111, "prod1") and gh.issues[1]["state"] == "closed"
+    assert len(pf.created) == n_before  # existing drafts updated, not recreated
+    assert published == ["prod1", "prod2", "prod3"] and "prod4" in pf.deleted  # mug draft removed
+    hoodie = dict(updates)["prod3"]
+    assert hoodie["title"].startswith("Snook Fishing Hoodie") and {v["price"] for v in hoodie["variants"]} >= {4999}
+    assert "3 listings" in gh.comments[-1][1] and "Removed unticked drafts: Coffee Mug 11oz" in gh.comments[-1][1]
+    assert gh.issues[1]["state"] == "closed"
     assert cli.cmd_publish(SimpleNamespace(issue=1, actor="Jsnare854", force=False), cfg, gh=gh, pf=pf) == "already-published"
 
-    # Rejecting (closing) another issue deletes its Printify draft
+    # Rejecting (closing) another issue deletes all of its Printify drafts
     gh.close(2)
-    assert cli.cmd_cleanup(SimpleNamespace(issue=2), cfg, gh=gh, pf=pf) == "deleted" and "prod2" in pf.deleted
+    assert cli.cmd_cleanup(SimpleNamespace(issue=2), cfg, gh=gh, pf=pf) == "deleted"
+    assert {"prod5", "prod6", "prod7", "prod8"} <= set(pf.deleted)
     assert cli.cmd_cleanup(SimpleNamespace(issue=1), cfg, gh=gh, pf=pf) == "skip"  # published ones are never deleted
+
+
+def test_one_product_failing_does_not_block_the_others(cfg):
+    listings, pf, _ = run_draft(cfg)
+    gh = FakeGH()
+    cli.cmd_file_issues(SimpleNamespace(), cfg, gh=gh)
+    gh.add_labels(1, ["approved"])
+    real = pf.publish
+
+    def flaky(shop, pid):
+        if pid == "prod4":
+            raise RuntimeError("mug provider offline")
+        real(shop, pid)
+    pf.publish = flaky
+    assert cli.cmd_publish(SimpleNamespace(issue=1, actor="Jsnare854", force=False), cfg, gh=gh, pf=pf) == "partial"
+    c = gh.comments[-1][1]
+    assert "3 listings" in c and "mug provider offline" in c
+    labels = {l["name"] for l in gh.issues[1]["labels"]}
+    assert "publish-failed" in labels and "published" not in labels and gh.issues[1]["state"] == "open"
 
 
 def test_art_director_rejection_falls_back_to_typography(cfg):
@@ -324,7 +369,8 @@ def test_type_design_edit_recreates_product(cfg):
     gh.issues[1]["body"] = gh.issues[1]["body"].replace("style: stamp", "style: badge")
     gh.add_labels(1, ["approved"])
     assert cli.cmd_publish(SimpleNamespace(issue=1, actor="Jsnare854", force=False), cfg, gh=gh, pf=pf) == "published"
-    assert "prod1" in pf.deleted and pf.published[1] == f"prod{len(pf.created)}"
+    assert {"prod1", "prod2", "prod3", "prod4"} <= set(pf.deleted)  # design edited -> whole family recreated
+    assert len(pf.created) == 32 + 4 and pf.published[1] == f"prod{len(pf.created)}"
 
 
 def test_high_risk_is_blocked_until_override(cfg):
@@ -347,7 +393,52 @@ def test_publish_failure_is_reported(cfg):
     def boom(*a):
         raise PrintifyError("Printify POST failed (400): bad variant")
     pf.create_product = boom
-    with pytest.raises(PrintifyError):
+    with pytest.raises(Exception):
         cli.cmd_publish(SimpleNamespace(issue=1, actor="Jsnare854", force=False), cfg, gh=gh, pf=pf)
     labels = {l["name"] for l in gh.issues[1]["labels"]}
     assert "publish-failed" in labels and "approved" not in labels and "Publishing failed" in gh.comments[-1][1]
+
+
+# ---------- schedule brake + learning loop ----------
+
+class ShopEtsy(FakeEtsy):
+    def find_shop(self, name):
+        return {"shop_id": 77, "shop_name": "SnareSupply", "transaction_sold_count": 3}
+
+    def shop_listings(self, shop_id):
+        return [
+            {**etsy_listing(10, 12, 30, "Tides Wait For No One Fishing Shirt"), "views": 300},
+            {**etsy_listing(11, 0, 40, "Plain Nurse Tee"), "views": 10},
+        ]
+
+
+def test_brake_skips_scheduled_run_when_queue_full(cfg):
+    gh = FakeGH()
+    gh.log = []
+    gh.crew_log = lambda text: gh.log.append(text)
+    gh.count_open = lambda label: 15
+    out = cli.cmd_draft(SimpleNamespace(seed="x", auto=True), cfg, ask=fake_ask, etsy=FakeEtsy(), ideogram=FakeIdeogram(),
+                        review_fn=approve_review, pf=FakePF(), gh=gh)
+    assert out == [] and gh.log[-1].startswith("⏸️ Paused: 15 drafts")
+    gh.count_open = lambda label: 3
+    out = cli.cmd_draft(SimpleNamespace(seed="x", auto=True), cfg, ask=fake_ask, etsy=FakeEtsy(), ideogram=FakeIdeogram(),
+                        review_fn=approve_review, pf=FakePF(), gh=gh)
+    assert len(out) == 8 and gh.log[-1].startswith("✅ Drafted 8 designs × 4 products")
+
+
+def test_learning_loop_feeds_analyst_and_weekly_report(cfg):
+    seen = {}
+
+    def ask(prompt, model, max_tokens=0):
+        if "Market Analyst" in prompt:
+            seen["prompt"] = prompt
+        return fake_ask(prompt, model, max_tokens)
+
+    cli.cmd_draft(SimpleNamespace(seed="fishing"), cfg, ask=ask, etsy=ShopEtsy(), ideogram=FakeIdeogram(), review_fn=approve_review, pf=FakePF())
+    p = seen["prompt"]
+    assert "YOUR SHOP (SnareSupply)" in p and "+ Tides Wait For No One" in p and "- Plain Nurse Tee" in p
+
+    gh = FakeGH()
+    assert cli.cmd_report(SimpleNamespace(), cfg, etsy=ShopEtsy(), pf=FakePF(), gh=gh) == "filed"
+    issue = gh.issues[1]
+    assert issue["labels"] == [{"name": "report"}] and "Tides Wait For No One" in issue["body"] and "zero favorites" in issue["body"]

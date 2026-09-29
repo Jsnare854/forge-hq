@@ -78,13 +78,51 @@ def make_artwork(L: dict, cfg: dict, ideogram, review_fn, log=print) -> tuple[by
     return render_print(L["spec"]), render_mockup(L["spec"])
 
 
-def cmd_draft(args, cfg, ask=None, etsy=None, ideogram=None, review_fn=None, pf=None) -> list[dict]:
+def crew_log(text: str, gh=None):
+    """Append a line to the pinned 'Crew log' issue so you can see every scheduled run at a glance."""
+    try:
+        from .github_queue import GitHub
+        gh = gh or GitHub()
+        gh.crew_log(text)
+    except SystemExit:
+        pass
+    except Exception as e:
+        print(f"(crew log not updated: {e})")
+
+
+def _shop_name(cfg, pf) -> str:
+    name = (cfg["drafting"].get("etsy_shop_name") or "").strip()
+    if name or not pf:
+        return name
+    try:
+        from .printify import pick_shop
+        return str(pick_shop(pf.shops(), cfg["printify"].get("shop_id")).get("title", ""))
+    except Exception:
+        return ""
+
+
+def cmd_draft(args, cfg, ask=None, etsy=None, ideogram=None, review_fn=None, pf=None, gh=None) -> list[dict]:
     from .agents import run_pipeline
+    from .performance import compact as perf_compact, shop_performance
     from .artdirector import review
     from .etsy import Etsy
     from .illustrator import Ideogram
     from .printify import Printify, create_draft, mockup_urls, resolve_catalog
+    from .products import adapt, profiles
 
+    if getattr(args, "auto", False):
+        limit = int(cfg["drafting"].get("max_pending_drafts", 15))
+        try:
+            from .github_queue import GitHub
+            waiting = (gh or GitHub()).count_open("draft")
+        except Exception as e:
+            waiting = 0
+            print(f"Couldn't count waiting drafts ({e}); running anyway.")
+        if waiting >= limit:
+            msg = f"⏸️ Paused: {waiting} drafts are already waiting for you (limit {limit}). Approve or close some and the crew picks back up next run."
+            summary(msg)
+            crew_log(msg, gh)
+            return []
     seed = (getattr(args, "seed", "") or "").strip() or next_seed(cfg)
     if etsy is None:
         key = secret("ETSY_API_KEY", required=False)
@@ -95,16 +133,23 @@ def cmd_draft(args, cfg, ask=None, etsy=None, ideogram=None, review_fn=None, pf=
     cfg["drafting"]["illustrated"] = bool(ideogram)
     if review_fn is None:
         review_fn = lambda prev, text, niche: review(prev, text, niche, cfg["model"])
-    kw = {"ask": ask} if ask else {}
-    briefs, listings, report = run_pipeline(seed, cfg, etsy=etsy or None, **kw)
-
-    cat = None
     if pf is None:
         tok = secret("PRINTIFY_API_TOKEN", required=False)
         pf = Printify(tok) if tok else False
+    perf = shop_performance(etsy or None, _shop_name(cfg, pf)) if etsy else None
+    kw = {"ask": ask} if ask else {}
+    briefs, listings, report = run_pipeline(seed, cfg, etsy=etsy or None, perf_text=perf_compact(perf), **kw)
+
+    profs = profiles(cfg)
+    cats = {}
     if pf and cfg["printify"].get("draft_products", True):
         try:
-            cat = resolve_catalog(pf, cfg["printify"])
+            shops, bps = pf.shops(), pf.blueprints()
+            for prof in profs:
+                try:
+                    cats[prof["key"]] = resolve_catalog(pf, cfg["printify"], prof, blueprints=bps, shops=shops)
+                except Exception as e:
+                    summary(f"⚠️ {prof.get('name', prof['key'])} skipped: {e}")
         except Exception as e:
             summary(f"⚠️ Printify drafts skipped: {e}")
 
@@ -122,15 +167,24 @@ def cmd_draft(args, cfg, ask=None, etsy=None, ideogram=None, review_fn=None, pf=
         (folder / "print.png").write_bytes(png)
         (folder / "mockup.png").write_bytes(prev)
         L["draft_id"] = did
-        if cat and L.get("risk") != "high":
-            try:
-                res = create_draft(pf, cat, L, png, cfg["printify"], f"forge-{did}.png")
-                L["product_id"] = res["product"]["id"]
-                L["colors"] = res["colors"]
-                L["mockups"] = mockup_urls(res["product"])
-                print(f"  PRINTIFY draft {L['product_id']} ({', '.join(res['colors'])})")
-            except Exception as e:
-                print(f"  PRINTIFY draft failed: {e}")
+        L["products"] = {}
+        image_id = None
+        for prof in profs:
+            key = prof["key"]
+            PL = adapt(L, prof)
+            entry = {"name": prof.get("name", key), "price": PL["price"], "on": True, "product_id": "", "mockups": [], "colors": []}
+            if key in cats and L.get("risk") != "high":
+                try:
+                    res = create_draft(pf, cats[key], PL, image_id or png, prof, f"forge-{did}.png")
+                    image_id = res["image_id"]
+                    entry.update(product_id=res["product"]["id"], colors=res["colors"], mockups=mockup_urls(res["product"]))
+                    print(f"  PRINTIFY {entry['name']}: draft {entry['product_id']} ({', '.join(res['colors']) or 'n/a'})")
+                except Exception as e:
+                    print(f"  PRINTIFY {entry['name']} failed: {e}")
+            L["products"][key] = entry
+        first = next((p for p in L["products"].values() if p["mockups"]), None)
+        if first:
+            L["mockups"] = first["mockups"]
         (folder / "listing.json").write_text(json.dumps(L, indent=2))
         pending.append(did)
     PENDING.write_text(json.dumps(pending, indent=2))
@@ -140,10 +194,13 @@ def cmd_draft(args, cfg, ask=None, etsy=None, ideogram=None, review_fn=None, pf=
         summary("### Trend Radar\n| Search | Active listings | New with traction | Median price |\n|---|---|---|---|")
         for r in report:
             summary(f"| {r['query']} | {r['active_listings']:,} | {r['new_listings_with_traction']} | ${r['median_price']} |")
+    if perf:
+        summary(f"\n**Learning loop:** {perf['active']} live listings read from {perf['shop']}; {len(perf['winners'])} working, {len(perf['duds'])} not.")
     summary("\n### Opportunities picked\n| Niche | Demand | Low comp | Passion | Why |\n|---|---|---|---|---|")
     for b in briefs:
         summary(f"| {b['niche']} | {b.get('demand','')} | {b.get('competition','')} | {b.get('passion','')} | {b.get('why','')} |")
-    summary(f"\n**{len(listings)} drafts** ready for review.")
+    summary(f"\n**{len(listings)} drafts** ready for review ({len(profs)} products each).")
+    crew_log(f"✅ Drafted {len(listings)} designs × {len(profs)} products. Seed: {seed}.", gh)
     return listings
 
 
@@ -214,53 +271,83 @@ def cmd_publish(args, cfg, gh=None, pf=None) -> str:
         gh.remove_label(n, "approved")
         return "blocked"
 
+    from .products import adapt, profiles
+
     pcfg = cfg["printify"]
+    profs = {p["key"]: p for p in profiles(cfg)}
+    fam = listing.get("products") or {}
+    if not fam:  # issue made before product families: treat as a single tee
+        fam = {"tee": {"on": True, "price": listing["price"], "product_id": listing.get("product_id", ""), "name": "T-Shirt"}}
+    stored_fam = stored.get("products") or {}
+    design_changed = bool(listing.get("mode") != "illustrated" and stored and stored.get("spec") != listing["spec"])
+    results, failures, removed = [], [], []
     try:
         pf = pf or Printify(secret("PRINTIFY_API_TOKEN"))
-        cat = resolve_catalog(pf, pcfg)
-        shop_id = cat["shop"]["id"]
-        pid = listing.get("product_id") or ""
-        design_changed = listing.get("mode") != "illustrated" and stored and stored.get("spec") != listing["spec"]
-        colors = stored.get("colors")
-
-        if pid and not design_changed:
-            if not colors:
-                from .printify import pick_colors
-                colors = pick_colors(cat["variants"], listing["spec"], pcfg)
-            rows = build_variants(cat["variants"], colors, pcfg.get("sizes", []), listing["price"], pcfg.get("upcharge_cents", {}))
-            pf.update_product(shop_id, pid, {"title": listing["title"], "description": listing["description"], "tags": listing["tags"], "variants": rows})
-        else:
-            if pid:
-                try:
-                    pf.delete_product(shop_id, pid)
-                except Exception:
-                    pass
-            if listing.get("mode") == "illustrated" and folder and (folder / "print.png").exists():
-                png = (folder / "print.png").read_bytes()
-            else:
-                png = render_print(listing["spec"])
-            res = create_draft(pf, cat, listing, png, pcfg, f"forge-{n}-{_slug(phrase(listing['spec']))}.png")
-            pid, colors = res["product"]["id"], res["colors"]
-
-        published = False
-        if pcfg.get("publish_to_etsy", True):
-            pf.publish(shop_id, pid)
-            published = True
+        shops, bps = pf.shops(), pf.blueprints()
+        png = None
+        image_id = None
+        shop_title = ""
+        for key, item in fam.items():
+            prof = profs.get(key) or {"key": key, "name": item.get("name", key)}
+            pid = item.get("product_id") or ""
+            try:
+                cat = resolve_catalog(pf, pcfg, prof if key in profs else None, blueprints=bps, shops=shops)
+                shop_id = cat["shop"]["id"]
+                shop_title = cat["shop"].get("title", shop_id)
+                if not item.get("on", True):
+                    if pid:
+                        pf.delete_product(shop_id, pid)
+                        removed.append(prof.get("name", key))
+                    continue
+                PL = adapt(listing, prof)
+                PL["price"] = float(item.get("price") or PL["price"])
+                colors = (stored_fam.get(key) or {}).get("colors") or stored.get("colors") if key == "tee" else (stored_fam.get(key) or {}).get("colors")
+                if pid and not design_changed:
+                    from .printify import pick_colors
+                    colors = colors if colors is not None else pick_colors(cat["variants"], PL["spec"], prof)
+                    rows = build_variants(cat["variants"], colors, prof.get("sizes"), PL["price"], prof.get("upcharge_cents") or {})
+                    pf.update_product(shop_id, pid, {"title": PL["title"], "description": PL["description"], "tags": PL["tags"], "variants": rows})
+                else:
+                    if pid:
+                        try:
+                            pf.delete_product(shop_id, pid)
+                        except Exception:
+                            pass
+                    if image_id is None and png is None:
+                        if listing.get("mode") == "illustrated" and folder and (folder / "print.png").exists():
+                            png = (folder / "print.png").read_bytes()
+                        else:
+                            png = render_print(listing["spec"])
+                    res = create_draft(pf, cat, PL, image_id or png, prof, f"forge-{n}-{_slug(phrase(listing['spec']))}.png")
+                    image_id, pid, colors = res["image_id"], res["product"]["id"], res["colors"]
+                if pcfg.get("publish_to_etsy", True):
+                    pf.publish(shop_id, pid)
+                results.append((prof.get("name", key), pid, PL["price"], colors or [], cat["prov"].get("title")))
+            except Exception as e:
+                failures.append((prof.get("name", key), str(e)))
+        if not results and failures:
+            raise RuntimeError("; ".join(f"{name}: {err}" for name, err in failures))
     except Exception as e:
         gh.comment(n, f"❌ **Publishing failed.** Nothing was listed on Etsy.\n\n```\n{str(e)[:1500]}\n```\nFix the problem and re-add the `approved` label to retry.")
         gh.remove_label(n, "approved")
         gh.add_labels(n, ["publish-failed"])
         raise
 
-    gh.comment(
-        n,
-        f"✅ **{'Sent to Etsy' if published else 'Created in Printify (not published)'}**\n\n"
-        f"- Printify product: `{pid}` in shop **{cat['shop'].get('title', shop_id)}**\n"
-        f"- Blank: {cat['bp'].get('title', 'Bella+Canvas 3001')} by **{cat['prov'].get('title')}**\n"
-        f"- Colors: {', '.join(colors or [])}  ·  Sizes: {', '.join(pcfg.get('sizes', []))}  ·  Price ${listing['price']:.2f}\n\n"
-        + ("Printify takes a minute or two to push it to Etsy. Check **Etsy → Shop Manager → Listings**." if published else "Open Printify → My products to review and publish it."),
-    )
+    published = pcfg.get("publish_to_etsy", True)
+    lines = [f"- **{name}**: ${price:.2f}, {', '.join(colors) or 'standard'} (Printify `{pid}`, {prov})" for name, pid, price, colors, prov in results]
+    msg = [f"✅ **{'Sent to Etsy' if published else 'Created in Printify (not published)'}**: {len(results)} listing{'s' if len(results) != 1 else ''} in **{shop_title}**", "", *lines]
+    if removed:
+        msg.append(f"\nRemoved unticked drafts: {', '.join(removed)}")
+    if failures:
+        msg.append("\n⚠️ Some products failed and were NOT listed:\n" + "\n".join(f"- {name}: `{err[:300]}`" for name, err in failures))
+        msg.append("Re-add `approved` to retry just those (listed ones won't duplicate).")
+    msg.append("\n" + ("Printify takes a minute or two to push each one to Etsy. Check **Etsy → Shop Manager → Listings**." if published else "Open Printify → My products to review and publish."))
+    gh.comment(n, "\n".join(msg))
     gh.remove_label(n, "publish-failed")
+    if failures:
+        gh.remove_label(n, "approved")
+        gh.add_labels(n, ["publish-failed"])
+        return "partial"
     gh.add_labels(n, ["published"])
     gh.close(n)
     return "published" if published else "created"
@@ -282,18 +369,51 @@ def cmd_cleanup(args, cfg, gh=None, pf=None) -> str:
         listing = parse_issue(issue.get("body", ""))
     except ValueError:
         return "skip"
-    pid = listing.get("product_id")
-    if not pid:
+    pids = [p.get("product_id") for p in (listing.get("products") or {}).values() if p.get("product_id")]
+    if not pids and listing.get("product_id"):
+        pids = [listing["product_id"]]
+    if not pids:
         return "nothing"
     pf = pf or Printify(secret("PRINTIFY_API_TOKEN"))
     shop = pick_shop(pf.shops(), cfg["printify"].get("shop_id"))
-    try:
-        pf.delete_product(shop["id"], pid)
-    except Exception as e:
-        print(f"Delete failed (may already be gone): {e}")
-        return "failed"
-    gh.comment(n, "🗑️ Rejected. The unpublished Printify draft was deleted.")
-    return "deleted"
+    gone = 0
+    for pid in pids:
+        try:
+            pf.delete_product(shop["id"], pid)
+            gone += 1
+        except Exception as e:
+            print(f"Delete failed for {pid} (may already be gone): {e}")
+    gh.comment(n, f"🗑️ Rejected. {gone} unpublished Printify draft{'s' if gone != 1 else ''} deleted.")
+    return "deleted" if gone else "failed"
+
+
+# ---------------- weekly report ----------------
+
+def cmd_report(args, cfg, etsy=None, pf=None, gh=None) -> str:
+    from .etsy import Etsy
+    from .github_queue import GitHub
+    from .performance import report_markdown, shop_performance
+    from .printify import Printify
+
+    if etsy is None:
+        key = secret("ETSY_API_KEY", required=False)
+        etsy = Etsy(key) if key else None
+    if not etsy:
+        summary("No ETSY_API_KEY, so there's no report.")
+        return "no-key"
+    if pf is None:
+        tok = secret("PRINTIFY_API_TOKEN", required=False)
+        pf = Printify(tok) if tok else None
+    perf = shop_performance(etsy, _shop_name(cfg, pf))
+    if not perf:
+        summary("Couldn't read your shop. Set drafting.etsy_shop_name in config.yaml to your exact Etsy shop name.")
+        return "no-shop"
+    md = report_markdown(perf)
+    gh = gh or GitHub()
+    gh.ensure_labels()
+    gh.create_issue(f"Weekly shop report: {dt.date.today():%b %d}", md, ["report"])
+    summary(md)
+    return "filed"
 
 
 # ---------------- check ----------------
@@ -320,6 +440,17 @@ def cmd_check(args, cfg, pf=None, etsy=None):
         summary(f"**Print provider:** {prov.get('title')} (`{prov['id']}`)\n")
         colors = sorted({(v.get('options') or {}).get('color') or str(v.get('title', '')).split('/')[0].strip() for v in pf.variants(bp['id'], prov['id'])})
         summary(f"Colors this provider offers: {', '.join(c for c in colors if c)}")
+        from .printify import resolve_catalog
+        from .products import profiles
+        summary("\n**Product family**\n\n| Product | Blank | Provider |\n|---|---|---|")
+        bps = pf.blueprints()
+        for prof in profiles(cfg):
+            try:
+                c = resolve_catalog(pf, pcfg, prof, blueprints=bps, shops=shops)
+                summary(f"| ✅ {prof.get('name')} | {c['bp'].get('title')} (`{c['bp']['id']}`) | {c['prov'].get('title')} (`{c['prov']['id']}`) |")
+            except Exception as e:
+                ok = False
+                summary(f"| ❌ {prof.get('name')} | {e} | |")
     except SystemExit as e:
         ok = False
         summary(f"❌ {e}")
@@ -346,7 +477,9 @@ def main(argv=None):
     sub = ap.add_subparsers(dest="cmd", required=True)
     d = sub.add_parser("draft")
     d.add_argument("--seed", default="")
+    d.add_argument("--auto", action="store_true", help="scheduled run: skip if too many drafts are waiting")
     sub.add_parser("file-issues")
+    sub.add_parser("report")
     p = sub.add_parser("publish")
     p.add_argument("--issue", required=True)
     p.add_argument("--actor", default="")
@@ -354,6 +487,8 @@ def main(argv=None):
     c = sub.add_parser("cleanup")
     c.add_argument("--issue", required=True)
     sub.add_parser("check")
+    lg = sub.add_parser("log")
+    lg.add_argument("--text", required=True)
     args = ap.parse_args(argv)
     cfg = load_config()
     if args.cmd == "draft":
@@ -364,6 +499,10 @@ def main(argv=None):
         print("result:", cmd_publish(args, cfg))
     elif args.cmd == "cleanup":
         print("result:", cmd_cleanup(args, cfg))
+    elif args.cmd == "report":
+        print("result:", cmd_report(args, cfg))
+    elif args.cmd == "log":
+        crew_log(args.text)
     elif args.cmd == "check":
         return cmd_check(args, cfg)
     return 0

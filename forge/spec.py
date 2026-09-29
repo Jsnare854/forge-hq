@@ -86,7 +86,9 @@ MARKER = "<!-- forge:v1 -->"
 
 
 def format_issue(listing: dict, mockup_urls=None, print_url: str | None = None, draft_id: str = "", product_id: str = "") -> tuple[str, str]:
-    """Build the approval issue. mockup_urls may be a single URL or a list (real Printify mockups)."""
+    """Build the approval issue. mockup_urls may be a single URL or a list (real Printify mockups).
+    listing["products"] (optional): {key: {"name", "price", "product_id", "mockups", "on"}} for product families."""
+    import json as _json
     spec = listing["spec"]
     if isinstance(mockup_urls, str):
         mockup_urls = [mockup_urls]
@@ -96,7 +98,10 @@ def format_issue(listing: dict, mockup_urls=None, print_url: str | None = None, 
     title = f"{listing.get('niche') or 'Design'}: {phrase(spec)}"[:120]
     flags = listing.get("flags") or []
     flag_md = "\n".join(f"- {'⛔' if f['bad'] else '⚠️'} {f['msg']}" for f in flags) or "- No automatic flags."
-    imgs = " ".join(f'<img src="{u}" width="300">' for u in mockup_urls[:3])
+    products = listing.get("products") or {}
+    fam_mocks = [(p.get("mockups") or [None])[0] for p in products.values() if p.get("mockups")]
+    shown = fam_mocks if len(fam_mocks) > 1 else mockup_urls[:3]
+    imgs = " ".join(f'<img src="{u}" width="240">' for u in shown[:4])
     brief = listing.get("brief") or {}
     ev = listing.get("evidence") or []
     why = []
@@ -121,12 +126,13 @@ def format_issue(listing: dict, mockup_urls=None, print_url: str | None = None, 
     parts = [
         MARKER,
         f"<!-- forge:draft={draft_id} product={product_id} mode={mode} -->",
+        f"<!-- forge:products={_json.dumps({k: v.get('product_id', '') for k, v in products.items()}, separators=(',', ':'))} -->" if products else "",
         imgs,
         "",
         f"**Niche:** {listing.get('niche', '')}  ·  **Trademark risk:** {risk}  ·  **Seed:** {listing.get('seed', '')}",
         "",
         "> **Approve:** add the `approved` label. **Reject:** close this issue.",
-        "> You can edit the Title, Tags, Price or Description below before approving. The publisher uses your edits.",
+        "> Before approving you can untick products, change prices, or edit the Title, Tags and Description. The publisher uses your edits.",
         "",
         "### Why this design",
         "\n".join(why),
@@ -137,9 +143,11 @@ def format_issue(listing: dict, mockup_urls=None, print_url: str | None = None, 
         "### Tags",
         ", ".join(listing.get("tags", [])),
         "",
-        "### Price",
-        f"{float(listing.get('price', 27.99)):.2f}",
-        "",
+        *(
+            ["### Products", "_Each ticked product becomes its own Etsy listing. Untick any you don't want; edit prices freely._",
+             *[f"- [{'x' if p.get('on', True) else ' '}] {k}: {p.get('name', k)}: ${float(p.get('price') or listing.get('price', 27.99)):.2f}" for k, p in products.items()], ""]
+            if products else ["### Price", f"{float(listing.get('price', 27.99)):.2f}", ""]
+        ),
         "### Design",
         f"_{design_note}_",
         "```text",
@@ -203,9 +211,27 @@ def parse_issue(body: str) -> dict:
     m = re.search(r"\*\*Trademark risk:\*\*\s*(\w+)", body)
     niche = re.search(r"\*\*Niche:\*\*\s*(.*?)\s*·", body)
     meta = re.search(r"<!-- forge:draft=(\S*) product=(\S*) mode=(\S*) -->", body)
+    ids = {}
+    pm = re.search(r"<!-- forge:products=(\{.*?\}) -->", body)
+    if pm:
+        import json as _json
+        try:
+            ids = _json.loads(pm.group(1))
+        except ValueError:
+            ids = {}
+    products = {}
+    for line in s.get("products", "").split("\n"):
+        pr = re.match(r"^\s*-\s*\[([ xX])\]\s*([a-z0-9_-]+)\s*:\s*(.*?)\s*:\s*\$?\s*([0-9]+(?:\.[0-9]+)?)\s*$", line)
+        if pr:
+            products[pr.group(2)] = {"on": pr.group(1).lower() == "x", "name": pr.group(3), "price": round(float(pr.group(4)), 2), "product_id": ids.get(pr.group(2), "")}
+    if products and "tee" in products:
+        price = products["tee"]["price"]
+    elif products:
+        price = next(iter(products.values()))["price"]
     return {
         "draft_id": meta.group(1) if meta else "",
         "product_id": meta.group(2) if meta else "",
+        "products": products,
         "mode": meta.group(3) if meta else "type",
         "title": " ".join(s.get("title", "").split()),
         "tags": tags,

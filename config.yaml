@@ -11,6 +11,8 @@ drafting:
   candidate_multiplier: 2      # Scout proposes 2x niches, Analyst keeps the best
   radar_queries: 12            # live Etsy searches the Trend Radar scans per run
   radar_pages: 1               # 100 listings per page per search
+  max_pending_drafts: 15       # scheduled runs skip when this many drafts are waiting for you
+  etsy_shop_name: null         # your Etsy shop name, for the learning loop (blank = use the Printify shop name)
 
 illustrator:                   # used when IDEOGRAM_API_KEY is set
   candidates: 2                # images generated per design; the Art Director keeps the best
@@ -22,6 +24,70 @@ pricing:
   default_price: 27.99
   min_price: 24.99
   max_price: 32.99
+
+# Each approved design becomes one Etsy listing per enabled product below.
+# Turn a product off with enabled: false. Prices are defaults; you can change them per design in the issue.
+products:
+  - key: tee
+    name: T-Shirt
+    noun: Shirt
+    enabled: true
+    brand: Bella+Canvas
+    model: "3001"
+    price: null                 # null = the Designer's suggested price
+    sizes: ["S", "M", "L", "XL", "2XL", "3XL"]
+    upcharge_cents: {"2XL": 200, "3XL": 400}
+    colors_per_product: 4
+    dark_shirts: ["Black", "Navy", "Forest", "Maroon", "Dark Grey Heather", "Heather Navy"]
+    light_shirts: ["White", "Athletic Heather", "Soft Cream", "Natural", "Heather Peach"]
+    placement: {x: 0.5, y: 0.42, scale: 0.9}
+
+  - key: sweatshirt
+    name: Crewneck Sweatshirt
+    noun: Sweatshirt
+    enabled: true
+    brand: Gildan
+    model: "18000"
+    price: 41.99
+    sizes: ["S", "M", "L", "XL", "2XL", "3XL"]
+    upcharge_cents: {"2XL": 300, "3XL": 500}
+    colors_per_product: 4
+    color_map: {black: Black, white: White, heather: Sport Grey, navy: Navy, sand: Sand, forest: Forest Green, maroon: Maroon}
+    dark_shirts: ["Black", "Navy", "Forest Green", "Maroon", "Dark Heather"]
+    light_shirts: ["White", "Sport Grey", "Sand", "Ash", "Light Pink"]
+    placement: {x: 0.5, y: 0.40, scale: 0.85}
+    tags: ["crewneck sweatshirt"]
+    blurb: "Printed on a cozy Gildan 18000 crewneck sweatshirt (50% cotton, 50% polyester), unisex fit."
+
+  - key: hoodie
+    name: Hoodie
+    noun: Hoodie
+    enabled: true
+    brand: Gildan
+    model: "18500"
+    price: 46.99
+    sizes: ["S", "M", "L", "XL", "2XL", "3XL"]
+    upcharge_cents: {"2XL": 300, "3XL": 500}
+    colors_per_product: 4
+    color_map: {black: Black, white: White, heather: Sport Grey, navy: Navy, sand: Sand, forest: Forest Green, maroon: Maroon}
+    dark_shirts: ["Black", "Navy", "Forest Green", "Maroon", "Dark Heather"]
+    light_shirts: ["White", "Sport Grey", "Sand", "Ash", "Light Pink"]
+    placement: {x: 0.5, y: 0.38, scale: 0.8}
+    tags: ["hoodie gift"]
+    blurb: "Printed on a warm Gildan 18500 heavy blend hooded sweatshirt with front pouch pocket, unisex fit."
+
+  - key: mug
+    name: Coffee Mug 11oz
+    noun: Mug
+    enabled: true
+    title_has: [["white", "ceramic", "mug", "11oz"], ["ceramic", "mug", "11oz"], ["mug", "11oz"]]
+    price: 19.99
+    sizes: null                 # a mug has one size
+    colors: all
+    colors_per_product: 1
+    placement: [{x: 0.25, y: 0.5, scale: 0.38}, {x: 0.75, y: 0.5, scale: 0.38}]   # design on both sides
+    tags: ["coffee mug", "funny mug"]
+    blurb: "11oz white ceramic mug, design printed on both sides. Dishwasher and microwave safe."
 
 printify:
   # Leave these null and run the "Check Printify" workflow once; it prints the IDs to paste here.
