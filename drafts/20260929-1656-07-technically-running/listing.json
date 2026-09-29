@@ -1,0 +1,162 @@
+{
+  "niche": "Self-deprecating 'slow/mediocre runner' humor",
+  "spec": {
+    "lines": [
+      {
+        "text": "Technically",
+        "size": "sm"
+      },
+      {
+        "text": "Running",
+        "size": "xl"
+      }
+    ],
+    "style": "stamp",
+    "font": "Permanent Marker",
+    "ink": "#3f3a30",
+    "accent": "#b5651d",
+    "shirt": "sand"
+  },
+  "mode": "type",
+  "art_prompt": "Vintage distressed badge illustration of a turtle wearing tiny running shoes mid-stride, retro screen-print texture with faded ink cracks and halftone shading, colors burnt orange, moss green, cream, faded brown, text arched above and below the turtle badge like a worn stamp.",
+  "title": "Technically Running Shirt, Funny Slow Runner Tee, Turtle Running Graphic, Casual Jogger Gift, Comfort Color Tee",
+  "tags": [
+    "slow runner tee",
+    "funny runner shirt",
+    "turtle runner tee",
+    "casual runner gift",
+    "jogger humor shirt",
+    "comfort color tee",
+    "running gift funny",
+    "beginner runner tee",
+    "funny jogging shirt",
+    "retro runner tee",
+    "running humor gift",
+    "cute turtle shirt",
+    "vintage runner tee"
+  ],
+  "description": "Pace is a suggestion, effort is real, and this shirt tells the truth about it with one dry, one-word punchline and a turtle who gets the joke.\n\nPrinted in a vintage, cracked-ink badge style on garment-dyed sand cotton, it looks broken-in from day one and skips the neon performance-wear look entirely.\n\nGreat for casual joggers, walk-run beginners, or anyone who's proudly finished last but still finished.\n\nDesign created by our shop with the help of AI tools and printed on demand by our production partner.",
+  "price": 24.99,
+  "risk": "low",
+  "risk_notes": "Original humor line and generic mascot illustration with no trademarked references.",
+  "seed": "Gym regulars and runners",
+  "evidence": [
+    {
+      "id": 4491379612,
+      "title": "Mediocre Running Club Shirt, Slow Runner Shirt, Casual Runner Tee, Funny Running Shirt, Jogging Club Shirt, Running Humor Tee, Runner Gift",
+      "tags": [
+        "running shirt",
+        "slow runner shirt",
+        "running humor",
+        "jogging shirt",
+        "run club shirt",
+        "funny runner tee",
+        "comfort colors tee",
+        "runner gift idea",
+        "womens running tee",
+        "funny running shirt",
+        "mediocre running",
+        "running club shirt",
+        "gift for runner"
+      ],
+      "price": 33.98,
+      "favorites": 56,
+      "views": 707,
+      "age_days": 163,
+      "momentum": 0.34,
+      "url": "https://www.etsy.com/listing/4491379612/mediocre-running-club-shirt-slow-runner"
+    },
+    {
+      "id": 4555340207,
+      "title": "Barely Running Club Shirt, Funny Runner Graphic Tee, Slow Running Meme T-Shirt, Running Humor Gift, Vintage Fitness Tee",
+      "tags": [
+        "funny running shirt",
+        "comfort colors tees",
+        "slow runner shirt",
+        "walking shirt",
+        "back print tee",
+        "female runner gift",
+        "best friend gift",
+        "birthday gift women",
+        "graphic tee women",
+        "trendy womens shirt",
+        "oversized shirt",
+        "gift for runner",
+        "running gift idea"
+      ],
+      "price": 20.0,
+      "favorites": 16,
+      "views": 172,
+      "age_days": 47,
+      "momentum": 0.34,
+      "url": "https://www.etsy.com/listing/4555340207/barely-running-club-shirt-funny-runner"
+    },
+    {
+      "id": 4558656677,
+      "title": "Funny Running Shirt, Comfort Colors\u00ae Graphic Tee, Slow Runner Shirt, Running Gift for Women",
+      "tags": [
+        "funny running shirt",
+        "comfort colors tees",
+        "slow runner shirt",
+        "female runner gift",
+        "walking shirt",
+        "running gift idea",
+        "graphic tee women",
+        "gifts under 30",
+        "oversized shirt",
+        "workout shirt women",
+        "best friend gift",
+        "birthday gift women",
+        "trendy womens shirt"
+      ],
+      "price": 28.5,
+      "favorites": 9,
+      "views": 60,
+      "age_days": 41,
+      "momentum": 0.22,
+      "url": "https://www.etsy.com/listing/4558656677/funny-running-shirt-comfort-colors"
+    },
+    {
+      "id": 4466651694,
+      "title": "Mediocre Running Club Shirt \u2013 Slow Runner Tee, Funny Running Shirt, Casual Jogger Gift",
+      "tags": [
+        "mediocre running",
+        "running club shirt",
+        "slow runner shirt",
+        "casual runner tee",
+        "beginner runner",
+        "funny running tee",
+        "jogger shirt",
+        "5k training shirt",
+        "run club tee",
+        "runner gift",
+        "running humor",
+        "race day shirt",
+        "treadmill runner"
+      ],
+      "price": 26.95,
+      "favorites": 20,
+      "views": 312,
+      "age_days": 209,
+      "momentum": 0.1,
+      "url": "https://www.etsy.com/listing/4466651694/mediocre-running-club-shirt-workout"
+    }
+  ],
+  "brief": {
+    "why": "Multiple listings under 200 days old are pulling strong momentum simultaneously (mom 0.34, 0.34, 0.22 on ids 4491379612, 4555340207, 4558656677), showing the joke format is actively converting for several independent sellers, not just one lucky design.",
+    "what_wins": "Wins through universally relatable self-deprecating humor (mediocrity, walking breaks, 'barely running') delivered in a single punchy line rather than long text, printed on soft garment-dyed tees; animal mascots (sloth, turtle, goose) used as a visual stand-in for 'slow' work well as a wordless gag that widens gift appeal.",
+    "visual_style": "Comfort Colors garment-dyed tees in earthy/vintage tones, single bold statement line or minimal mascot illustration, distressed/retro badge treatment, no neon performance-wear look",
+    "price_band": "$22-28",
+    "demand": 7,
+    "competition": 6,
+    "passion": 7
+  },
+  "flags": [
+    {
+      "bad": false,
+      "kind": "art",
+      "msg": "Illustrations didn't pass the Art Director, so this uses a typography layout instead."
+    }
+  ],
+  "draft_id": "20260929-1656-07-technically-running"
+}

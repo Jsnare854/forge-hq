@@ -1,0 +1,170 @@
+{
+  "niche": "Hybrid-athlete / functional fitness racers",
+  "spec": {
+    "lines": [
+      {
+        "text": "Run It",
+        "size": "md"
+      },
+      {
+        "text": "Row It",
+        "size": "md"
+      },
+      {
+        "text": "Lift It",
+        "size": "md"
+      },
+      {
+        "text": "Repeat",
+        "size": "xl"
+      }
+    ],
+    "style": "stack",
+    "font": "Archivo Black",
+    "ink": "#111111",
+    "accent": "#ffcc00",
+    "shirt": "heather"
+  },
+  "mode": "type",
+  "art_prompt": "Minimalist icon trio arranged in a triangle: a running shoe, a rowing machine handle, and a barbell, bold flat vector line art, faint race-bib style numbers scattered subtly in the background, colors charcoal black, safety yellow, white, heather grey, text stacked above the icon trio.",
+  "title": "Run It Row It Lift It Repeat Shirt, Hybrid Fitness Race Tee, Functional Training Gift, Event Day Racer Shirt",
+  "tags": [
+    "run row lift shirt",
+    "hybrid fitness tee",
+    "functional training",
+    "event day shirt",
+    "fitness racer gift",
+    "training humor tee",
+    "gym poster shirt",
+    "race day shirt",
+    "athlete gift tee",
+    "fitness competitor",
+    "workout humor tee",
+    "hybrid race gift",
+    "gym event shirt"
+  ],
+  "description": "Three movements, one repeating cycle, zero mercy. This tee sums up the hybrid-race training grind in four punchy words and a clean icon trio instead of a paragraph of stats.\n\nPrinted in bold safety yellow on soft heather cotton, it stands out from typical black-on-black gym wear while still fitting right in at the box or on race morning.\n\nA fun pick for anyone deep in a run-row-lift training block, or a gift for the friend who's always signing up for 'one more' event.\n\nDesign created by our shop with the help of AI tools and printed on demand by our production partner.",
+  "price": 27.99,
+  "risk": "low",
+  "risk_notes": "Generic training language and icons with no reference to any specific branded competition.",
+  "seed": "Gym regulars and runners",
+  "evidence": [
+    {
+      "id": 4579657480,
+      "title": "In My Hyrox Era Shirt, HYROX Training Tee, Hybrid Athlete Shirt, Functional Fitness Tee, Running and Lifting Workout Shirt, Gym Girl Gift",
+      "tags": [
+        "in my hyrox era",
+        "hyrox shirt",
+        "hyrox training",
+        "hyrox athlete",
+        "hybrid training",
+        "fitness girl shirt",
+        "gym girl shirt",
+        "workout hyrox tank",
+        "running lifting",
+        "strength training",
+        "hyrox day shirt",
+        "hyrox lover gift",
+        "hyrox tank top"
+      ],
+      "price": 28.0,
+      "favorites": 4,
+      "views": 92,
+      "age_days": 8,
+      "momentum": 0.49,
+      "url": "https://www.etsy.com/listing/4579657480/in-my-hyrox-era-shirt-hyrox-training-tee"
+    },
+    {
+      "id": 4546493142,
+      "title": "HYROX Finish Line Tee | Functional Fitness Training Shirt",
+      "tags": [
+        "race day t shirt",
+        "gym girl shirt",
+        "cross training tee",
+        "fitness gift women",
+        "hyrox apparel",
+        "weightlifting top",
+        "exercise running tee",
+        "crossfit athleisure",
+        "lifting shirt women",
+        "hyrox pump cover",
+        "personal trainer tee",
+        "marathon shirt",
+        "hybrid athletic wear"
+      ],
+      "price": 29.18,
+      "favorites": 7,
+      "views": 115,
+      "age_days": 62,
+      "momentum": 0.11,
+      "url": "https://www.etsy.com/listing/4546493142/hyrox-finish-line-tee-functional-fitness"
+    },
+    {
+      "id": 4542466357,
+      "title": "In My HYROX Era Shirt | Running Era, Gym Era, Fitness Era Shirt | 2026 Shirt for Athletes | Doodle Shirt",
+      "tags": [
+        "hyrox gifts",
+        "functional fitness",
+        "gym girl shirt",
+        "hyrox tshirt",
+        "hyrox era",
+        "2026 shirt",
+        "running era shirt",
+        "gym era shirt",
+        "fitness era shirt",
+        "doodle shirt women",
+        "running milestone",
+        "athlete shirt women",
+        "fit girl"
+      ],
+      "price": 40.5,
+      "favorites": 6,
+      "views": 101,
+      "age_days": 69,
+      "momentum": 0.09,
+      "url": "https://www.etsy.com/listing/4542466357/in-my-hyrox-era-shirt-running-era-gym"
+    },
+    {
+      "id": 4431249045,
+      "title": "Lift Heavy Run Far Shirt | Hyrox T-Shirt for Hybrid Athletes | CrossFit & Marathon Runner Gift | Functional Fitness Tee | Unisex Fit",
+      "tags": [
+        "lift heavy run far",
+        "hyrox t-shirt",
+        "hybrid athlete tee",
+        "crossfit gift",
+        "marathon runner",
+        "functional fitness",
+        "gym shirt for men",
+        "fitness gift women",
+        "2026 fitness goal",
+        "workout motivation",
+        "running and lifting",
+        "birthday gift him",
+        "christmas gift her"
+      ],
+      "price": 24.99,
+      "favorites": 6,
+      "views": 218,
+      "age_days": 277,
+      "momentum": 0.02,
+      "url": "https://www.etsy.com/listing/4431249045/lift-heavy-run-far-shirt-hyrox-t-shirt"
+    }
+  ],
+  "brief": {
+    "why": "Seven of the top listings in this 302-listing query were posted in just the last 8-14 days and are already accumulating favorites fast (mom 0.08-0.49), signaling a rapidly emerging trend that hasn't yet saturated supply.",
+    "what_wins": "Wins on niche identity language ('hybrid athlete', 'era' framing, humor about paying to suffer) plus event-day, race-bib-adjacent graphic styling; funny/self-aware captions about masochistic training outperform generic motivational text; unisex tees and crewnecks both sell, with novelty color options (e.g., 'funny duck', playful mascots) breaking through the sea of serious black gym tees.",
+    "visual_style": "Bold condensed sans-serif race-bib/event-poster typography, single or two-color prints, bright or unexpected accent colors (not just black/gray gym palette), small playful mascot icons mixed with serious training language",
+    "price_band": "$24-30 (tee), $34-40 (crewneck/sweatshirt)",
+    "demand": 8,
+    "competition": 5,
+    "passion": 8
+  },
+  "flags": [
+    {
+      "bad": false,
+      "kind": "art",
+      "msg": "Illustrations didn't pass the Art Director, so this uses a typography layout instead."
+    }
+  ],
+  "draft_id": "20260929-1656-04-run-it-row-it-lift-it-repeat"
+}

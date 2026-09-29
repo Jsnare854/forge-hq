@@ -1,0 +1,141 @@
+{
+  "niche": "Post-long-run recovery / 'running club' identity apparel",
+  "spec": {
+    "lines": [
+      {
+        "text": "We Run",
+        "size": "md"
+      },
+      {
+        "text": "We Rest",
+        "size": "xl"
+      },
+      {
+        "text": "Weekend Crew",
+        "size": "md"
+      }
+    ],
+    "style": "badge",
+    "font": "Alfa Slab One",
+    "ink": "#f5e9da",
+    "accent": "#b5561f",
+    "shirt": "heather"
+  },
+  "mode": "type",
+  "art_prompt": "Minimal circular badge stamp on the chest featuring a coffee mug and a single running shoe crossed like a collegiate crest, thin outline and simple flat shading, colors heather grey, cream, rust, muted forest green outline, text arched around the top and bottom of the badge.",
+  "title": "We Run We Rest Crewneck Sweatshirt, Weekend Running Crew Pullover, Cozy Recovery Gift for Runners, Oversized Hoodie",
+  "tags": [
+    "run rest shirt",
+    "weekend crew",
+    "runner sweatshirt",
+    "recovery sweater",
+    "cozy runner gift",
+    "running crewneck",
+    "marathon gift",
+    "rest day shirt",
+    "runner gift",
+    "gift for runner",
+    "distance runner",
+    "running club gift",
+    "oversized pullover"
+  ],
+  "description": "Every running crew has an unwritten rule: the run is optional bragging rights, but the recovery is mandatory. This crewneck puts that philosophy front and center in a small collegiate-style badge.\n\nHeather fabric with a rust and cream badge keeps things lifestyle-cozy instead of loud-athletic, perfect for coffee shop stops and post-run brunches with the crew. Oversized fit means it works just as well solo on the couch.\n\nA sweet gift for any runner who treats Saturday mornings as sacred and Saturday afternoons as sacred rest.\n\nDesign created by our shop with the help of AI tools and printed on demand by our production partner.",
+  "price": 32.99,
+  "risk": "low",
+  "risk_notes": "Original club-style wording and generic badge icon, no protected marks used.",
+  "seed": "Gym regulars and runners",
+  "evidence": [
+    {
+      "id": 4352769617,
+      "title": "Post long run Sweatshirt for long distance runner, Post marathon sweatshirt, Sunday running club sweatshirt for runner, Gift for runner",
+      "tags": [
+        "gift for runners",
+        "running gifts",
+        "sunday running club",
+        "sunday runday shirt",
+        "running club",
+        "marathon sweater",
+        "marathon sweatshirt",
+        "run sweatshirt",
+        "long run sweater",
+        "ultra runner shirt",
+        "post marathon sweater",
+        "post long run shirt",
+        "running gift"
+      ],
+      "price": 60.0,
+      "favorites": 420,
+      "views": 5142,
+      "age_days": 410,
+      "momentum": 1.02,
+      "url": "https://www.etsy.com/listing/4352769617/post-long-run-sweatshirt-for-long"
+    },
+    {
+      "id": 4351047450,
+      "title": "Post Long Run Sweatshirt for Marathon runner sweater sunday running club shirt Gift for runner Ultra runner sweatshirt runner",
+      "tags": [
+        "post long run sweatshirt",
+        "runner sweatshirt",
+        "marathon shirt",
+        "marathon sweatshirt",
+        "running sweater",
+        "triathlete sweatshirt",
+        "ultra runner sweatshirt",
+        "running hoodie",
+        "post race sweatshirt",
+        "runner clothing",
+        "marathon runner gift",
+        "training day sweater",
+        "strava athlete"
+      ],
+      "price": 60.0,
+      "favorites": 19,
+      "views": 232,
+      "age_days": 413,
+      "momentum": 0.05,
+      "url": "https://www.etsy.com/listing/4351047450/post-long-run-sweatshirt-for-marathon"
+    },
+    {
+      "id": 4410422218,
+      "title": "Embroidered Ultramarathoner Sweatshirt, Ultra Running Crewneck, Trail Runner Gift, Minimalist Running Sweater, Marathon Running Shirt",
+      "tags": [
+        "running sweatshirt",
+        "marathon gift",
+        "runner shirt",
+        "runner crewneck",
+        "running sweater",
+        "embroidered crewneck",
+        "runner sweatshirt",
+        "embroidered sweater",
+        "ultramarathon",
+        "ultra runner",
+        "ultra-marathon run",
+        "ultra-running",
+        "ultrarunning gift"
+      ],
+      "price": 58.99,
+      "favorites": 14,
+      "views": 164,
+      "age_days": 310,
+      "momentum": 0.05,
+      "url": "https://www.etsy.com/listing/4410422218/embroidered-ultramarathoner-sweatshirt"
+    }
+  ],
+  "brief": {
+    "why": "A single listing (id=4352769617) hit 420 favorites in only 410 days (mom=1.02, the highest momentum in the entire dataset) while only 2-3 sellers in the whole 688-listing 'ultra runner shirt' query are using this exact sub-angle, showing huge unmet demand with almost no direct competition.",
+    "what_wins": "Wins by flipping the identity from 'tough athlete' to 'I earned my rest' \u2014 cozy, oversized, weekend-ritual framing with a social-club feel ('crew', 'club', 'gang') rather than motivational grind language; sold as a sweatshirt/hoodie (higher price point) instead of a basic tee, positioned as a gift for a runner rather than for the buyer themselves.",
+    "visual_style": "Minimal embroidered or small-chest-print crewnecks/hoodies, muted heather or sand/cream colorways, script or collegiate-varsity lettering, no busy race-bib graphics \u2014 quiet, lifestyle-brand aesthetic over loud athletic graphics",
+    "price_band": "$38-52 (sweatshirt/hoodie pricing)",
+    "demand": 8,
+    "competition": 4,
+    "passion": 8
+  },
+  "flags": [
+    {
+      "bad": false,
+      "kind": "art",
+      "msg": "Illustrations didn't pass the Art Director, so this uses a typography layout instead."
+    }
+  ],
+  "draft_id": "20260929-1656-02-we-run-we-rest-weekend-crew"
+}
