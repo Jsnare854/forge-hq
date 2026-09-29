@@ -2,7 +2,9 @@ name: Forge HQ
 
 on:
   schedule:
-    - cron: "7 11 * * *"
+    - cron: "7 11 * * *"    # drafts ~7am Eastern
+    - cron: "7 19 * * *"    # drafts ~3pm Eastern
+    - cron: "17 12 * * 1"   # weekly shop report, Monday ~8am Eastern
   issues:
     types: [labeled, closed]
   workflow_dispatch:
@@ -10,7 +12,7 @@ on:
       task:
         description: "What to run"
         type: choice
-        options: [check, draft, publish, unpack, test]
+        options: [check, draft, publish, report, unpack, test]
         default: check
       seed:
         description: "Draft: seed idea (blank = next line in seeds.txt)"
@@ -55,7 +57,7 @@ jobs:
           IDEOGRAM_API_KEY: ${{ secrets.IDEOGRAM_API_KEY }}
 
   draft:
-    if: github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && inputs.task == 'draft')
+    if: (github.event_name == 'schedule' && github.event.schedule != '17 12 * * 1') || (github.event_name == 'workflow_dispatch' && inputs.task == 'draft')
     runs-on: ubuntu-latest
     timeout-minutes: 45
     concurrency: {group: forge-draft}
@@ -64,8 +66,9 @@ jobs:
       - uses: actions/setup-python@v5
         with: {python-version: "3.11"}
       - run: pip install -r requirements.txt
-      - run: python -m forge draft --seed "$SEED"
+      - run: python -m forge draft --seed "$SEED" ${{ github.event_name == 'schedule' && '--auto' || '' }}
         env:
+          GITHUB_TOKEN: ${{ github.token }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           ETSY_API_KEY: ${{ secrets.ETSY_API_KEY }}
           IDEOGRAM_API_KEY: ${{ secrets.IDEOGRAM_API_KEY }}
@@ -80,6 +83,11 @@ jobs:
           git pull --rebase
           git push
       - run: python -m forge file-issues
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+      - if: failure()
+        run: |
+          python -m forge log --text "❌ Draft run failed, open ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }} for details."
         env:
           GITHUB_TOKEN: ${{ github.token }}
 
@@ -98,6 +106,20 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
           ISSUE: ${{ github.event.issue.number || inputs.issue }}
           ACTOR: ${{ github.actor }}
+
+  report:
+    if: (github.event_name == 'schedule' && github.event.schedule == '17 12 * * 1') || (github.event_name == 'workflow_dispatch' && inputs.task == 'report')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.11"}
+      - run: pip install -r requirements.txt
+      - run: python -m forge report
+        env:
+          ETSY_API_KEY: ${{ secrets.ETSY_API_KEY }}
+          PRINTIFY_API_TOKEN: ${{ secrets.PRINTIFY_API_TOKEN }}
+          GITHUB_TOKEN: ${{ github.token }}
 
   cleanup:
     if: github.event_name == 'issues' && github.event.action == 'closed'
