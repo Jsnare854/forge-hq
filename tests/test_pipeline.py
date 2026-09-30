@@ -39,6 +39,10 @@ class FakeEtsy:
         ]}
 
 
+WORDS = ["tides", "anchor", "reel", "marlin", "coffee", "chart", "shift", "scrubs", "bell", "chalk", "grill", "smoke",
+         "trail", "summit", "garden", "compost", "bait", "tackle", "pixel", "quest"]
+
+
 def fake_ask(prompt, model, max_tokens=0):
     if "Trend Scout" in prompt:
         return [{"niche": f"Niche {i}", "audience": "a", "angle": "b", "searchPhrases": [f"phrase {i}", f"alt {i}"]} for i in range(8)]
@@ -50,7 +54,8 @@ def fake_ask(prompt, model, max_tokens=0):
         out = []
         for i in range(4):
             for j in range(2):
-                out.append({"niche": f"Niche {i}", **SPEC, "lines": [{"text": f"Line {i}{j}", "size": "xl"}, {"text": "sub", "size": "sm"}],
+                w1, w2 = WORDS[(i * 2 + j) * 2], WORDS[(i * 2 + j) * 2 + 1]
+                out.append({"niche": f"Niche {i}", **SPEC, "lines": [{"text": f"{w1} {w2}", "size": "xl"}, {"text": "sub", "size": "sm"}],
                             "mode": "illustrated", "artPrompt": "a leaping snook over a retro sunset",
                             "title": "Night Shift Nurse Shirt, Coffee And Charting Tee, Funny Nurse Gift", "tags": TAGS + ["extra one"],
                             "description": "For nurses.", "price": 99, "risk": "low", "riskNotes": "ok"})
@@ -354,7 +359,22 @@ def test_one_product_failing_does_not_block_the_others(cfg):
     assert "publish-failed" in labels and "published" not in labels and gh.issues[1]["state"] == "open"
 
 
+def test_art_director_rejection_drops_design_by_default(cfg):
+    ideo = FakeIdeogram()
+    listings, pf, _ = run_draft(cfg, review=reject_review, ideogram=ideo)
+    assert listings == [] and not pf.created and len(ideo.prompts) == 16
+
+
+def test_no_illustrator_means_no_bland_drafts(cfg):
+    gh = FakeGH()
+    gh.log = []
+    gh.crew_log = lambda t: gh.log.append(t)
+    out = cli.cmd_draft(SimpleNamespace(seed="x"), cfg, ask=fake_ask, etsy=FakeEtsy(), ideogram=False, review_fn=approve_review, pf=FakePF(), gh=gh)
+    assert out == [] and "IDEOGRAM_API_KEY" in gh.log[-1]
+
+
 def test_art_director_rejection_falls_back_to_typography(cfg):
+    cfg["illustrator"]["require_art"] = False
     ideo = FakeIdeogram()
     listings, pf, _ = run_draft(cfg, review=reject_review, ideogram=ideo)
     assert all(l["mode"] == "type" for l in listings)
@@ -363,6 +383,7 @@ def test_art_director_rejection_falls_back_to_typography(cfg):
 
 
 def test_type_design_edit_recreates_product(cfg):
+    cfg["illustrator"]["require_art"] = False
     listings, pf, _ = run_draft(cfg, review=reject_review)
     gh = FakeGH()
     cli.cmd_file_issues(SimpleNamespace(), cfg, gh=gh)
@@ -442,3 +463,38 @@ def test_learning_loop_feeds_analyst_and_weekly_report(cfg):
     assert cli.cmd_report(SimpleNamespace(), cfg, etsy=ShopEtsy(), pf=FakePF(), gh=gh) == "filed"
     issue = gh.issues[1]
     assert issue["labels"] == [{"name": "report"}] and "Tides Wait For No One" in issue["body"] and "zero favorites" in issue["body"]
+
+
+# ---------- variety ----------
+
+def test_history_rotates_seeds_and_blocks_repeats(cfg, tmp_path):
+    from forge.history import History, similar
+    h = History(tmp_path / "h.json")
+    seeds = ["a", "b", "c"]
+    used = set()
+    for _ in range(3):
+        s = h.next_seed(seeds)
+        used.add(s)
+        h.add(s, "n", f"phrase {s}", "")
+    assert used == {"a", "b", "c"}  # every seed used before any repeats
+    assert h.next_seed(seeds) == next(iter(h.items))["seed"]  # then least recently used
+    assert similar("Tides Wait For No One", "The Tides Wait For No One") and not similar("Tides Wait", "Coffee Charting")
+    assert len(set(h.styles_for_batch(8))) == 8
+
+
+def test_second_run_avoids_first_runs_niches_and_phrases(cfg):
+    prompts = []
+
+    def ask(prompt, model, max_tokens=0):
+        prompts.append(prompt)
+        return fake_ask(prompt, model, max_tokens)
+
+    first = cli.cmd_draft(SimpleNamespace(seed="fishing"), cfg, ask=ask, etsy=FakeEtsy(), ideogram=FakeIdeogram(), review_fn=approve_review, pf=FakePF())
+    assert len(first) == 8
+    prompts.clear()
+    second = cli.cmd_draft(SimpleNamespace(seed="fishing"), cfg, ask=ask, etsy=FakeEtsy(), ideogram=FakeIdeogram(), review_fn=approve_review, pf=FakePF())
+    scout_p = next(p for p in prompts if "Trend Scout" in p)
+    design_p = next(p for p in prompts if "Designer" in p)
+    assert "already covered these niches" in scout_p and "Niche 0" in scout_p
+    assert "ALREADY used" in design_p and "tides anchor sub" in design_p and "DIFFERENT style" in design_p
+    assert second == []  # fake designer repeats itself -> every repeat dropped

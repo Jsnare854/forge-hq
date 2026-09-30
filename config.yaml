@@ -15,6 +15,7 @@ drafting:
   etsy_shop_name: null         # your Etsy shop name, for the learning loop (blank = use the Printify shop name)
 
 illustrator:                   # used when IDEOGRAM_API_KEY is set
+  require_art: true            # true = never file plain-text designs; drop any design whose art fails review
   candidates: 2                # images generated per design; the Art Director keeps the best
   attempts: 2                  # extra rounds if every candidate fails review
   speed: DEFAULT               # TURBO (cheapest), DEFAULT, QUALITY

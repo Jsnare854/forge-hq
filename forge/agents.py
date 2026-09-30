@@ -13,11 +13,12 @@ RULES = (
 )
 
 
-def scout(seed: str, n_candidates: int, model: str, ask=ask_json) -> list[dict]:
+def scout(seed: str, n_candidates: int, model: str, ask=ask_json, avoid_niches=None) -> list[dict]:
+    avoid = ("\nThe shop already covered these niches recently. Pick DIFFERENT audiences and angles:\n- " + "\n- ".join(avoid_niches)) if avoid_niches else ""
     prompt = f"""You are the Trend Scout for a print-on-demand Etsy shop selling graphic t-shirts.
 Seed idea: {json.dumps(seed)}
 Propose {n_candidates} specific micro-niches: a clear audience plus an identity or angle they wear proudly.
-Go narrower than the seed (not "nurses" but "night shift ICU nurses"). {RULES}
+Go narrower than the seed (not "nurses" but "night shift ICU nurses"). Make them varied: different sub-audiences, not variations of one. {RULES}{avoid}
 For each, give 3 phrases a shopper types into Etsy search when looking for a shirt (e.g. "icu nurse shirt", "funny nurse tee").
 Reply with only a JSON array:
 [{{"niche":"Night shift ICU nurses","audience":"RNs working overnight and people buying them gifts","angle":"coffee, chaos and pride","searchPhrases":["night shift nurse shirt","icu nurse gift","nurse coffee tee"]}}]"""
@@ -62,7 +63,7 @@ Reply with only a JSON array: [{{"niche":"...","audience":"...","angle":"...","d
     return [c for c in (out if isinstance(out, list) else []) if isinstance(c, dict) and c.get("niche")][:keep]
 
 
-def designer(briefs: list[dict], per_niche: int, model: str, pricing: dict, illustrated: bool, ask=ask_json) -> list[dict]:
+def designer(briefs: list[dict], per_niche: int, model: str, pricing: dict, illustrated: bool, ask=ask_json, avoid_phrases=None, styles=None) -> list[dict]:
     lo, hi = pricing.get("min_price", 24.99), pricing.get("max_price", 32.99)
     brief_txt = []
     for b in briefs:
@@ -78,12 +79,16 @@ def designer(briefs: list[dict], per_niche: int, model: str, pricing: dict, illu
         "- artPrompt: describe an ILLUSTRATED shirt graphic for an image generator: the subject (specific to the niche), "
         "the style (retro screen print, vintage badge, bold vector, distressed, etc. matching what sells), 4-6 named colors, "
         "and where the text sits (e.g. 'text arched above the illustration'). Do not include the text itself; it is added automatically. No brands.\n"
-        "- mode: \"illustrated\" for most designs; \"type\" only when a pure typography layout is clearly the stronger choice."
+        "- mode: always \"illustrated\". Every design needs real artwork, because plain text shirts don't sell in competitive niches."
         if illustrated
         else '- mode: always "type".\n- artPrompt: a short illustration idea anyway (saved for later).'
     )
+    avoid_txt = ("\nPhrases this shop ALREADY used. Never reuse or closely echo them:\n- " + "\n- ".join(avoid_phrases)) if avoid_phrases else ""
+    style_txt = (f"\nArt styles for this batch: give each design a DIFFERENT style, taken in order from this list: {', '.join(styles)}. "
+                 "Put it in artStyle and build the artPrompt around it.") if styles else ""
     prompt = f"""You are the Designer and Copywriter for an Etsy print-on-demand t-shirt shop.
 For EACH brief below, create {per_niche} ORIGINAL shirt designs that serve the proven demand, then write the listing.
+Variety matters: designs in this batch must differ from each other in joke structure, wording, art subject and style. Avoid formulas like "X Club", "Powered By X" or "X Mode" unless the brief demands it.{avoid_txt}{style_txt}
 
 {chr(10).join(brief_txt)}
 
@@ -103,8 +108,8 @@ Listing rules:
 - risk: "low" | "medium" | "high" trademark/IP risk, riskNotes: one sentence.
 
 Reply with only a JSON array, one object per design:
-[{{"niche":"...","lines":[{{"text":"Tides Wait","size":"md"}},{{"text":"For No One","size":"xl"}}],"style":"sunset","font":"Anton","shirt":"navy","ink":"#fff4e0","accent":"#ff7a3d",
-"mode":"illustrated","artPrompt":"...","title":"...","tags":["..."],"description":"...","price":27.99,"risk":"low","riskNotes":"..."}}]"""
+[{{"niche":"...","lines":[{{"text":"...","size":"md"}},{{"text":"...","size":"xl"}}],"style":"...","font":"...","shirt":"...","ink":"#......","accent":"#......",
+"mode":"illustrated","artStyle":"...","artPrompt":"...","title":"...","tags":["..."],"description":"...","price":27.99,"risk":"low","riskNotes":"..."}}]"""
     out = ask(prompt, model, max_tokens=16000)
     listings = []
     for x in out if isinstance(out, list) else []:
@@ -117,8 +122,9 @@ Reply with only a JSON array, one object per design:
         listings.append({
             "niche": str(x.get("niche", "")),
             "spec": normalize_spec(x),
-            "mode": "illustrated" if (illustrated and x.get("mode") != "type") else "type",
-            "art_prompt": str(x.get("artPrompt", "")),
+            "mode": "illustrated" if illustrated else "type",
+            "art_prompt": (str(x.get("artPrompt", "")) + (f" Style: {x['artStyle']}." if x.get("artStyle") else "")).strip(),
+            "art_style": str(x.get("artStyle", "")),
             "title": " ".join(str(x.get("title", "")).split())[:140],
             "tags": compliance.fix_tags(x.get("tags") or []),
             "description": compliance.ensure_disclosure(str(x.get("description", "")).strip()),
@@ -129,7 +135,7 @@ Reply with only a JSON array, one object per design:
     return listings
 
 
-def run_pipeline(seed: str, cfg: dict, etsy=None, ask=ask_json, log=print, perf_text: str = "") -> tuple[list[dict], list[dict], list[dict]]:
+def run_pipeline(seed: str, cfg: dict, etsy=None, ask=ask_json, log=print, perf_text: str = "", history=None) -> tuple[list[dict], list[dict], list[dict]]:
     """Returns (briefs, listings, radar_report)."""
     dr = cfg["drafting"]
     model = cfg["model"]
@@ -140,7 +146,7 @@ def run_pipeline(seed: str, cfg: dict, etsy=None, ask=ask_json, log=print, perf_
     illustrated = bool(dr.get("illustrated"))
 
     log(f"SCOUT      seed: {seed}")
-    cands = scout(seed, n * mult, model, ask)
+    cands = scout(seed, n * mult, model, ask, avoid_niches=history.recent("niche", 40) if history else None)
     log(f"SCOUT      {len(cands)} candidate niches")
     report: list[dict] = []
     if etsy:
@@ -160,7 +166,9 @@ def run_pipeline(seed: str, cfg: dict, etsy=None, ask=ask_json, log=print, perf_
         b["evidence"] = trends.evidence_for(report, b.get("evidence_ids") or []) if report else []
         log(f"ANALYST    D{b.get('demand')} C{b.get('competition')} P{b.get('passion')}  {b['niche']}  ({b.get('why','')})")
     k = max(1, min(k, cap // max(1, len(briefs))))
-    listings = designer(briefs, k, model, cfg["pricing"], illustrated, ask)[:cap]
+    styles = history.styles_for_batch(len(briefs) * k) if (history and illustrated) else None
+    listings = designer(briefs, k, model, cfg["pricing"], illustrated, ask,
+                        avoid_phrases=history.recent("phrase", 60) if history else None, styles=styles)[:cap]
     log(f"DESIGNER   {len(listings)} designs + listings")
     by_niche = {b["niche"].lower(): b for b in briefs}
     for L in listings:

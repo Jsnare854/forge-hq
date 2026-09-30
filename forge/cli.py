@@ -35,11 +35,13 @@ def _slug(s: str) -> str:
     return re.sub(r"[^a-z0-9]+", "-", s.lower()).strip("-")[:40] or "design"
 
 
-def next_seed(cfg: dict) -> str:
+def next_seed(cfg: dict, hist=None) -> str:
     path = ROOT / cfg["drafting"].get("seeds_file", "seeds.txt")
     seeds = [l.strip() for l in path.read_text(encoding="utf-8").splitlines() if l.strip() and not l.startswith("#")]
     if not seeds:
         raise SystemExit("seeds.txt is empty. Add at least one seed idea.")
+    if hist is not None:
+        return hist.next_seed(seeds)
     return seeds[dt.date.today().toordinal() % len(seeds)]
 
 
@@ -73,6 +75,8 @@ def make_artwork(L: dict, cfg: dict, ideogram, review_fn, log=print) -> tuple[by
             if verdict["best"] is not None:
                 L["art_notes"] = f"Art Director: {verdict['notes']} (scores {verdict['scores']})"
                 return to_print_canvas(imgs[verdict["best"]]), previews[verdict["best"]]
+        if icfg.get("require_art", True):
+            return None, None
         L["mode"] = "type"
         L.setdefault("flags", []).append({"bad": False, "kind": "art", "msg": "Illustrations didn't pass the Art Director, so this uses a typography layout instead."})
     return render_print(L["spec"]), render_mockup(L["spec"])
@@ -123,7 +127,9 @@ def cmd_draft(args, cfg, ask=None, etsy=None, ideogram=None, review_fn=None, pf=
             summary(msg)
             crew_log(msg, gh)
             return []
-    seed = (getattr(args, "seed", "") or "").strip() or next_seed(cfg)
+    from .history import History, similar
+    hist = History(DRAFTS / "history.json")
+    seed = (getattr(args, "seed", "") or "").strip() or next_seed(cfg, hist)
     if etsy is None:
         key = secret("ETSY_API_KEY", required=False)
         etsy = Etsy(key) if key else False
@@ -131,6 +137,13 @@ def cmd_draft(args, cfg, ask=None, etsy=None, ideogram=None, review_fn=None, pf=
         key = secret("IDEOGRAM_API_KEY", required=False)
         ideogram = Ideogram(key) if key else False
     cfg["drafting"]["illustrated"] = bool(ideogram)
+    if not ideogram and cfg.get("illustrator", {}).get("require_art", True):
+        msg = ("🛑 Not drafting: the illustrator is off because IDEOGRAM_API_KEY isn't reaching the crew. "
+               "Check the secret exists (Settings → Secrets → Actions) and that forge.yml passes it to the draft job. "
+               "No plain-text designs get filed while require_art is on.")
+        summary(msg)
+        crew_log(msg, gh)
+        return []
     if review_fn is None:
         review_fn = lambda prev, text, niche: review(prev, text, niche, cfg["model"])
     if pf is None:
@@ -138,7 +151,7 @@ def cmd_draft(args, cfg, ask=None, etsy=None, ideogram=None, review_fn=None, pf=
         pf = Printify(tok) if tok else False
     perf = shop_performance(etsy or None, _shop_name(cfg, pf)) if etsy else None
     kw = {"ask": ask} if ask else {}
-    briefs, listings, report = run_pipeline(seed, cfg, etsy=etsy or None, perf_text=perf_compact(perf), **kw)
+    briefs, listings, report = run_pipeline(seed, cfg, etsy=etsy or None, perf_text=perf_compact(perf), history=hist, **kw)
 
     profs = profiles(cfg)
     cats = {}
@@ -158,10 +171,19 @@ def cmd_draft(args, cfg, ask=None, etsy=None, ideogram=None, review_fn=None, pf=
     if report:
         (DRAFTS / f"radar-{stamp}.json").write_text(json.dumps({"seed": seed, "report": report}, indent=1))
     pending = json.loads(PENDING.read_text()) if PENDING.exists() else []
+    dropped = []
     for i, L in enumerate(listings, 1):
         did = f"{stamp}-{i:02d}-{_slug(phrase(L['spec']))}"
         print(f"DESIGN {i}/{len(listings)}  {L['niche']}: {phrase(L['spec'])}  [{L['mode']}]")
+        if hist.is_repeat(phrase(L["spec"])) or any(similar(phrase(L["spec"]), phrase(o["spec"])) for o in listings[: i - 1] if o.get("draft_id")):
+            print("  DROPPED: too similar to a design the crew already made.")
+            dropped.append(phrase(L["spec"]))
+            continue
         png, prev = make_artwork(L, cfg, ideogram, review_fn)
+        if png is None:
+            print("  DROPPED: no artwork passed the Art Director, so this design isn't filed.")
+            dropped.append(phrase(L["spec"]))
+            continue
         folder = DRAFTS / did
         folder.mkdir(parents=True, exist_ok=True)
         (folder / "print.png").write_bytes(png)
@@ -187,7 +209,9 @@ def cmd_draft(args, cfg, ask=None, etsy=None, ideogram=None, review_fn=None, pf=
             L["mockups"] = first["mockups"]
         (folder / "listing.json").write_text(json.dumps(L, indent=2))
         pending.append(did)
+        hist.add(seed, L["niche"], phrase(L["spec"]), L.get("art_style", ""))
     PENDING.write_text(json.dumps(pending, indent=2))
+    hist.save()
 
     summary(f"## Forge HQ draft run\n**Seed:** {seed}  ·  **Live Etsy data:** {'yes' if etsy else 'no'}  ·  **Illustrator:** {'on' if ideogram else 'off (add IDEOGRAM_API_KEY)'}\n")
     if report:
@@ -199,9 +223,10 @@ def cmd_draft(args, cfg, ask=None, etsy=None, ideogram=None, review_fn=None, pf=
     summary("\n### Opportunities picked\n| Niche | Demand | Low comp | Passion | Why |\n|---|---|---|---|---|")
     for b in briefs:
         summary(f"| {b['niche']} | {b.get('demand','')} | {b.get('competition','')} | {b.get('passion','')} | {b.get('why','')} |")
-    summary(f"\n**{len(listings)} drafts** ready for review ({len(profs)} products each).")
-    crew_log(f"✅ Drafted {len(listings)} designs × {len(profs)} products. Seed: {seed}.", gh)
-    return listings
+    kept = [L for L in listings if L.get("draft_id")]
+    summary(f"\n**{len(kept)} drafts** ready for review ({len(profs)} products each)." + (f" {len(dropped)} dropped by the Art Director." if dropped else ""))
+    crew_log(f"✅ Drafted {len(kept)} designs × {len(profs)} products. Seed: {seed}." + (f" Dropped {len(dropped)} whose art didn't pass review." if dropped else ""), gh)
+    return kept
 
 
 # ---------------- file issues ----------------
