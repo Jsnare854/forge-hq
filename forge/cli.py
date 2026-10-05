@@ -61,7 +61,10 @@ def make_artwork(L: dict, cfg: dict, ideogram, review_fn, log=print) -> tuple[by
             try:
                 imgs = ideogram.generate(prompt, n=int(icfg.get("candidates", 2)), speed=icfg.get("speed", "DEFAULT"), upscale=icfg.get("upscale", "X2"))
             except Exception as e:
+                if getattr(e, "fatal", False):
+                    raise
                 log(f"  ILLUSTRATOR failed: {e}")
+                L["art_failure"] = f"Illustrator error: {str(e)[:200]}"
                 break
             if not imgs:
                 continue
@@ -114,6 +117,10 @@ def cmd_draft(args, cfg, ask=None, etsy=None, ideogram=None, review_fn=None, pf=
     from .printify import Printify, create_draft, mockup_urls, resolve_catalog
     from .products import adapt, profiles
 
+    # Start every run with an empty queue file. The workflow commits drafts/ after this step, so the reset is
+    # saved even when the run stops early, and old drafts can never be filed twice.
+    DRAFTS.mkdir(parents=True, exist_ok=True)
+    PENDING.write_text("[]")
     if getattr(args, "auto", False):
         limit = int(cfg["drafting"].get("max_pending_drafts", 15))
         try:
@@ -170,8 +177,9 @@ def cmd_draft(args, cfg, ask=None, etsy=None, ideogram=None, review_fn=None, pf=
     DRAFTS.mkdir(parents=True, exist_ok=True)
     if report:
         (DRAFTS / f"radar-{stamp}.json").write_text(json.dumps({"seed": seed, "report": report}, indent=1))
-    pending = json.loads(PENDING.read_text()) if PENDING.exists() else []
+    pending = []
     dropped = []
+    fatal_stop = False
     for i, L in enumerate(listings, 1):
         did = f"{stamp}-{i:02d}-{_slug(phrase(L['spec']))}"
         print(f"DESIGN {i}/{len(listings)}  {L['niche']}: {phrase(L['spec'])}  [{L['mode']}]")
@@ -179,9 +187,21 @@ def cmd_draft(args, cfg, ask=None, etsy=None, ideogram=None, review_fn=None, pf=
             print("  DROPPED: too similar to a design the crew already made.")
             dropped.append(phrase(L["spec"]))
             continue
-        png, prev = make_artwork(L, cfg, ideogram, review_fn)
+        try:
+            png, prev = make_artwork(L, cfg, ideogram, review_fn)
+        except Exception as e:
+            if not getattr(e, "fatal", False):
+                raise
+            hint = {402: "Ideogram is out of API credits. Add a payment method and credits on Ideogram's API page.",
+                    401: "Ideogram rejected the API key. Check the IDEOGRAM_API_KEY secret.",
+                    403: "Ideogram refused this key. Check the API key and account."}.get(e.status, str(e))
+            msg = f"🛑 Stopped: {hint} ({e.status}). {len(pending)} designs were finished before this."
+            summary(msg)
+            crew_log(msg, gh)
+            fatal_stop = True
+            break
         if png is None:
-            print("  DROPPED: no artwork passed the Art Director, so this design isn't filed.")
+            print(f"  DROPPED: {L.get('art_failure') or 'no artwork passed the Art Director'}, so this design isn't filed.")
             dropped.append(phrase(L["spec"]))
             continue
         folder = DRAFTS / did
@@ -224,25 +244,62 @@ def cmd_draft(args, cfg, ask=None, etsy=None, ideogram=None, review_fn=None, pf=
     for b in briefs:
         summary(f"| {b['niche']} | {b.get('demand','')} | {b.get('competition','')} | {b.get('passion','')} | {b.get('why','')} |")
     kept = [L for L in listings if L.get("draft_id")]
-    summary(f"\n**{len(kept)} drafts** ready for review ({len(profs)} products each)." + (f" {len(dropped)} dropped by the Art Director." if dropped else ""))
-    crew_log(f"✅ Drafted {len(kept)} designs × {len(profs)} products. Seed: {seed}." + (f" Dropped {len(dropped)} whose art didn't pass review." if dropped else ""), gh)
+    if fatal_stop:
+        return kept
+    summary(f"\n**{len(kept)} drafts** ready for review ({len(profs)} products each)." + (f" {len(dropped)} dropped (art failed review or too similar to earlier designs)." if dropped else ""))
+    crew_log(f"✅ Drafted {len(kept)} designs × {len(profs)} products. Seed: {seed}." + (f" Dropped {len(dropped)} (art failed review or was a repeat)." if dropped else ""), gh)
     return kept
 
 
 # ---------------- file issues ----------------
 
+def _draft_id(body: str) -> str:
+    m = re.search(r"<!-- forge:draft=(\S+) product=", body or "")
+    return m.group(1) if m else ""
+
+
+def close_duplicates(gh) -> int:
+    """Earlier versions could file the same draft many times. Keep the oldest open copy, close the rest."""
+    seen, closed = {}, 0
+    for issue in sorted(gh.list_issues("open"), key=lambda i: i["number"]):
+        did = _draft_id(issue.get("body", ""))
+        if not did:
+            continue
+        if did in seen:
+            gh.comment(issue["number"], f"Closing: duplicate of #{seen[did]} (a bug filed this draft more than once; it's fixed now).")
+            gh.close(issue["number"])
+            closed += 1
+        else:
+            seen[did] = issue["number"]
+    return closed
+
+
 def cmd_file_issues(args, cfg, gh=None):
     from .github_queue import GitHub
 
     gh = gh or GitHub()
-    if not PENDING.exists():
+    try:
+        dupes = close_duplicates(gh)
+        if dupes:
+            summary(f"🧹 Closed {dupes} duplicate issues left by the old bug.")
+    except Exception as e:
+        print(f"(duplicate cleanup skipped: {e})")
+    pending = json.loads(PENDING.read_text()) if PENDING.exists() else []
+    if not pending:
         summary("No new drafts to file.")
         return 0
-    pending = json.loads(PENDING.read_text())
+    try:
+        already = {_draft_id(i.get("body", "")) for i in gh.list_issues("all")}
+    except Exception:
+        already = set()
     gh.ensure_labels()
     filed = 0
     for did in pending:
+        if did in already:
+            continue
         folder = DRAFTS / did
+        if not (folder / "listing.json").exists():
+            continue
         L = json.loads((folder / "listing.json").read_text())
         mocks = L.get("mockups") or [gh.raw_url(f"drafts/{did}/mockup.png")]
         title, body = format_issue(L, mocks, gh.raw_url(f"drafts/{did}/print.png"), did, L.get("product_id", ""))
@@ -250,7 +307,7 @@ def cmd_file_issues(args, cfg, gh=None):
         issue = gh.create_issue(title, body, labels)
         filed += 1
         summary(f"- #{issue.get('number')} {title}")
-    PENDING.unlink()
+    PENDING.write_text("[]")
     summary(f"\n**{filed} drafts are waiting for your approval** in the Issues tab.")
     return filed
 
@@ -394,6 +451,13 @@ def cmd_cleanup(args, cfg, gh=None, pf=None) -> str:
         listing = parse_issue(issue.get("body", ""))
     except ValueError:
         return "skip"
+    did = listing.get("draft_id")
+    if did:
+        try:
+            if any(_draft_id(i.get("body", "")) == did for i in gh.list_issues("open") if i["number"] != n):
+                return "duplicate"  # another open issue still uses these Printify drafts
+        except Exception:
+            pass
     pids = [p.get("product_id") for p in (listing.get("products") or {}).values() if p.get("product_id")]
     if not pids and listing.get("product_id"):
         pids = [listing["product_id"]]

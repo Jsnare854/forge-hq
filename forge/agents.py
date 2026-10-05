@@ -94,7 +94,8 @@ Variety matters: designs in this batch must differ from each other in joke struc
 
 Design rules:
 - The phrase must be original: new wording, not a rearrangement of a competitor's. {RULES}
-- Witty, specific insider language the audience actually uses. 2 to 4 short lines, at most 4 words each.
+- Witty, specific insider language the audience actually uses. SHORT: 3 to 7 words TOTAL, split over 2-3 lines.
+  A shirt is read from across a room in two seconds. A slogan, not a sentence.
 - Size per line: "xl" (hero), "lg", "md", "sm" (small connector).
 - style: one of {list(STYLES)} (used for type-only layouts and previews). font: one of {FONTS}.
 - shirt: one of {list(SHIRTS)}; ink and accent are hex colors with strong contrast on it.
@@ -115,6 +116,9 @@ Reply with only a JSON array, one object per design:
     for x in out if isinstance(out, list) else []:
         if not isinstance(x, dict) or not x.get("lines"):
             continue
+        words = sum(len(str(l.get("text", l) if isinstance(l, dict) else l).split()) for l in x["lines"])
+        if words > 8:
+            continue  # too wordy for a shirt
         try:
             price = float(x.get("price") or pricing.get("default_price", 27.99))
         except (TypeError, ValueError):

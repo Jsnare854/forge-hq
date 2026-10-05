@@ -18,7 +18,14 @@ NEGATIVE = (
 
 
 class IllustratorError(RuntimeError):
-    pass
+    def __init__(self, msg: str, status: int | None = None):
+        super().__init__(msg)
+        self.status = status
+
+    @property
+    def fatal(self) -> bool:
+        """Errors that will fail for every design (bad key, no credits): stop the run instead of retrying."""
+        return self.status in (401, 402, 403)
 
 
 class Ideogram:
@@ -44,7 +51,7 @@ class Ideogram:
                 time.sleep(5 * (attempt + 1))
                 continue
             if r.status_code >= 400:
-                raise IllustratorError(f"Ideogram failed ({r.status_code}): {r.text[:400]}")
+                raise IllustratorError(f"Ideogram failed ({r.status_code}): {r.text[:400]}", r.status_code)
             images = []
             for d in r.json().get("data") or []:
                 if d.get("is_image_safe") is False or not d.get("url"):

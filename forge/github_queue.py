@@ -62,6 +62,16 @@ class GitHub:
         stamp = _dt.datetime.utcnow().strftime("%a %b %d, %H:%M UTC")
         self.comment(number, f"**{stamp}**: {text}")
 
+    def list_issues(self, state: str = "open", label: str = "draft") -> list[dict]:
+        out, page = [], 1
+        while page <= 20:
+            batch = self._req("GET", f"/issues?labels={label}&state={state}&per_page=100&page={page}")
+            out += [i for i in batch if "pull_request" not in i]
+            if len(batch) < 100:
+                break
+            page += 1
+        return out
+
     def count_open(self, label: str) -> int:
         n, page = 0, 1
         while True:

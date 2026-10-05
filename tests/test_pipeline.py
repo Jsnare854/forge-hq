@@ -112,6 +112,9 @@ class FakeGH:
     def close(self, n):
         self.issues[n]["state"] = "closed"
 
+    def list_issues(self, state="open", label="draft"):
+        return [i for i in self.issues.values() if state == "all" or i["state"] == state]
+
 
 class FakePF:
     def __init__(self):
@@ -498,3 +501,58 @@ def test_second_run_avoids_first_runs_niches_and_phrases(cfg):
     assert "already covered these niches" in scout_p and "Niche 0" in scout_p
     assert "ALREADY used" in design_p and "tides anchor sub" in design_p and "DIFFERENT style" in design_p
     assert second == []  # fake designer repeats itself -> every repeat dropped
+
+
+# ---------- duplicate-filing bug ----------
+
+def test_drafts_are_never_filed_twice_and_old_duplicates_get_closed(cfg):
+    listings, pf, _ = run_draft(cfg)
+    gh = FakeGH()
+    assert cli.cmd_file_issues(SimpleNamespace(), cfg, gh=gh) == 8
+    # Simulate the old bug: the queue file came back (deletion wasn't committed) -> nothing is filed again
+    cli.PENDING.write_text(json.dumps([l["draft_id"] for l in listings]))
+    assert cli.cmd_file_issues(SimpleNamespace(), cfg, gh=gh) == 0 and len(gh.issues) == 8
+    # Duplicates the old bug already created get closed, oldest copy kept
+    for n in (1, 2):
+        gh.create_issue(gh.issues[n]["title"], gh.issues[n]["body"], ["draft"])
+    cli.cmd_file_issues(SimpleNamespace(), cfg, gh=gh)
+    assert gh.issues[9]["state"] == "closed" and gh.issues[10]["state"] == "closed" and gh.issues[1]["state"] == "open"
+    # ...and closing a duplicate must NOT delete the Printify drafts the original still uses
+    assert cli.cmd_cleanup(SimpleNamespace(issue=9), cfg, gh=gh, pf=pf) == "duplicate" and not pf.deleted
+
+
+def test_every_run_resets_the_queue_even_when_paused(cfg):
+    cli.DRAFTS.mkdir(parents=True, exist_ok=True)
+    cli.PENDING.write_text(json.dumps(["old-draft-1", "old-draft-2"]))
+    gh = FakeGH()
+    gh.count_open = lambda label: 99
+    gh.crew_log = lambda t: None
+    cli.cmd_draft(SimpleNamespace(seed="x", auto=True), cfg, ask=fake_ask, etsy=FakeEtsy(), ideogram=FakeIdeogram(), review_fn=approve_review, pf=FakePF(), gh=gh)
+    assert json.loads(cli.PENDING.read_text()) == []
+
+
+def test_out_of_credits_stops_the_run_with_a_clear_message(cfg):
+    from forge.illustrator import IllustratorError
+
+    class Broke:
+        calls = 0
+
+        def generate(self, *a, **k):
+            Broke.calls += 1
+            raise IllustratorError('Ideogram failed (402): {"reject_reason": "insufficient_funds"}', 402)
+    gh = FakeGH()
+    gh.log = []
+    gh.crew_log = lambda t: gh.log.append(t)
+    out = cli.cmd_draft(SimpleNamespace(seed="x"), cfg, ask=fake_ask, etsy=FakeEtsy(), ideogram=Broke(), review_fn=approve_review, pf=FakePF(), gh=gh)
+    assert out == [] and Broke.calls == 1  # stopped on the first design, didn't burn through all 8
+    assert "out of API credits" in gh.log[-1] and "Art Director" not in gh.log[-1]
+
+
+def test_wordy_slogans_are_rejected():
+    from forge.agents import designer
+
+    def ask(p, m, max_tokens=0):
+        return [{"niche": "n", **SPEC, "lines": ["After years of routes final", "delivery made retired carrier"], "title": "t", "tags": TAGS, "description": "d"},
+                {"niche": "n", **SPEC, "lines": ["Signed Sealed", "Retired"], "title": "t", "tags": TAGS, "description": "d"}]
+    out = designer([{"niche": "n"}], 2, "m", {"min_price": 24.99, "max_price": 32.99}, True, ask)
+    assert [l["spec"]["lines"][0]["text"] for l in out] == ["Signed Sealed"]
