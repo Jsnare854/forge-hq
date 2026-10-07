@@ -1,0 +1,238 @@
+{
+  "niche": "Personalized 'officially retired' tee for any profession",
+  "spec": {
+    "lines": [
+      {
+        "text": "I'M",
+        "size": "sm"
+      },
+      {
+        "text": "FORMERLY",
+        "size": "lg"
+      },
+      {
+        "text": "EMPLOYED",
+        "size": "xl"
+      }
+    ],
+    "style": "stack",
+    "font": "Archivo Black",
+    "ink": "#2b2b2b",
+    "accent": "#7a8b6f",
+    "shirt": "sand"
+  },
+  "mode": "illustrated",
+  "art_prompt": "Distressed varsity-style letterman emblem with a small trophy and banner ribbon icon, cracked ink texture overlay, sage green, charcoal, mustard and cream color palette, collegiate arch framing around the icon, centered chest placement Style: distressed collegiate varsity.",
+  "art_style": "distressed collegiate varsity",
+  "title": "Officially Done Retirement Shirt, Formerly Employed Tee, Custom Retirement Gift For Any Job, Varsity Style Graphic",
+  "tags": [
+    "retirement gift tee",
+    "coworker gift shirt",
+    "custom retiree tee",
+    "funny retiree shirt",
+    "office retirement",
+    "personalized retiree",
+    "varsity retirement",
+    "retirement party tee",
+    "work retirement gift",
+    "formerly employed",
+    "retired coworker tee",
+    "job retirement tee",
+    "garment dyed retiree"
+  ],
+  "description": "A retirement shirt that works for any job title, from the office to the warehouse floor. The distressed varsity emblem and bold 'formerly employed' line keep the joke mild, clean, and office-party safe.\n\nPrinted on a soft garment-dyed sand tee with a muted sage and charcoal design, this template design can be customized with a name, job, or year right on the listing.\n\nWhether it's for a nurse, driver, teacher, or manager, this is a one-size-fits-every-career going-away gift.\n\nDesign created by our shop with the help of AI tools and printed on demand by our production partner.",
+  "price": 28.99,
+  "risk": "low",
+  "risk_notes": "Generic varsity icon artwork with no specific team, school, or brand references.",
+  "seed": "Retirees enjoying retirement",
+  "evidence": [
+    {
+      "id": 4518681724,
+      "title": "Officially Retired Mail Carrier Comfort Colors Shirt, Postal Worker Retirement Gift, USPS Retired Shirt, Mailman Retirement Tee",
+      "tags": [
+        "mailcarrier",
+        "retiredmailman",
+        "uspsgift",
+        "postalworker",
+        "mailmangift",
+        "retiredshirt",
+        "retirementtee",
+        "lettercarrier",
+        "uspsretired",
+        "mailboxshirt",
+        "postalgift",
+        "retireegift",
+        "mailcarriergift"
+      ],
+      "price": 19.99,
+      "favorites": 4,
+      "views": 317,
+      "age_days": 121,
+      "momentum": 0.03,
+      "url": "https://www.etsy.com/listing/4518681724/officially-retired-mail-carrier-comfort"
+    },
+    {
+      "id": 4495653249,
+      "title": "Comfort Colors Retirement Shirt, Officially Retired Tee, Teacher Retirement Gift, Retirement Party Shirt, Funny Retirement Gift For Women",
+      "tags": [
+        "retirement shirt",
+        "officially retired",
+        "retirement gift",
+        "retirement party",
+        "retired shirt",
+        "teacher retirement",
+        "coworker gift",
+        "funny retirement",
+        "retirement tee",
+        "gift for her",
+        "retirement woman",
+        "retired party tee",
+        "comfort colors tee"
+      ],
+      "price": 29.99,
+      "favorites": 3,
+      "views": 210,
+      "age_days": 163,
+      "momentum": 0.02,
+      "url": "https://www.etsy.com/listing/4495653249/comfort-colors-retirement-shirt"
+    },
+    {
+      "id": 1648954302,
+      "title": "Officially Retired 2025 Shirt, Postal Worker Gift, Mailman Shirt, Mail Lady Gift, Retirement gift, Retired Postal Shirt, Post Office Worker",
+      "tags": [
+        "officially retired",
+        "custom retirement",
+        "custom retired shirt",
+        "postal worker gift",
+        "mailman shirt",
+        "mail lady gift",
+        "retirement gift",
+        "retired postal shirt",
+        "post office worker",
+        "funny retirement",
+        "mail carrier shirt",
+        "sorting memories",
+        "retired 2025 shirt"
+      ],
+      "price": 24.0,
+      "favorites": 17,
+      "views": 1377,
+      "age_days": 989,
+      "momentum": 0.02,
+      "url": "https://www.etsy.com/listing/1648954302/officially-retired-2025-shirt-postal"
+    },
+    {
+      "id": 4513288685,
+      "title": "Custom Retirement Cruise Shirt, Personalized Retired Crew Tee, Funny Officially Retired 2026 Gift, Teacher Retirement, Retiree Shirt",
+      "tags": [
+        "coworker farewell",
+        "retired legend",
+        "officially retired",
+        "cruise group tee",
+        "family cruise tee",
+        "funny retired tee",
+        "teacher retirement",
+        "cruise crew shirt",
+        "custom name shirt",
+        "retiree shirt",
+        "retirement gift",
+        "retirement party",
+        "custom retire tee"
+      ],
+      "price": 29.99,
+      "favorites": 1,
+      "views": 0,
+      "age_days": 131,
+      "momentum": 0.01,
+      "url": "https://www.etsy.com/listing/4513288685/custom-retirement-cruise-shirt"
+    }
+  ],
+  "brief": {
+    "why": "The same Comfort-Colors 'Officially Retired' format recurs as a mild-but-steady mover across unrelated searches (teacher, postal, RV/cruise), e.g. id=4518681724 fav=4/121d and id=1648954302 fav=17/989d, showing durable cross-niche pull without any one query being saturated by it.",
+    "what_wins": "Winning listings use minimal, bold typographic layouts on soft garment-dyed blanks, leave room for buyer customization (name, job, year), and keep the joke mild/universal ('officially retired') so it works as a safe office gift rather than a niche in-joke.",
+    "visual_style": "Comfort Colors heavyweight tee, retro varsity or serif type, 2-3 muted colors (sage, denim blue, mustard), centered chest print, optional small icon swapped per profession",
+    "price_band": "$25-32",
+    "demand": 7,
+    "competition": 5,
+    "passion": 7
+  },
+  "flags": [
+    {
+      "bad": false,
+      "kind": "trademark",
+      "msg": "Contains \"the office\", which is also a brand name. Fine as a normal word; not fine as the brand."
+    }
+  ],
+  "art_notes": "Art Director: Option 1 has cleaner, more legible trophy icon and better contrast, while option 0's trophy is muddled with overlapping black shapes. (scores [6, 7])",
+  "draft_id": "20261007-2148-05-i-m-formerly-employed",
+  "products": {
+    "tee": {
+      "name": "T-Shirt",
+      "price": 28.99,
+      "on": true,
+      "product_id": "6ac6bf875d4f6f349608f59e",
+      "mockups": [
+        "https://images.printify.com/mockup/6ac6bf875d4f6f349608f59e/18542/102044/officially-done-retirement-shirt-formerly-employed-tee-custom-retirement-gift-for-any-job-varsity-style-graphic.jpg?camera_label=front-2",
+        "https://images.printify.com/mockup/6ac6bf875d4f6f349608f59e/18390/102044/officially-done-retirement-shirt-formerly-employed-tee-custom-retirement-gift-for-any-job-varsity-style-graphic.jpg?camera_label=front-2",
+        "https://images.printify.com/mockup/6ac6bf875d4f6f349608f59e/18462/102044/officially-done-retirement-shirt-formerly-employed-tee-custom-retirement-gift-for-any-job-varsity-style-graphic.jpg?camera_label=front-2"
+      ],
+      "colors": [
+        "Soft Cream",
+        "White",
+        "Athletic Heather",
+        "Natural"
+      ]
+    },
+    "sweatshirt": {
+      "name": "Crewneck Sweatshirt",
+      "price": 41.99,
+      "on": true,
+      "product_id": "6ac6bf895d4f6f349608f5a0",
+      "mockups": [
+        "https://images.printify.com/mockup/6ac6bf895d4f6f349608f5a0/25458/98502/officially-done-retirement-sweatshirt-formerly-employed-sweatshirt-custom-retirement-gift-for-any-job-varsity-style-graphic.jpg?camera_label=front",
+        "https://images.printify.com/mockup/6ac6bf895d4f6f349608f5a0/25439/98502/officially-done-retirement-sweatshirt-formerly-employed-sweatshirt-custom-retirement-gift-for-any-job-varsity-style-graphic.jpg?camera_label=front",
+        "https://images.printify.com/mockup/6ac6bf895d4f6f349608f5a0/25456/98502/officially-done-retirement-sweatshirt-formerly-employed-sweatshirt-custom-retirement-gift-for-any-job-varsity-style-graphic.jpg?camera_label=front"
+      ],
+      "colors": [
+        "Sand",
+        "White",
+        "Sport Grey",
+        "Ash"
+      ]
+    },
+    "hoodie": {
+      "name": "Hoodie",
+      "price": 46.99,
+      "on": true,
+      "product_id": "6ac6bf8acfba7a7d1003d87a",
+      "mockups": [
+        "https://images.printify.com/mockup/6ac6bf8acfba7a7d1003d87a/32912/98424/officially-done-retirement-hoodie-formerly-employed-hoodie-custom-retirement-gift-for-any-job-varsity-style-graphic.jpg?camera_label=front",
+        "https://images.printify.com/mockup/6ac6bf8acfba7a7d1003d87a/33347/98424/officially-done-retirement-hoodie-formerly-employed-hoodie-custom-retirement-gift-for-any-job-varsity-style-graphic.jpg?camera_label=front",
+        "https://images.printify.com/mockup/6ac6bf8acfba7a7d1003d87a/42166/98424/officially-done-retirement-hoodie-formerly-employed-hoodie-custom-retirement-gift-for-any-job-varsity-style-graphic.jpg?camera_label=front"
+      ],
+      "colors": [
+        "Sand",
+        "White",
+        "Sport Grey",
+        "Ash"
+      ]
+    },
+    "mug": {
+      "name": "Coffee Mug 11oz",
+      "price": 19.99,
+      "on": true,
+      "product_id": "6ac6bf8c6b09e2850e057420",
+      "mockups": [
+        "https://images.printify.com/mockup/6ac6bf8c6b09e2850e057420/67624/7674/officially-done-retirement-mug-formerly-employed-mug-custom-retirement-gift-for-any-job-varsity-style-graphic.jpg?camera_label=front",
+        "https://images.printify.com/mockup/6ac6bf8c6b09e2850e057420/67624/7675/officially-done-retirement-mug-formerly-employed-mug-custom-retirement-gift-for-any-job-varsity-style-graphic.jpg?camera_label=left",
+        "https://images.printify.com/mockup/6ac6bf8c6b09e2850e057420/67624/7676/officially-done-retirement-mug-formerly-employed-mug-custom-retirement-gift-for-any-job-varsity-style-graphic.jpg?camera_label=right"
+      ],
+      "colors": []
+    }
+  },
+  "mockups": [
+    "https://images.printify.com/mockup/6ac6bf875d4f6f349608f59e/18542/102044/officially-done-retirement-shirt-formerly-employed-tee-custom-retirement-gift-for-any-job-varsity-style-graphic.jpg?camera_label=front-2",
+    "https://images.printify.com/mockup/6ac6bf875d4f6f349608f59e/18390/102044/officially-done-retirement-shirt-formerly-employed-tee-custom-retirement-gift-for-any-job-varsity-style-graphic.jpg?camera_label=front-2",
+    "https://images.printify.com/mockup/6ac6bf875d4f6f349608f59e/18462/102044/officially-done-retirement-shirt-formerly-employed-tee-custom-retirement-gift-for-any-job-varsity-style-graphic.jpg?camera_label=front-2"
+  ]
+}
