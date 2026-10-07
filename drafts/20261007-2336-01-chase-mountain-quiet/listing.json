@@ -1,0 +1,199 @@
+{
+  "niche": "Nature-loving trail/ultra runners",
+  "spec": {
+    "lines": [
+      {
+        "text": "CHASE",
+        "size": "lg"
+      },
+      {
+        "text": "MOUNTAIN QUIET",
+        "size": "xl"
+      }
+    ],
+    "style": "sunset",
+    "font": "Anton",
+    "ink": "#355e3b",
+    "accent": "#b5651d",
+    "shirt": "sand"
+  },
+  "mode": "illustrated",
+  "art_prompt": "Retro 1970s sunset stripe illustration of layered mountain peaks with tall pine silhouettes, concentric sun rays in warm rust-orange and mustard stripes rising behind the ridgeline, muted earth tone palette of forest green, rust orange, mustard yellow and cream, text arched above the mountain illustration in a vintage outdoor badge layout. Style: retro 1970s sunset stripes.",
+  "art_style": "retro 1970s sunset stripes",
+  "title": "Mountain Trail Runner Shirt, Chase Mountain Quiet Tee, PNW Nature Running Gift, Trail Runner Birthday Present",
+  "tags": [
+    "trail running",
+    "pnw runner",
+    "mountain shirt",
+    "nature lover tee",
+    "ultra runner gift",
+    "trail run tee",
+    "hiking gift",
+    "forest runner",
+    "comfort colors",
+    "outdoor lifestyle",
+    "calm runner",
+    "trail gift her",
+    "mountain lover"
+  ],
+  "description": "Hit the trail in a shirt that feels like a deep breath of pine air. This retro-inspired design celebrates the quiet calm that only miles of mountain trail can give you, with a sunset badge graphic made for nature-loving runners.\n\nSoft, garment-dyed cotton feel in an earthy sand colorway, designed for trail runs, hikes, or everyday PNW life. Unisex fit works for both men and women.\n\nA perfect gift for the ultramarathoner, hiker, or outdoor soul who runs toward the quiet instead of away from it.\n\nDesign created by our shop with the help of AI tools and printed on demand by our production partner.",
+  "price": 29.99,
+  "risk": "low",
+  "risk_notes": "Generic mountain and nature imagery with no brand, trademark, or identifiable references.",
+  "seed": "Gym regulars and runners",
+  "evidence": [
+    {
+      "id": 4522068334,
+      "title": "Run More Worry Less Comfort Colors Shirt | PNW Running Tee | Trail Runner Shirt | Running Gift",
+      "tags": [
+        "running shirt",
+        "runner gift",
+        "trail running tee",
+        "funny running shirt",
+        "pnw shirt",
+        "nature lover shirt",
+        "hiking shirt",
+        "tree runner shirt",
+        "mountain shirt",
+        "forest shirt",
+        "adventure shirt",
+        "pnw t shirt",
+        "half marathon shirt"
+      ],
+      "price": 33.99,
+      "favorites": 36,
+      "views": 600,
+      "age_days": 115,
+      "momentum": 0.31,
+      "url": "https://www.etsy.com/listing/4522068334/run-more-worry-less-comfort-colors-shirt"
+    },
+    {
+      "id": 755055347,
+      "title": "Trail Running Shirt. Trail Running Gift. Trail Runner Shirt. Trail Runner Gift. Trail Running Lover Shirt Trail Run Outfit Run Trail #OS3229",
+      "tags": [
+        "funny t-shirt",
+        "gift for him",
+        "gift for her",
+        "trail running shirt",
+        "trail running gift",
+        "trail runner shirt",
+        "trail runner gift",
+        "trail run outfit",
+        "run trail shirt"
+      ],
+      "price": 26.05,
+      "favorites": 91,
+      "views": 1518,
+      "age_days": 2513,
+      "momentum": 0.04,
+      "url": "https://www.etsy.com/listing/755055347/trail-running-shirt-trail-running-gift"
+    },
+    {
+      "id": 4398734927,
+      "title": "Funny Trail Runner T-Shirt, Comfort Colors Tee",
+      "tags": [
+        "trail runner shirt",
+        "funny running tee",
+        "trail running club",
+        "mountain runner top",
+        "outdoor run shirt",
+        "funny runner gift",
+        "trail team shirt",
+        "runner humor tee",
+        "hiking running tee",
+        "endurance run top",
+        "adventure runner",
+        "ultra trail shirt",
+        "runners life shirt"
+      ],
+      "price": 38.13,
+      "favorites": 18,
+      "views": 555,
+      "age_days": 337,
+      "momentum": 0.05,
+      "url": "https://www.etsy.com/listing/4398734927/funny-trail-runner-t-shirt-comfort"
+    }
+  ],
+  "brief": {
+    "why": "One listing (4522068334) hit 36 favs in 115 days (mom 0.31) far outpacing the rest of a 2168-listing field, showing a specific nature/PNW framing is converting much faster than generic 'trail runner' text.",
+    "what_wins": "Winners combine a calming/positive phrase (anti-anxiety, nature-therapy vibe) with outdoorsy identity cues (trees, mountains, PNW) rather than ultra-macho or pun-heavy copy; Comfort Colors-style soft garment dyed tees price $28-34 perform well; sustained proven listings (755055347, 4398734927) show evergreen demand for trail-identity shirts that read as lifestyle apparel, not just race merch.",
+    "visual_style": "Single-color retro badge or line-art mountain/tree icon, muted earth tones (forest green, rust, stone), garment-dyed Comfort Colors fabric, minimal vintage outdoor-club emblem look",
+    "price_band": "$28-34",
+    "demand": 8,
+    "competition": 7,
+    "passion": 8
+  },
+  "flags": [],
+  "art_notes": "Art Director: Option 0 reads correctly with strong layered design while Option 1 misspells CHASE as HASE. (scores [7, 1])",
+  "draft_id": "20261007-2336-01-chase-mountain-quiet",
+  "products": {
+    "tee": {
+      "name": "T-Shirt",
+      "price": 29.99,
+      "on": true,
+      "product_id": "6ac6d7d40f6deb3df203e614",
+      "mockups": [
+        "https://images.printify.com/mockup/6ac6d7d40f6deb3df203e614/18542/102044/mountain-trail-runner-shirt-chase-mountain-quiet-tee-pnw-nature-running-gift-trail-runner-birthday-present.jpg?camera_label=front-2",
+        "https://images.printify.com/mockup/6ac6d7d40f6deb3df203e614/18390/102044/mountain-trail-runner-shirt-chase-mountain-quiet-tee-pnw-nature-running-gift-trail-runner-birthday-present.jpg?camera_label=front-2",
+        "https://images.printify.com/mockup/6ac6d7d40f6deb3df203e614/18462/102044/mountain-trail-runner-shirt-chase-mountain-quiet-tee-pnw-nature-running-gift-trail-runner-birthday-present.jpg?camera_label=front-2"
+      ],
+      "colors": [
+        "Soft Cream",
+        "White",
+        "Athletic Heather",
+        "Natural"
+      ]
+    },
+    "sweatshirt": {
+      "name": "Crewneck Sweatshirt",
+      "price": 41.99,
+      "on": true,
+      "product_id": "6ac6d7d60f6deb3df203e615",
+      "mockups": [
+        "https://images.printify.com/mockup/6ac6d7d60f6deb3df203e615/25458/98502/mountain-trail-runner-sweatshirt-chase-mountain-quiet-sweatshirt-pnw-nature-running-gift-trail-runner-birthday-present.jpg?camera_label=front",
+        "https://images.printify.com/mockup/6ac6d7d60f6deb3df203e615/25439/98502/mountain-trail-runner-sweatshirt-chase-mountain-quiet-sweatshirt-pnw-nature-running-gift-trail-runner-birthday-present.jpg?camera_label=front",
+        "https://images.printify.com/mockup/6ac6d7d60f6deb3df203e615/25456/98502/mountain-trail-runner-sweatshirt-chase-mountain-quiet-sweatshirt-pnw-nature-running-gift-trail-runner-birthday-present.jpg?camera_label=front"
+      ],
+      "colors": [
+        "Sand",
+        "White",
+        "Sport Grey",
+        "Ash"
+      ]
+    },
+    "hoodie": {
+      "name": "Hoodie",
+      "price": 46.99,
+      "on": true,
+      "product_id": "6ac6d7d8100d1e169c0fc38a",
+      "mockups": [
+        "https://images.printify.com/mockup/6ac6d7d8100d1e169c0fc38a/32912/98424/mountain-trail-runner-hoodie-chase-mountain-quiet-hoodie-pnw-nature-running-gift-trail-runner-birthday-present.jpg?camera_label=front",
+        "https://images.printify.com/mockup/6ac6d7d8100d1e169c0fc38a/33347/98424/mountain-trail-runner-hoodie-chase-mountain-quiet-hoodie-pnw-nature-running-gift-trail-runner-birthday-present.jpg?camera_label=front",
+        "https://images.printify.com/mockup/6ac6d7d8100d1e169c0fc38a/42166/98424/mountain-trail-runner-hoodie-chase-mountain-quiet-hoodie-pnw-nature-running-gift-trail-runner-birthday-present.jpg?camera_label=front"
+      ],
+      "colors": [
+        "Sand",
+        "White",
+        "Sport Grey",
+        "Ash"
+      ]
+    },
+    "mug": {
+      "name": "Coffee Mug 11oz",
+      "price": 19.99,
+      "on": true,
+      "product_id": "6ac6d7d93c81fca989037ac1",
+      "mockups": [
+        "https://images.printify.com/mockup/6ac6d7d93c81fca989037ac1/67624/7674/mountain-trail-runner-mug-chase-mountain-quiet-mug-pnw-nature-running-gift-trail-runner-birthday-present.jpg?camera_label=front",
+        "https://images.printify.com/mockup/6ac6d7d93c81fca989037ac1/67624/7675/mountain-trail-runner-mug-chase-mountain-quiet-mug-pnw-nature-running-gift-trail-runner-birthday-present.jpg?camera_label=left",
+        "https://images.printify.com/mockup/6ac6d7d93c81fca989037ac1/67624/7676/mountain-trail-runner-mug-chase-mountain-quiet-mug-pnw-nature-running-gift-trail-runner-birthday-present.jpg?camera_label=right"
+      ],
+      "colors": []
+    }
+  },
+  "mockups": [
+    "https://images.printify.com/mockup/6ac6d7d40f6deb3df203e614/18542/102044/mountain-trail-runner-shirt-chase-mountain-quiet-tee-pnw-nature-running-gift-trail-runner-birthday-present.jpg?camera_label=front-2",
+    "https://images.printify.com/mockup/6ac6d7d40f6deb3df203e614/18390/102044/mountain-trail-runner-shirt-chase-mountain-quiet-tee-pnw-nature-running-gift-trail-runner-birthday-present.jpg?camera_label=front-2",
+    "https://images.printify.com/mockup/6ac6d7d40f6deb3df203e614/18462/102044/mountain-trail-runner-shirt-chase-mountain-quiet-tee-pnw-nature-running-gift-trail-runner-birthday-present.jpg?camera_label=front-2"
+  ]
+}

@@ -1,0 +1,203 @@
+{
+  "niche": "Stroller-running parents",
+  "spec": {
+    "lines": [
+      {
+        "text": "PUSHING PACE",
+        "size": "xl"
+      },
+      {
+        "text": "AND PATIENCE",
+        "size": "lg"
+      }
+    ],
+    "style": "stamp",
+    "font": "Archivo Black",
+    "ink": "#2e4b2e",
+    "accent": "#7a5c3e",
+    "shirt": "sand"
+  },
+  "mode": "illustrated",
+  "art_prompt": "Botanical engraving style illustration combining a running shoe print and delicate fern leaves intertwined with small stroller wheel tracks, fine etched linework in a single deep green ink, vintage scientific illustration aesthetic, text stamped below the botanical design. Style: botanical engraving.",
+  "art_style": "botanical engraving",
+  "title": "Running Parent Shirt, Pushing Pace And Patience Tee, Stroller Runner Gift, Funny Jogging Mom Dad Present",
+  "tags": [
+    "stroller parent",
+    "jogging mom gift",
+    "running dad tee",
+    "buggy running",
+    "new mom runner",
+    "botanical shirt",
+    "parent runner gift",
+    "jogging shirt",
+    "baby jogger",
+    "stroller dad",
+    "running mom tee",
+    "fathers day gift",
+    "mothers day gift"
+  ],
+  "description": "A quieter kind of running pride for the parent who's mastered pace and patience in the same stroller stride. This botanical engraving design blends running and nature motifs into one elegant graphic.\n\nSoft sand tee with a fine etched fern-and-shoe illustration, giving a nature-journal feel to a very real parenting milestone.\n\nA thoughtful gift idea for new running moms and dads who count every stroller mile as a win.\n\nDesign created by our shop with the help of AI tools and printed on demand by our production partner.",
+  "price": 26.99,
+  "risk": "low",
+  "risk_notes": "Original botanical and footwear illustration, no branded or copyrighted imagery used.",
+  "seed": "Gym regulars and runners",
+  "evidence": [
+    {
+      "id": 4583070654,
+      "title": "Funny Running Shirt, Stroller Miles Club, Running Mom Dad Tee, Runner Parent Gift, Jogging Stroller Miles Humor Shirt for All, Unisex Tee",
+      "tags": [
+        "funny runner sayings",
+        "funny running shirt",
+        "runner mom gift",
+        "running dad shirt",
+        "stroller runner",
+        "mom runner gift",
+        "dad runner gift",
+        "parent runner",
+        "running parent",
+        "run club shirt",
+        "stroller brigade",
+        "jogging parents",
+        "runner family gift"
+      ],
+      "price": 32.99,
+      "favorites": 1,
+      "views": 6,
+      "age_days": 11,
+      "momentum": 0.09,
+      "url": "https://www.etsy.com/listing/4583070654/stroller-miles-club-shirt-funny-running"
+    },
+    {
+      "id": 787906046,
+      "title": "Buggy Running T-Shirt, Stroller Running Top, Technical T Shirt, Mum Runner, Dad Runner, Double Buggy,",
+      "tags": [
+        "buggy running",
+        "technical t shirt",
+        "running top",
+        "womens fit",
+        "ladies crew neck top",
+        "gift for runner",
+        "stroller fitness",
+        "short sleeve t-shirt",
+        "cardio fitness",
+        "running silhouette",
+        "pink orange red blue",
+        "buggy runner race",
+        "navy black purple"
+      ],
+      "price": 18.0,
+      "favorites": 23,
+      "views": 1392,
+      "age_days": 2353,
+      "momentum": 0.01,
+      "url": "https://www.etsy.com/listing/787906046/buggy-running-t-shirt-stroller-running"
+    },
+    {
+      "id": 1227281472,
+      "title": "Men&#39;s Buggy Running Dad Technical Shirt, Stroller Running Shirt, Father&#39;s Day Gift For Male Runners, Short Sleeve Activewear, Gym Ki",
+      "tags": [
+        "men's running shirt",
+        "gift for runners",
+        "buggy runner",
+        "stroller running",
+        "gift for dad",
+        "male pushchair",
+        "father's day",
+        "technical top",
+        "technical gym shirt",
+        "graphic print",
+        "buggy running dad",
+        "parkrun",
+        "unisex running kit"
+      ],
+      "price": 18.0,
+      "favorites": 9,
+      "views": 318,
+      "age_days": 1593,
+      "momentum": 0.01,
+      "url": "https://www.etsy.com/listing/1227281472/mens-buggy-running-dad-technical-shirt"
+    }
+  ],
+  "brief": {
+    "why": "Only 21 active listings total, yet a brand-new entry (4583070654, 11 days old) already has mom 0.09 and multiple older listings (787906046, 1227281472) still hold 8-23 favs years later, showing durable, low-competition demand.",
+    "what_wins": "Winners use a specific in-group term ('stroller miles', 'buggy runner') to signal insider identity, framed as a funny badge of parenthood rather than generic motivational running text; technical/unisex tee styles for dads, fitted feminine cuts for moms; gift-occasion framing (Mother's/Father's Day) drives older listings' longevity.",
+    "visual_style": "Simple one-line badge/patch style graphic (stroller silhouette or running shoe + wheel icon), clean sans-serif, heather gray or navy tee, unisex fit",
+    "price_band": "$22-28",
+    "demand": 6,
+    "competition": 3,
+    "passion": 7
+  },
+  "flags": [],
+  "art_notes": "Art Director: Option 0 shows a recognizable sneaker and full stroller with clear linework, while Option 1's shoe sole angle and overlapping stroller look muddled and less sellable. (scores [7, 5])",
+  "draft_id": "20261007-2336-06-pushing-pace-and-patience",
+  "products": {
+    "tee": {
+      "name": "T-Shirt",
+      "price": 26.99,
+      "on": true,
+      "product_id": "6ac6d9263f3c71224c085703",
+      "mockups": [
+        "https://images.printify.com/mockup/6ac6d9263f3c71224c085703/18542/102044/running-parent-shirt-pushing-pace-and-patience-tee-stroller-runner-gift-funny-jogging-mom-dad-present.jpg?camera_label=front-2",
+        "https://images.printify.com/mockup/6ac6d9263f3c71224c085703/18390/102044/running-parent-shirt-pushing-pace-and-patience-tee-stroller-runner-gift-funny-jogging-mom-dad-present.jpg?camera_label=front-2",
+        "https://images.printify.com/mockup/6ac6d9263f3c71224c085703/18462/102044/running-parent-shirt-pushing-pace-and-patience-tee-stroller-runner-gift-funny-jogging-mom-dad-present.jpg?camera_label=front-2"
+      ],
+      "colors": [
+        "Soft Cream",
+        "White",
+        "Athletic Heather",
+        "Natural"
+      ]
+    },
+    "sweatshirt": {
+      "name": "Crewneck Sweatshirt",
+      "price": 41.99,
+      "on": true,
+      "product_id": "6ac6d9281270d712d905e4a2",
+      "mockups": [
+        "https://images.printify.com/mockup/6ac6d9281270d712d905e4a2/25458/98502/running-parent-sweatshirt-pushing-pace-and-patience-sweatshirt-stroller-runner-gift-funny-jogging-mom-dad-present.jpg?camera_label=front",
+        "https://images.printify.com/mockup/6ac6d9281270d712d905e4a2/25439/98502/running-parent-sweatshirt-pushing-pace-and-patience-sweatshirt-stroller-runner-gift-funny-jogging-mom-dad-present.jpg?camera_label=front",
+        "https://images.printify.com/mockup/6ac6d9281270d712d905e4a2/25456/98502/running-parent-sweatshirt-pushing-pace-and-patience-sweatshirt-stroller-runner-gift-funny-jogging-mom-dad-present.jpg?camera_label=front"
+      ],
+      "colors": [
+        "Sand",
+        "White",
+        "Sport Grey",
+        "Ash"
+      ]
+    },
+    "hoodie": {
+      "name": "Hoodie",
+      "price": 46.99,
+      "on": true,
+      "product_id": "6ac6d929a7190aa6680865e9",
+      "mockups": [
+        "https://images.printify.com/mockup/6ac6d929a7190aa6680865e9/32912/98424/running-parent-hoodie-pushing-pace-and-patience-hoodie-stroller-runner-gift-funny-jogging-mom-dad-present.jpg?camera_label=front",
+        "https://images.printify.com/mockup/6ac6d929a7190aa6680865e9/33347/98424/running-parent-hoodie-pushing-pace-and-patience-hoodie-stroller-runner-gift-funny-jogging-mom-dad-present.jpg?camera_label=front",
+        "https://images.printify.com/mockup/6ac6d929a7190aa6680865e9/42166/98424/running-parent-hoodie-pushing-pace-and-patience-hoodie-stroller-runner-gift-funny-jogging-mom-dad-present.jpg?camera_label=front"
+      ],
+      "colors": [
+        "Sand",
+        "White",
+        "Sport Grey",
+        "Ash"
+      ]
+    },
+    "mug": {
+      "name": "Coffee Mug 11oz",
+      "price": 19.99,
+      "on": true,
+      "product_id": "6ac6d92b2ecc670a46063bdf",
+      "mockups": [
+        "https://images.printify.com/mockup/6ac6d92b2ecc670a46063bdf/67624/7674/running-parent-mug-pushing-pace-and-patience-mug-stroller-runner-gift-funny-jogging-mom-dad-present.jpg?camera_label=front",
+        "https://images.printify.com/mockup/6ac6d92b2ecc670a46063bdf/67624/7675/running-parent-mug-pushing-pace-and-patience-mug-stroller-runner-gift-funny-jogging-mom-dad-present.jpg?camera_label=left",
+        "https://images.printify.com/mockup/6ac6d92b2ecc670a46063bdf/67624/7676/running-parent-mug-pushing-pace-and-patience-mug-stroller-runner-gift-funny-jogging-mom-dad-present.jpg?camera_label=right"
+      ],
+      "colors": []
+    }
+  },
+  "mockups": [
+    "https://images.printify.com/mockup/6ac6d9263f3c71224c085703/18542/102044/running-parent-shirt-pushing-pace-and-patience-tee-stroller-runner-gift-funny-jogging-mom-dad-present.jpg?camera_label=front-2",
+    "https://images.printify.com/mockup/6ac6d9263f3c71224c085703/18390/102044/running-parent-shirt-pushing-pace-and-patience-tee-stroller-runner-gift-funny-jogging-mom-dad-present.jpg?camera_label=front-2",
+    "https://images.printify.com/mockup/6ac6d9263f3c71224c085703/18462/102044/running-parent-shirt-pushing-pace-and-patience-tee-stroller-runner-gift-funny-jogging-mom-dad-present.jpg?camera_label=front-2"
+  ]
+}

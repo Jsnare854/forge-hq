@@ -1,0 +1,232 @@
+{
+  "niche": "5am gym squad women",
+  "spec": {
+    "lines": [
+      {
+        "text": "WILD",
+        "size": "xl"
+      },
+      {
+        "text": "AT DAWN",
+        "size": "lg"
+      },
+      {
+        "text": "CREW",
+        "size": "sm"
+      }
+    ],
+    "style": "badge",
+    "font": "Anton",
+    "ink": "#6e1f2a",
+    "accent": "#1a1a1a",
+    "shirt": "sand"
+  },
+  "mode": "illustrated",
+  "art_prompt": "Western rodeo poster style illustration of a wild mustang rearing up under a rising sun, bold vintage poster linework with distressed texture, color palette of deep maroon, mustard yellow, cream and black, text arranged banner-style above and below the horse like a classic rodeo flyer. Style: western rodeo poster.",
+  "art_style": "western rodeo poster",
+  "title": "5AM Workout Crew Shirt, Wild At Dawn Tee, Funny Gym Squad Gift, Early Morning Workout Present For Her",
+  "tags": [
+    "5am workout",
+    "gym crew tee",
+    "wild at dawn",
+    "morning workout",
+    "gym squad gift",
+    "pilates crew",
+    "spin class tee",
+    "crossfit women",
+    "workout tank",
+    "oversized gym",
+    "gym bestie gift",
+    "boxing gym tee",
+    "rodeo gym shirt"
+  ],
+  "description": "For the crew that treats 5am like a rodeo bell. This western poster-inspired design brings bold, wild energy to your early morning workout squad shirts.\n\nSand colored tee with a rearing mustang graphic and vintage poster typography, oversized boxy fit for comfort between sets or spin class.\n\nMake it your workout crew's signature shirt for gym days, pilates mornings, or squad gift exchanges.\n\nDesign created by our shop with the help of AI tools and printed on demand by our production partner.",
+  "price": 26.99,
+  "risk": "low",
+  "risk_notes": "Generic wild horse and rodeo poster imagery, no trademarks or real rodeo branding referenced.",
+  "seed": "Gym regulars and runners",
+  "evidence": [
+    {
+      "id": 1471873496,
+      "title": "5am Workout Squad Tank Top 5 am Crew Running Shirt Funny Group T-Shirt Pilates CrossFit Training Fitness Apparel Cute Womens Gym Tee",
+      "tags": [
+        "workout tank top",
+        "womens workout tank",
+        "5 am workout shirts",
+        "5am squad shirt",
+        "exercise shirt",
+        "5am workout squad",
+        "spin cycling t-shirt",
+        "weightlifting shirt",
+        "5am squad crew",
+        "running shirt",
+        "group fitness tee",
+        "pilates crew tshirt",
+        "crossfit gym shirt"
+      ],
+      "price": 23.99,
+      "favorites": 182,
+      "views": 5618,
+      "age_days": 1237,
+      "momentum": 0.15,
+      "url": "https://www.etsy.com/listing/1471873496/5am-workout-squad-tank-top-5-am-crew"
+    },
+    {
+      "id": 746417902,
+      "title": "Workout Tank. Five In The Morning Mafia Crop. Yoga. Spinbabe. Pilates. Fitness Tank. Gym Shirt Exercise Tank. Five Crew. 5AM Squad. Besties",
+      "tags": [
+        "crop top",
+        "workout tank",
+        "funny workout",
+        "gym tank",
+        "lift heavy",
+        "bootcamp",
+        "hustle",
+        "five in the",
+        "spinbabe",
+        "5am squad crew",
+        "besties workout",
+        "morning mafia crew",
+        "orange crew"
+      ],
+      "price": 25.95,
+      "favorites": 131,
+      "views": 3037,
+      "age_days": 2496,
+      "momentum": 0.05,
+      "url": "https://www.etsy.com/listing/746417902/workout-tank-five-in-the-morning-mafia"
+    },
+    {
+      "id": 4561168887,
+      "title": "Kettlebell Workout Shirt, Comfort Colors We WOD At Dawn, Funny Frog Meme Functional Fitness Tee, Gym Humor TShirt, Gift for Lifter / GBD2961",
+      "tags": [
+        "frog meme shirt",
+        "funny frog shirt",
+        "frog meme",
+        "retro frog",
+        "wod humor tshirt",
+        "kettlebell gift tee",
+        "5am class humor",
+        "knee sleeve humor",
+        "gym humor tshirt",
+        "workout gift tee",
+        "functional fitness",
+        "lifting humor tee",
+        "gym rat birthday"
+      ],
+      "price": 16.49,
+      "favorites": 2,
+      "views": 23,
+      "age_days": 45,
+      "momentum": 0.04,
+      "url": "https://www.etsy.com/listing/4561168887/kettlebell-workout-shirt-comfort-colors"
+    },
+    {
+      "id": 4554679247,
+      "title": "You vs 5 AM Still Undefeated Shirt, Funny Early Morning Tee, Boxing Graphic T-Shirt, Gym Gift, Mens Womens Workout Apparel",
+      "tags": [
+        "you vs 5am shirt",
+        "boxing gym shirt",
+        "funny workout tee",
+        "early morning shirt",
+        "alarm clock shirt",
+        "gym humor gift",
+        "boxing graphic tee",
+        "morning grind shirt",
+        "fighter funny tee",
+        "gym motivation tee",
+        "boxing culture",
+        "funny gym gift",
+        "workout humor"
+      ],
+      "price": 33.99,
+      "favorites": 1,
+      "views": 21,
+      "age_days": 56,
+      "momentum": 0.02,
+      "url": "https://www.etsy.com/listing/4554679247/you-vs-5-am-still-undefeated-shirt-funny"
+    }
+  ],
+  "brief": {
+    "why": "The category leader (1471873496) has sustained 182 favs over 3+ years (mom 0.15) and a newer novelty entrant (4561168887, 45d, mom 0.04) shows fresh humor angles still gaining favorites in a 106-listing field.",
+    "what_wins": "Top performers lean into group/bestie identity ('squad', 'crew', 'mafia') for women's tanks/crops, plus a secondary wave of oversized unisex 'gym pump cover' tees; novelty/meme humor (frog, boxing 'you vs 5am') is breaking through as a fresh sub-angle versus saturated generic squad text; pricing clusters $24-32 with oversized comfort-colors cuts for the humor tees.",
+    "visual_style": "Bold retro collegiate-style wordmark for squad tanks OR a single quirky cartoon mascot (not meme reuse) for the humor tee; soft pastel or sand/black palettes; oversized boxy fit",
+    "price_band": "$24-30",
+    "demand": 7,
+    "competition": 6,
+    "passion": 8
+  },
+  "flags": [],
+  "art_notes": "Art Director: Option 1 has garbled duplicate '/DAWN' banner text that reads as a design error, while Option 0 is clean and legible with strong contrast. (scores [7, 2])",
+  "draft_id": "20261007-2336-03-wild-at-dawn-crew",
+  "products": {
+    "tee": {
+      "name": "T-Shirt",
+      "price": 26.99,
+      "on": true,
+      "product_id": "6ac6d85e100d1e169c0fc3ce",
+      "mockups": [
+        "https://images.printify.com/mockup/6ac6d85e100d1e169c0fc3ce/18542/102044/5am-workout-crew-shirt-wild-at-dawn-tee-funny-gym-squad-gift-early-morning-workout-present-for-her.jpg?camera_label=front-2",
+        "https://images.printify.com/mockup/6ac6d85e100d1e169c0fc3ce/18390/102044/5am-workout-crew-shirt-wild-at-dawn-tee-funny-gym-squad-gift-early-morning-workout-present-for-her.jpg?camera_label=front-2",
+        "https://images.printify.com/mockup/6ac6d85e100d1e169c0fc3ce/18462/102044/5am-workout-crew-shirt-wild-at-dawn-tee-funny-gym-squad-gift-early-morning-workout-present-for-her.jpg?camera_label=front-2"
+      ],
+      "colors": [
+        "Soft Cream",
+        "White",
+        "Athletic Heather",
+        "Natural"
+      ]
+    },
+    "sweatshirt": {
+      "name": "Crewneck Sweatshirt",
+      "price": 41.99,
+      "on": true,
+      "product_id": "6ac6d860d7f962877803852b",
+      "mockups": [
+        "https://images.printify.com/mockup/6ac6d860d7f962877803852b/25458/98502/5am-workout-crew-sweatshirt-wild-at-dawn-sweatshirt-funny-gym-squad-gift-early-morning-workout-present-for-her.jpg?camera_label=front",
+        "https://images.printify.com/mockup/6ac6d860d7f962877803852b/25439/98502/5am-workout-crew-sweatshirt-wild-at-dawn-sweatshirt-funny-gym-squad-gift-early-morning-workout-present-for-her.jpg?camera_label=front",
+        "https://images.printify.com/mockup/6ac6d860d7f962877803852b/25456/98502/5am-workout-crew-sweatshirt-wild-at-dawn-sweatshirt-funny-gym-squad-gift-early-morning-workout-present-for-her.jpg?camera_label=front"
+      ],
+      "colors": [
+        "Sand",
+        "White",
+        "Sport Grey",
+        "Ash"
+      ]
+    },
+    "hoodie": {
+      "name": "Hoodie",
+      "price": 46.99,
+      "on": true,
+      "product_id": "6ac6d862d17baf6af80ff870",
+      "mockups": [
+        "https://images.printify.com/mockup/6ac6d862d17baf6af80ff870/32912/98424/5am-workout-crew-hoodie-wild-at-dawn-hoodie-funny-gym-squad-gift-early-morning-workout-present-for-her.jpg?camera_label=front",
+        "https://images.printify.com/mockup/6ac6d862d17baf6af80ff870/33347/98424/5am-workout-crew-hoodie-wild-at-dawn-hoodie-funny-gym-squad-gift-early-morning-workout-present-for-her.jpg?camera_label=front",
+        "https://images.printify.com/mockup/6ac6d862d17baf6af80ff870/42166/98424/5am-workout-crew-hoodie-wild-at-dawn-hoodie-funny-gym-squad-gift-early-morning-workout-present-for-her.jpg?camera_label=front"
+      ],
+      "colors": [
+        "Sand",
+        "White",
+        "Sport Grey",
+        "Ash"
+      ]
+    },
+    "mug": {
+      "name": "Coffee Mug 11oz",
+      "price": 19.99,
+      "on": true,
+      "product_id": "6ac6d864b2eda44c9800f553",
+      "mockups": [
+        "https://images.printify.com/mockup/6ac6d864b2eda44c9800f553/67624/7674/5am-workout-crew-mug-wild-at-dawn-mug-funny-gym-squad-gift-early-morning-workout-present-for-her.jpg?camera_label=front",
+        "https://images.printify.com/mockup/6ac6d864b2eda44c9800f553/67624/7675/5am-workout-crew-mug-wild-at-dawn-mug-funny-gym-squad-gift-early-morning-workout-present-for-her.jpg?camera_label=left",
+        "https://images.printify.com/mockup/6ac6d864b2eda44c9800f553/67624/7676/5am-workout-crew-mug-wild-at-dawn-mug-funny-gym-squad-gift-early-morning-workout-present-for-her.jpg?camera_label=right"
+      ],
+      "colors": []
+    }
+  },
+  "mockups": [
+    "https://images.printify.com/mockup/6ac6d85e100d1e169c0fc3ce/18542/102044/5am-workout-crew-shirt-wild-at-dawn-tee-funny-gym-squad-gift-early-morning-workout-present-for-her.jpg?camera_label=front-2",
+    "https://images.printify.com/mockup/6ac6d85e100d1e169c0fc3ce/18390/102044/5am-workout-crew-shirt-wild-at-dawn-tee-funny-gym-squad-gift-early-morning-workout-present-for-her.jpg?camera_label=front-2",
+    "https://images.printify.com/mockup/6ac6d85e100d1e169c0fc3ce/18462/102044/5am-workout-crew-shirt-wild-at-dawn-tee-funny-gym-squad-gift-early-morning-workout-present-for-her.jpg?camera_label=front-2"
+  ]
+}

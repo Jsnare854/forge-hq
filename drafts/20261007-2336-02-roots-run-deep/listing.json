@@ -1,0 +1,199 @@
+{
+  "niche": "Nature-loving trail/ultra runners",
+  "spec": {
+    "lines": [
+      {
+        "text": "ROOTS",
+        "size": "xl"
+      },
+      {
+        "text": "RUN DEEP",
+        "size": "lg"
+      }
+    ],
+    "style": "badge",
+    "font": "Alfa Slab One",
+    "ink": "#f2e8c9",
+    "accent": "#8b2e2e",
+    "shirt": "forest"
+  },
+  "mode": "illustrated",
+  "art_prompt": "Old-school tattoo flash illustration of a gnarled tree root system intertwining with a winding forest trail, bold thick black outlines, limited vintage color palette of forest green, faded red, mustard yellow and cream, banner-style ribbon layout, text placed within the design in classic tattoo flash lettering. Style: old-school tattoo flash.",
+  "art_style": "old-school tattoo flash",
+  "title": "Trail Runner Tattoo Style Shirt, Roots Run Deep Tee, Nature Trail Running Gift, Ultra Runner Present",
+  "tags": [
+    "trail runner tee",
+    "tattoo style tee",
+    "nature running",
+    "root runner",
+    "trail gift him",
+    "mountain trail tee",
+    "outdoor runner",
+    "pnw trail",
+    "ultra marathon",
+    "forest trail",
+    "hiking runner",
+    "comfort colors",
+    "gift for runner"
+  ],
+  "description": "Bold like the trail itself, this old-school tattoo flash design is built for runners who feel rooted to the dirt and the woods. The gnarled roots and winding path symbolize every mile earned the hard way.\n\nPrinted on a deep forest green tee with a vintage flash color palette, it reads as outdoor lifestyle apparel first, race shirt second.\n\nGreat gift for the trail or ultra runner who treats the forest like home turf.\n\nDesign created by our shop with the help of AI tools and printed on demand by our production partner.",
+  "price": 28.99,
+  "risk": "low",
+  "risk_notes": "Original nature/tattoo-style artwork with no brand, logo, or trademarked imagery.",
+  "seed": "Gym regulars and runners",
+  "evidence": [
+    {
+      "id": 4522068334,
+      "title": "Run More Worry Less Comfort Colors Shirt | PNW Running Tee | Trail Runner Shirt | Running Gift",
+      "tags": [
+        "running shirt",
+        "runner gift",
+        "trail running tee",
+        "funny running shirt",
+        "pnw shirt",
+        "nature lover shirt",
+        "hiking shirt",
+        "tree runner shirt",
+        "mountain shirt",
+        "forest shirt",
+        "adventure shirt",
+        "pnw t shirt",
+        "half marathon shirt"
+      ],
+      "price": 33.99,
+      "favorites": 36,
+      "views": 600,
+      "age_days": 115,
+      "momentum": 0.31,
+      "url": "https://www.etsy.com/listing/4522068334/run-more-worry-less-comfort-colors-shirt"
+    },
+    {
+      "id": 755055347,
+      "title": "Trail Running Shirt. Trail Running Gift. Trail Runner Shirt. Trail Runner Gift. Trail Running Lover Shirt Trail Run Outfit Run Trail #OS3229",
+      "tags": [
+        "funny t-shirt",
+        "gift for him",
+        "gift for her",
+        "trail running shirt",
+        "trail running gift",
+        "trail runner shirt",
+        "trail runner gift",
+        "trail run outfit",
+        "run trail shirt"
+      ],
+      "price": 26.05,
+      "favorites": 91,
+      "views": 1518,
+      "age_days": 2513,
+      "momentum": 0.04,
+      "url": "https://www.etsy.com/listing/755055347/trail-running-shirt-trail-running-gift"
+    },
+    {
+      "id": 4398734927,
+      "title": "Funny Trail Runner T-Shirt, Comfort Colors Tee",
+      "tags": [
+        "trail runner shirt",
+        "funny running tee",
+        "trail running club",
+        "mountain runner top",
+        "outdoor run shirt",
+        "funny runner gift",
+        "trail team shirt",
+        "runner humor tee",
+        "hiking running tee",
+        "endurance run top",
+        "adventure runner",
+        "ultra trail shirt",
+        "runners life shirt"
+      ],
+      "price": 38.13,
+      "favorites": 18,
+      "views": 555,
+      "age_days": 337,
+      "momentum": 0.05,
+      "url": "https://www.etsy.com/listing/4398734927/funny-trail-runner-t-shirt-comfort"
+    }
+  ],
+  "brief": {
+    "why": "One listing (4522068334) hit 36 favs in 115 days (mom 0.31) far outpacing the rest of a 2168-listing field, showing a specific nature/PNW framing is converting much faster than generic 'trail runner' text.",
+    "what_wins": "Winners combine a calming/positive phrase (anti-anxiety, nature-therapy vibe) with outdoorsy identity cues (trees, mountains, PNW) rather than ultra-macho or pun-heavy copy; Comfort Colors-style soft garment dyed tees price $28-34 perform well; sustained proven listings (755055347, 4398734927) show evergreen demand for trail-identity shirts that read as lifestyle apparel, not just race merch.",
+    "visual_style": "Single-color retro badge or line-art mountain/tree icon, muted earth tones (forest green, rust, stone), garment-dyed Comfort Colors fabric, minimal vintage outdoor-club emblem look",
+    "price_band": "$28-34",
+    "demand": 8,
+    "competition": 7,
+    "passion": 8
+  },
+  "flags": [],
+  "art_notes": "Art Director: Option 0 has cleaner composition, better banner contrast, and clear path/trail imagery appealing to runners, while option 1's tree looks oddly dead on top with less balanced ribbon shapes. (scores [8, 5])",
+  "draft_id": "20261007-2336-02-roots-run-deep",
+  "products": {
+    "tee": {
+      "name": "T-Shirt",
+      "price": 28.99,
+      "on": true,
+      "product_id": "6ac6d8123f3c71224c08567d",
+      "mockups": [
+        "https://images.printify.com/mockup/6ac6d8123f3c71224c08567d/18102/102044/trail-runner-tattoo-style-shirt-roots-run-deep-tee-nature-trail-running-gift-ultra-runner-present.jpg?camera_label=front-2",
+        "https://images.printify.com/mockup/6ac6d8123f3c71224c08567d/18182/102044/trail-runner-tattoo-style-shirt-roots-run-deep-tee-nature-trail-running-gift-ultra-runner-present.jpg?camera_label=front-2",
+        "https://images.printify.com/mockup/6ac6d8123f3c71224c08567d/18398/102044/trail-runner-tattoo-style-shirt-roots-run-deep-tee-nature-trail-running-gift-ultra-runner-present.jpg?camera_label=front-2"
+      ],
+      "colors": [
+        "Forest",
+        "Black",
+        "Navy",
+        "Maroon"
+      ]
+    },
+    "sweatshirt": {
+      "name": "Crewneck Sweatshirt",
+      "price": 41.99,
+      "on": true,
+      "product_id": "6ac6d8142ecc670a46063b42",
+      "mockups": [
+        "https://images.printify.com/mockup/6ac6d8142ecc670a46063b42/25459/98502/trail-runner-tattoo-style-sweatshirt-roots-run-deep-sweatshirt-nature-trail-running-gift-ultra-runner-present.jpg?camera_label=front",
+        "https://images.printify.com/mockup/6ac6d8142ecc670a46063b42/25449/98502/trail-runner-tattoo-style-sweatshirt-roots-run-deep-sweatshirt-nature-trail-running-gift-ultra-runner-present.jpg?camera_label=front",
+        "https://images.printify.com/mockup/6ac6d8142ecc670a46063b42/25462/98502/trail-runner-tattoo-style-sweatshirt-roots-run-deep-sweatshirt-nature-trail-running-gift-ultra-runner-present.jpg?camera_label=front"
+      ],
+      "colors": [
+        "Forest Green",
+        "Black",
+        "Navy",
+        "Maroon"
+      ]
+    },
+    "hoodie": {
+      "name": "Hoodie",
+      "price": 46.99,
+      "on": true,
+      "product_id": "6ac6d8166d8009791d0eb018",
+      "mockups": [
+        "https://images.printify.com/mockup/6ac6d8166d8009791d0eb018/32920/98424/trail-runner-tattoo-style-hoodie-roots-run-deep-hoodie-nature-trail-running-gift-ultra-runner-present.jpg?camera_label=front",
+        "https://images.printify.com/mockup/6ac6d8166d8009791d0eb018/32888/98424/trail-runner-tattoo-style-hoodie-roots-run-deep-hoodie-nature-trail-running-gift-ultra-runner-present.jpg?camera_label=front",
+        "https://images.printify.com/mockup/6ac6d8166d8009791d0eb018/33419/98424/trail-runner-tattoo-style-hoodie-roots-run-deep-hoodie-nature-trail-running-gift-ultra-runner-present.jpg?camera_label=front"
+      ],
+      "colors": [
+        "Forest Green",
+        "Black",
+        "Navy",
+        "Maroon"
+      ]
+    },
+    "mug": {
+      "name": "Coffee Mug 11oz",
+      "price": 19.99,
+      "on": true,
+      "product_id": "6ac6d8172ecc670a46063b45",
+      "mockups": [
+        "https://images.printify.com/mockup/6ac6d8172ecc670a46063b45/67624/7674/trail-runner-tattoo-style-mug-roots-run-deep-mug-nature-trail-running-gift-ultra-runner-present.jpg?camera_label=front",
+        "https://images.printify.com/mockup/6ac6d8172ecc670a46063b45/67624/7675/trail-runner-tattoo-style-mug-roots-run-deep-mug-nature-trail-running-gift-ultra-runner-present.jpg?camera_label=left",
+        "https://images.printify.com/mockup/6ac6d8172ecc670a46063b45/67624/7676/trail-runner-tattoo-style-mug-roots-run-deep-mug-nature-trail-running-gift-ultra-runner-present.jpg?camera_label=right"
+      ],
+      "colors": []
+    }
+  },
+  "mockups": [
+    "https://images.printify.com/mockup/6ac6d8123f3c71224c08567d/18102/102044/trail-runner-tattoo-style-shirt-roots-run-deep-tee-nature-trail-running-gift-ultra-runner-present.jpg?camera_label=front-2",
+    "https://images.printify.com/mockup/6ac6d8123f3c71224c08567d/18182/102044/trail-runner-tattoo-style-shirt-roots-run-deep-tee-nature-trail-running-gift-ultra-runner-present.jpg?camera_label=front-2",
+    "https://images.printify.com/mockup/6ac6d8123f3c71224c08567d/18398/102044/trail-runner-tattoo-style-shirt-roots-run-deep-tee-nature-trail-running-gift-ultra-runner-present.jpg?camera_label=front-2"
+  ]
+}

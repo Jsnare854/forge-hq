@@ -1,0 +1,202 @@
+{
+  "niche": "Mall walker / senior walking club identity",
+  "spec": {
+    "lines": [
+      {
+        "text": "LAPPING LIFE",
+        "size": "xl"
+      },
+      {
+        "text": "AT MY PACE",
+        "size": "lg"
+      }
+    ],
+    "style": "script",
+    "font": "Pacifico",
+    "ink": "#1f2b4d",
+    "accent": "#c97b4a",
+    "shirt": "heather"
+  },
+  "mode": "illustrated",
+  "art_prompt": "Hand-drawn ink line art of a cheerful senior figure power walking with small hand weights, loose sketchy linework in a single navy ink tone on a light background, a simple retro mall storefront sketched faintly behind the figure, text written in flowing script beneath the illustration. Style: hand-drawn ink line art.",
+  "art_style": "hand-drawn ink line art",
+  "title": "Mall Walking Club Shirt, Lapping Life At My Pace Tee, Funny Retirement Gift, Senior Walking Group Present",
+  "tags": [
+    "mall walking tee",
+    "retirement gift",
+    "walking club tee",
+    "senior walker",
+    "funny retirement",
+    "walking group",
+    "active aging",
+    "grandma gift tee",
+    "grandpa gift",
+    "walking buddy",
+    "mall walker gift",
+    "fitness retiree",
+    "power walker tee"
+  ],
+  "description": "For the retiree who treats the mall concourse like their personal track, this hand-drawn design is a warm, funny nod to walking club culture.\n\nSoft heather tee with a loose sketchy illustration of a power walker and a faint retro mall backdrop, cozy and nostalgic in feel.\n\nA sweet gag gift for a parent or grandparent's retirement, or a fun matching shirt for the whole walking group.\n\nDesign created by our shop with the help of AI tools and printed on demand by our production partner.",
+  "price": 25.99,
+  "risk": "low",
+  "risk_notes": "Generic hand-drawn figure and mall backdrop, no identifiable real mall brand or storefront.",
+  "seed": "Gym regulars and runners",
+  "evidence": [
+    {
+      "id": 4548081369,
+      "title": "Walking Club Comfort Colors Shirt | Personalizable Shirt with Your Walking Club Name",
+      "tags": [
+        "walking club",
+        "walker gift",
+        "walking gifts",
+        "morning walk club",
+        "walking shirt",
+        "mall walking",
+        "neighborhood walks",
+        "walking buddy",
+        "dog walking",
+        "dog walker",
+        "custom walking",
+        "personalized",
+        "comfort colors"
+      ],
+      "price": 24.99,
+      "favorites": 4,
+      "views": 51,
+      "age_days": 67,
+      "momentum": 0.06,
+      "url": "https://www.etsy.com/listing/4548081369/walking-club-comfort-colors-shirt"
+    },
+    {
+      "id": 4348272945,
+      "title": "Mall Walkers Club T-Shirt: Fun Fitness Apparel, Active Aging Gift",
+      "tags": [
+        "funny t-shirt",
+        "mall walkers shirt",
+        "unisex casual wear",
+        "cute graphic tee",
+        "gifts for seniors",
+        "walking club apparel",
+        "lightweight t-shirt",
+        "everyday wear shirt",
+        "custom graphic tee",
+        "indoor walking shirt",
+        "mall walking club",
+        "friend walking shirt"
+      ],
+      "price": 24.99,
+      "favorites": 5,
+      "views": 94,
+      "age_days": 426,
+      "momentum": 0.01,
+      "url": "https://www.etsy.com/listing/4348272945/mall-walkers-club-t-shirt-fun-fitness"
+    },
+    {
+      "id": 1238356349,
+      "title": "Mall Walkers Club t-shirt, Walking shirt, Gift for walking buddies, Mall Walker tee, Indoor walking tshirt, Hiking, Hikers",
+      "tags": [
+        "walking shirt",
+        "mall walker",
+        "mall walker club",
+        "gift for walking",
+        "walking buddies tee",
+        "mall walker tshirt",
+        "indoor walking shirt",
+        "hiking shirt",
+        "hikers tshirt",
+        "shopping shirt",
+        "mall tshirt",
+        "walker t-shirt",
+        "exercise walk shirt"
+      ],
+      "price": 25.0,
+      "favorites": 7,
+      "views": 280,
+      "age_days": 1598,
+      "momentum": 0.0,
+      "url": "https://www.etsy.com/listing/1238356349/mall-walkers-club-t-shirt-walking-shirt"
+    }
+  ],
+  "brief": {
+    "why": "Only 18 active listings yet a personalizable 'walking club' shirt (4548081369, 67 days, mom 0.06) and a brand-new entry (4582163566, 13 days, mom 0.08) are both gaining favorites, showing real engagement in a nearly empty niche.",
+    "what_wins": "Winners either (a) offer personalization for real walking clubs/groups, or (b) lean into warm nostalgic humor about mall-walking/retirement culture as a wearable inside joke; retro 80s/90s mall aesthetic and gift-for-grandparent framing recur across proven listings.",
+    "visual_style": "Retro 80s mall signage/script lettering, pastel or faded vintage color palette, crewneck sweatshirt or soft tee, optional spot for custom club name",
+    "price_band": "$24-32",
+    "demand": 5,
+    "competition": 2,
+    "passion": 6
+  },
+  "flags": [],
+  "art_notes": "Art Director: Option 0 has cleaner linework and a more legible 'MAIL' storefront detail, giving it slightly stronger print appeal. (scores [8, 7])",
+  "draft_id": "20261007-2336-07-lapping-life-at-my-pace",
+  "products": {
+    "tee": {
+      "name": "T-Shirt",
+      "price": 25.99,
+      "on": true,
+      "product_id": "6ac6d9573f3c71224c085722",
+      "mockups": [
+        "https://images.printify.com/mockup/6ac6d9573f3c71224c085722/18542/102044/mall-walking-club-shirt-lapping-life-at-my-pace-tee-funny-retirement-gift-senior-walking-group-present.jpg?camera_label=front-2",
+        "https://images.printify.com/mockup/6ac6d9573f3c71224c085722/18390/102044/mall-walking-club-shirt-lapping-life-at-my-pace-tee-funny-retirement-gift-senior-walking-group-present.jpg?camera_label=front-2",
+        "https://images.printify.com/mockup/6ac6d9573f3c71224c085722/18462/102044/mall-walking-club-shirt-lapping-life-at-my-pace-tee-funny-retirement-gift-senior-walking-group-present.jpg?camera_label=front-2"
+      ],
+      "colors": [
+        "Athletic Heather",
+        "White",
+        "Soft Cream",
+        "Natural"
+      ]
+    },
+    "sweatshirt": {
+      "name": "Crewneck Sweatshirt",
+      "price": 41.99,
+      "on": true,
+      "product_id": "6ac6d959b814691321001c9b",
+      "mockups": [
+        "https://images.printify.com/mockup/6ac6d959b814691321001c9b/25458/98502/mall-walking-club-sweatshirt-lapping-life-at-my-pace-sweatshirt-funny-retirement-gift-senior-walking-group-present.jpg?camera_label=front",
+        "https://images.printify.com/mockup/6ac6d959b814691321001c9b/25439/98502/mall-walking-club-sweatshirt-lapping-life-at-my-pace-sweatshirt-funny-retirement-gift-senior-walking-group-present.jpg?camera_label=front",
+        "https://images.printify.com/mockup/6ac6d959b814691321001c9b/25456/98502/mall-walking-club-sweatshirt-lapping-life-at-my-pace-sweatshirt-funny-retirement-gift-senior-walking-group-present.jpg?camera_label=front"
+      ],
+      "colors": [
+        "Sport Grey",
+        "White",
+        "Sand",
+        "Ash"
+      ]
+    },
+    "hoodie": {
+      "name": "Hoodie",
+      "price": 46.99,
+      "on": true,
+      "product_id": "6ac6d95b9d1e9b9f400c4495",
+      "mockups": [
+        "https://images.printify.com/mockup/6ac6d95b9d1e9b9f400c4495/32912/98424/mall-walking-club-hoodie-lapping-life-at-my-pace-hoodie-funny-retirement-gift-senior-walking-group-present.jpg?camera_label=front",
+        "https://images.printify.com/mockup/6ac6d95b9d1e9b9f400c4495/33347/98424/mall-walking-club-hoodie-lapping-life-at-my-pace-hoodie-funny-retirement-gift-senior-walking-group-present.jpg?camera_label=front",
+        "https://images.printify.com/mockup/6ac6d95b9d1e9b9f400c4495/42166/98424/mall-walking-club-hoodie-lapping-life-at-my-pace-hoodie-funny-retirement-gift-senior-walking-group-present.jpg?camera_label=front"
+      ],
+      "colors": [
+        "Sport Grey",
+        "White",
+        "Sand",
+        "Ash"
+      ]
+    },
+    "mug": {
+      "name": "Coffee Mug 11oz",
+      "price": 19.99,
+      "on": true,
+      "product_id": "6ac6d95cd17baf6af80ff905",
+      "mockups": [
+        "https://images.printify.com/mockup/6ac6d95cd17baf6af80ff905/67624/7674/mall-walking-club-mug-lapping-life-at-my-pace-mug-funny-retirement-gift-senior-walking-group-present.jpg?camera_label=front",
+        "https://images.printify.com/mockup/6ac6d95cd17baf6af80ff905/67624/7675/mall-walking-club-mug-lapping-life-at-my-pace-mug-funny-retirement-gift-senior-walking-group-present.jpg?camera_label=left",
+        "https://images.printify.com/mockup/6ac6d95cd17baf6af80ff905/67624/7676/mall-walking-club-mug-lapping-life-at-my-pace-mug-funny-retirement-gift-senior-walking-group-present.jpg?camera_label=right"
+      ],
+      "colors": []
+    }
+  },
+  "mockups": [
+    "https://images.printify.com/mockup/6ac6d9573f3c71224c085722/18542/102044/mall-walking-club-shirt-lapping-life-at-my-pace-tee-funny-retirement-gift-senior-walking-group-present.jpg?camera_label=front-2",
+    "https://images.printify.com/mockup/6ac6d9573f3c71224c085722/18390/102044/mall-walking-club-shirt-lapping-life-at-my-pace-tee-funny-retirement-gift-senior-walking-group-present.jpg?camera_label=front-2",
+    "https://images.printify.com/mockup/6ac6d9573f3c71224c085722/18462/102044/mall-walking-club-shirt-lapping-life-at-my-pace-tee-funny-retirement-gift-senior-walking-group-present.jpg?camera_label=front-2"
+  ]
+}
