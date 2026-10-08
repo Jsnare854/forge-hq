@@ -47,10 +47,14 @@ def next_seed(cfg: dict, hist=None) -> str:
 
 # ---------------- draft ----------------
 
+MAX_BLEND = 0.30  # reject art when more than this share of it disappears into the fabric (navy text on black is ~37%)
+
+
 def make_artwork(L: dict, cfg: dict, ideogram, review_fn, log=print) -> tuple[bytes, bytes]:
     """Returns (print_png, preview_png). Illustrated designs go through Ideogram + Art Director,
     falling back to the typography renderer if no candidate passes."""
-    from .illustrator import build_prompt, preview, to_print_canvas
+    from .illustrator import best_shirt, build_prompt, preview, to_print_canvas
+    from .spec import luminance
     from .render import render_mockup, render_print
 
     icfg = cfg.get("illustrator", {})
@@ -68,14 +72,26 @@ def make_artwork(L: dict, cfg: dict, ideogram, review_fn, log=print) -> tuple[by
                 break
             if not imgs:
                 continue
-            previews = [preview(i, SHIRTS[L["spec"]["shirt"]]) for i in imgs]
+            # Judge each image on the fabric it actually works on, not the one the Designer imagined.
+            fits = [best_shirt(i, L["spec"]["shirt"], SHIRTS) for i in imgs]
+            previews = [preview(i, SHIRTS[f[0]]) for i, f in zip(imgs, fits)]
+            for n_, (shirt_, weak_) in enumerate(fits):
+                log(f"  CONTRAST option {n_}: best on {shirt_} ({weak_:.0%} of the art blends in)")
             try:
                 verdict = review_fn(previews, expected, L["niche"])
             except Exception as e:
                 log(f"  ART DIRECTOR failed: {e}")
                 verdict = {"best": None, "scores": [], "notes": str(e)}
             log(f"  ART DIRECTOR scores {verdict['scores']} → {'option ' + str(verdict['best']) if verdict['best'] is not None else 'rejected'} ({verdict['notes']})")
-            if verdict["best"] is not None:
+            best = verdict["best"]
+            if best is not None and fits[best][1] > MAX_BLEND:
+                log(f"  CONTRAST rejected option {best}: {fits[best][1]:.0%} of the art blends into the fabric")
+                best = None
+            if best is not None:
+                verdict["best"] = best
+                shirt_ = fits[best][0]
+                L["spec"]["shirt"] = shirt_
+                L["spec"]["ink"] = "#f4f4f1" if luminance(SHIRTS[shirt_]) < 0.5 else "#1a1a1a"
                 L["art_notes"] = f"Art Director: {verdict['notes']} (scores {verdict['scores']})"
                 return to_print_canvas(imgs[verdict["best"]]), previews[verdict["best"]]
         if icfg.get("require_art", True):
@@ -388,7 +404,12 @@ def cmd_publish(args, cfg, gh=None, pf=None) -> str:
                     from .printify import pick_colors
                     colors = colors if colors is not None else pick_colors(cat["variants"], PL["spec"], prof)
                     rows = build_variants(cat["variants"], colors, prof.get("sizes"), PL["price"], prof.get("upcharge_cents") or {})
-                    pf.update_product(shop_id, pid, {"title": PL["title"], "description": PL["description"], "tags": PL["tags"], "variants": rows})
+                    upd = {"title": PL["title"], "description": PL["description"], "tags": PL["tags"], "variants": rows}
+                    from .printify import refit_print_areas
+                    areas = refit_print_areas(pf, shop_id, pid, cat, rows, prof)
+                    if areas:
+                        upd["print_areas"] = areas
+                    pf.update_product(shop_id, pid, upd)
                 else:
                     if pid:
                         try:

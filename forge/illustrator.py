@@ -12,8 +12,9 @@ from .render import PRINT_H, PRINT_W
 
 ENDPOINT = "https://api.ideogram.ai/v1/ideogram-v3/generate-transparent"
 NEGATIVE = (
-    "t-shirt mockup, shirt, model, person wearing, photo background, frame border around image, watermark, signature, "
-    "brand logos, trademarks, misspelled words, extra letters, gibberish text, blurry, low resolution"
+    "t-shirt, shirt shape, shirt silhouette, garment, clothing, hoodie, mockup, model, person wearing, "
+    "solid background panel, colored rectangle behind the design, photo background, frame border around image, watermark, signature, "
+    "brand logos, trademarks, misspelled words, extra letters, slashes between words, gibberish text, blurry, low resolution"
 )
 
 
@@ -64,14 +65,56 @@ class Ideogram:
 
 
 def build_prompt(art_prompt: str, lines: list[dict], shirt: str) -> str:
-    text = " / ".join(l["text"] for l in lines)
+    # Quote each line separately: joining with " / " made the model print literal slashes.
+    parts = [f'"{l["text"]}"' for l in lines if l.get("text")]
+    text = parts[0] if len(parts) == 1 else ", ".join(parts[:-1]) + " and " + parts[-1]
     dark = shirt in ("black", "navy", "forest", "maroon", "heather")
+    palette = ("bright, light colors (cream, white, warm yellow, light orange) so every part stands out on a black fabric; "
+               "no black, navy or dark lettering") if dark else \
+              ("bold, dark, saturated colors (black, deep navy, rich red) so every part stands out on white fabric; "
+               "no white, cream or pale lettering")
+    # Never say "t-shirt design" here: the model then draws a t-shirt shape inside the artwork.
     return (
-        f"T-shirt graphic design, isolated artwork on a transparent background. {art_prompt.strip()} "
-        f'The design includes the exact text "{text}" spelled exactly like that, in bold, highly legible lettering that is part of the composition. '
-        f"Screen-print style with clean edges, limited color palette (4-6 colors), no gradients that fade into the background, "
-        f"colors that pop on a {'dark' if dark else 'light'} {shirt} shirt. Centered composition, nothing cut off at the edges."
+        f"Standalone screen-print graphic, a single isolated emblem on a transparent background, like a vinyl sticker with no border. "
+        f"{art_prompt.strip()} "
+        f"The design includes the text {text}{' stacked on separate lines' if len(parts) > 1 else ''}, spelled exactly like that, with no slashes or extra punctuation, "
+        f"in bold, highly legible lettering that is part of the composition and never covered by the illustration. "
+        f"Use {palette}. Clean edges, limited palette of 4-6 colors, no gradients that fade into the background, "
+        f"no background shape, panel or garment behind the artwork. Centered composition, nothing cut off at the edges."
     )
+
+
+def _rgb(hex_color: str) -> tuple[int, int, int]:
+    h = hex_color.lstrip("#")
+    return int(h[0:2], 16), int(h[2:4], 16), int(h[4:6], 16)
+
+
+def weak_contrast(png: bytes, shirt_hex: str) -> float:
+    """Share of the visible artwork that would blend into this fabric color (0 = all pops, 1 = invisible)."""
+    art = Image.open(io.BytesIO(png)).convert("RGBA")
+    art.thumbnail((256, 256))
+    sr, sg, sb = _rgb(shirt_hex)
+    s_lum = 0.2126 * sr + 0.7152 * sg + 0.0722 * sb
+    total = weak = 0
+    for r, g, b, a in art.getdata():
+        if a < 128:
+            continue
+        total += 1
+        lum = 0.2126 * r + 0.7152 * g + 0.0722 * b
+        dist = ((r - sr) ** 2 + (g - sg) ** 2 + (b - sb) ** 2) ** 0.5
+        if abs(lum - s_lum) < 55 and dist < 110:
+            weak += 1
+    return weak / total if total else 1.0
+
+
+def best_shirt(png: bytes, preferred: str, shirts: dict) -> tuple[str, float]:
+    """Pick the fabric the artwork actually works on: the designer's pick unless black or white is clearly better."""
+    cands = [preferred] + [c for c in ("black", "white") if c != preferred and c in shirts]
+    scores = {c: weak_contrast(png, shirts[c]) for c in cands if c in shirts}
+    best = min(scores, key=scores.get)
+    if preferred in scores and scores[preferred] <= scores[best] + 0.03:
+        best = preferred
+    return best, scores[best]
 
 
 def to_print_canvas(png: bytes, width_frac: float = 0.92) -> bytes:

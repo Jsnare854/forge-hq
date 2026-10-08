@@ -41,7 +41,7 @@ products:
     colors_per_product: 4
     dark_shirts: ["Black", "Navy", "Forest", "Maroon", "Dark Grey Heather", "Heather Navy"]
     light_shirts: ["White", "Athletic Heather", "Soft Cream", "Natural", "Heather Peach"]
-    placement: {x: 0.5, y: 0.42, scale: 0.9}
+    placement: {x: 0.5, top: 0.03, max_w: 0.85, max_h: 0.8}    # the whole design always fits inside this box
 
   - key: sweatshirt
     name: Crewneck Sweatshirt
@@ -56,7 +56,7 @@ products:
     color_map: {black: Black, white: White, heather: Sport Grey, navy: Navy, sand: Sand, forest: Forest Green, maroon: Maroon}
     dark_shirts: ["Black", "Navy", "Forest Green", "Maroon", "Dark Heather"]
     light_shirts: ["White", "Sport Grey", "Sand", "Ash", "Light Pink"]
-    placement: {x: 0.5, y: 0.40, scale: 0.85}
+    placement: {x: 0.5, top: 0.04, max_w: 0.8, max_h: 0.78}
     tags: ["crewneck sweatshirt"]
     blurb: "Printed on a cozy Gildan 18000 crewneck sweatshirt (50% cotton, 50% polyester), unisex fit."
 
@@ -73,7 +73,7 @@ products:
     color_map: {black: Black, white: White, heather: Sport Grey, navy: Navy, sand: Sand, forest: Forest Green, maroon: Maroon}
     dark_shirts: ["Black", "Navy", "Forest Green", "Maroon", "Dark Heather"]
     light_shirts: ["White", "Sport Grey", "Sand", "Ash", "Light Pink"]
-    placement: {x: 0.5, y: 0.38, scale: 0.8}
+    placement: {x: 0.5, top: 0.04, max_w: 0.72, max_h: 0.72}
     tags: ["hoodie gift"]
     blurb: "Printed on a warm Gildan 18500 heavy blend hooded sweatshirt with front pouch pocket, unisex fit."
 
@@ -86,7 +86,7 @@ products:
     sizes: null                 # a mug has one size
     colors: all
     colors_per_product: 1
-    placement: [{x: 0.25, y: 0.5, scale: 0.38}, {x: 0.75, y: 0.5, scale: 0.38}]   # design on both sides
+    placement: [{x: 0.25, y: 0.5, max_w: 0.4, max_h: 0.86}, {x: 0.75, y: 0.5, max_w: 0.4, max_h: 0.86}]   # design on both sides
     tags: ["coffee mug", "funny mug"]
     blurb: "11oz white ceramic mug, design printed on both sides. Dishwasher and microwave safe."
 

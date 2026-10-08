@@ -203,7 +203,7 @@ def test_art_placed_on_print_canvas():
 
 def test_prompt_contains_exact_text():
     p = build_prompt("a snook", [{"text": "Tides Wait", "size": "md"}, {"text": "For No One", "size": "xl"}], "navy")
-    assert '"Tides Wait / For No One"' in p and "dark navy shirt" in p
+    assert '"Tides Wait" and "For No One"' in p and "/" not in p and "black fabric" in p
 
 
 # ---------- trend radar ----------

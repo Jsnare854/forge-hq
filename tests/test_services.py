@@ -66,3 +66,65 @@ def test_art_director_picks_best_passing_option():
 def test_art_director_rejects_all_below_bar():
     v = review([b"a"], "x", "n", "m", client=FakeClient('{"scores":[5],"text_ok":[true],"notes":"muddy"}'))
     assert v["best"] is None
+
+
+def test_fit_spot_keeps_whole_design_inside_print_area():
+    from forge.printify import fit_spot
+    art = (3600, 4300)  # tall illustration, like the Ideogram output
+    cases = {
+        "tee": ((4500, 5400), {"x": 0.5, "top": 0.03, "max_w": 0.85, "max_h": 0.8}),
+        "hoodie (wide area)": ((3600, 2850), {"x": 0.5, "top": 0.04, "max_w": 0.72, "max_h": 0.72}),
+        "mug side": ((2700, 1050), {"x": 0.25, "y": 0.5, "max_w": 0.4, "max_h": 0.86}),
+    }
+    for name, (area, spot) in cases.items():
+        p = fit_spot(spot, art, area)
+        w = p["scale"]
+        h = p["scale"] * (art[1] / art[0]) * (area[0] / area[1])
+        assert p["x"] - w / 2 >= -1e-6 and p["x"] + w / 2 <= 1 + 1e-6, name
+        assert p["y"] - h / 2 >= -1e-6 and p["y"] + h / 2 <= 1 + 1e-6, name
+        assert h <= spot["max_h"] + 1e-6 and w <= spot["max_w"] + 1e-6, name
+
+
+def test_fit_spot_falls_back_to_legacy_placement():
+    from forge.printify import fit_spot
+    assert fit_spot({"x": 0.5, "y": 0.42, "scale": 0.9}, (100, 100), (10, 10)) == {"x": 0.5, "y": 0.42, "scale": 0.9}
+    assert fit_spot({"max_w": 0.8}, None, (10, 10))["scale"] == 0.9
+
+
+def test_trim_png_removes_empty_margins():
+    import io
+    from PIL import Image
+    from forge.printify import trim_png
+    img = Image.new("RGBA", (1000, 1200), (0, 0, 0, 0))
+    img.paste((255, 0, 0, 255), (300, 100, 700, 500))
+    buf = io.BytesIO(); img.save(buf, "PNG")
+    _, w, h = trim_png(buf.getvalue())
+    assert 400 <= w <= 420 and 400 <= h <= 420
+
+
+def _art(color, size=(400, 400)):
+    import io
+    from PIL import Image
+    img = Image.new("RGBA", size, (0, 0, 0, 0))
+    img.paste(color + (255,), (50, 50, 350, 350))
+    buf = io.BytesIO(); img.save(buf, "PNG")
+    return buf.getvalue()
+
+
+def test_best_shirt_moves_dark_art_off_dark_fabric():
+    from forge.illustrator import best_shirt
+    from forge.spec import SHIRTS
+    navy_text = _art((20, 30, 70))
+    assert best_shirt(navy_text, "black", SHIRTS)[0] == "white"
+    assert best_shirt(navy_text, "navy", SHIRTS)[0] == "white"
+    cream = _art((245, 235, 210))
+    assert best_shirt(cream, "white", SHIRTS)[0] == "black"
+    orange = _art((230, 120, 30))
+    assert best_shirt(orange, "maroon", SHIRTS)[0] == "maroon"  # designer's pick kept when it works
+
+
+def test_prompt_never_asks_for_a_shirt_or_slashes():
+    from forge.illustrator import build_prompt
+    p = build_prompt("A smoker grill.", [{"text": "Ask My Smoker"}, {"text": "Not Me"}], "black")
+    assert "/" not in p and "t-shirt" not in p.lower()
+    assert '"Ask My Smoker" and "Not Me"' in p

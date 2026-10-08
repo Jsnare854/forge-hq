@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import base64
+import io
 import time
 
 import requests
@@ -48,8 +49,19 @@ class Printify:
 
     # ---- writes
     def upload_png(self, file_name: str, data: bytes) -> str:
+        data, w, h = trim_png(data)
         out = self._req("POST", "/uploads/images.json", json={"file_name": file_name, "contents": base64.b64encode(data).decode()})
+        IMAGE_DIMS[out["id"]] = (int(out.get("width") or w), int(out.get("height") or h))
         return out["id"]
+
+    def image_dims(self, image_id: str) -> tuple[int, int] | None:
+        if image_id not in IMAGE_DIMS:
+            try:
+                out = self._req("GET", f"/uploads/{image_id}.json")
+                IMAGE_DIMS[image_id] = (int(out["width"]), int(out["height"]))
+            except Exception:
+                return None
+        return IMAGE_DIMS[image_id]
 
     def create_product(self, shop_id, payload: dict) -> dict:
         return self._req("POST", f"/shops/{shop_id}/products.json", json=payload)
@@ -190,9 +202,66 @@ def build_variants(variants: list[dict], colors: list[str], sizes, price: float,
     return out[:100]
 
 
-def build_product(listing: dict, image_id: str, blueprint_id: int, provider_id: int, variant_rows: list[dict], placement) -> dict:
+IMAGE_DIMS: dict[str, tuple[int, int]] = {}  # Printify image id -> (width, height) of what we uploaded
+
+
+def trim_png(data: bytes, pad_frac: float = 0.02) -> tuple[bytes, int, int]:
+    """Cut away empty transparent margins so placement math works on the artwork itself."""
+    try:
+        from PIL import Image
+        img = Image.open(io.BytesIO(data))
+        if img.mode != "RGBA":
+            return data, img.width, img.height
+        bbox = img.getchannel("A").point(lambda a: 255 if a > 8 else 0).getbbox()
+        if not bbox:
+            return data, img.width, img.height
+        pad = int(max(bbox[2] - bbox[0], bbox[3] - bbox[1]) * pad_frac)
+        box = (max(0, bbox[0] - pad), max(0, bbox[1] - pad), min(img.width, bbox[2] + pad), min(img.height, bbox[3] + pad))
+        if box == (0, 0, img.width, img.height):
+            return data, img.width, img.height
+        img = img.crop(box)
+        buf = io.BytesIO()
+        img.save(buf, "PNG", optimize=True)
+        return buf.getvalue(), img.width, img.height
+    except Exception:
+        return data, 0, 0
+
+
+def print_area(variants: list[dict], variant_ids: list, position: str = "front") -> tuple[float, float] | None:
+    ids = set(variant_ids)
+    for v in variants:
+        if v.get("id") in ids:
+            for ph in v.get("placeholders") or []:
+                if ph.get("position") == position and ph.get("width") and ph.get("height"):
+                    return float(ph["width"]), float(ph["height"])
+    return None
+
+
+def fit_spot(spot: dict, img: tuple[int, int] | None, area: tuple[float, float] | None) -> dict:
+    """Printify placement: scale = image width / print-area width; x, y = image center (0-1).
+    A spot with max_w / max_h is a box the WHOLE artwork must fit inside, so nothing is ever cut off.
+    top = where the art's top edge sits (chest placement); without it, y is the center."""
+    if not ("max_w" in spot or "max_h" in spot) or not img or not img[0] or not area:
+        return {"x": float(spot.get("x", 0.5)), "y": float(spot.get("y", 0.42)), "scale": float(spot.get("scale", 0.9))}
+    iw, ih = img
+    aw, ah = area
+    max_w, max_h = float(spot.get("max_w", 0.9)), float(spot.get("max_h", 0.9))
+    ratio = (ih / iw) * (aw / ah)  # art height as a fraction of area height, per 1.0 of scale
+    scale = min(max_w, max_h / ratio)
+    h = scale * ratio
+    y = float(spot["top"]) + h / 2 if "top" in spot else float(spot.get("y", 0.5))
+    y = min(max(y, h / 2), 1 - h / 2) if h <= 1 else 0.5
+    x = float(spot.get("x", 0.5))
+    x = min(max(x, scale / 2), 1 - scale / 2) if scale <= 1 else 0.5
+    return {"x": round(x, 4), "y": round(y, 4), "scale": round(scale, 4)}
+
+
+def build_product(listing: dict, image_id: str, blueprint_id: int, provider_id: int, variant_rows: list[dict], placement,
+                  variants: list[dict] | None = None) -> dict:
     spots = placement if isinstance(placement, list) else [placement or {}]
-    images = [{"id": image_id, "x": float(p.get("x", 0.5)), "y": float(p.get("y", 0.42)), "scale": float(p.get("scale", 0.9)), "angle": 0} for p in spots]
+    area = print_area(variants or [], [v["id"] for v in variant_rows])
+    img = IMAGE_DIMS.get(image_id)
+    images = [{"id": image_id, **fit_spot(p, img, area), "angle": 0} for p in spots]
     return {
         "title": listing["title"],
         "description": listing["description"],
@@ -245,5 +314,17 @@ def create_draft(pf: "Printify", cat: dict, listing: dict, png_or_image_id, prof
     colors = pick_colors(cat["variants"], listing["spec"], prof)
     rows = build_variants(cat["variants"], colors, prof.get("sizes"), listing["price"], prof.get("upcharge_cents") or {})
     image_id = pf.upload_png(file_name, png_or_image_id) if isinstance(png_or_image_id, (bytes, bytearray)) else png_or_image_id
-    product = pf.create_product(cat["shop"]["id"], build_product(listing, image_id, cat["bp"]["id"], cat["prov"]["id"], rows, prof.get("placement", {})))
+    product = pf.create_product(cat["shop"]["id"], build_product(listing, image_id, cat["bp"]["id"], cat["prov"]["id"], rows, prof.get("placement", {}), cat["variants"]))
     return {"product": product, "colors": colors, "rows": rows, "image_id": image_id}
+
+
+def refit_print_areas(pf: "Printify", shop_id, product_id: str, cat: dict, rows: list[dict], prof: dict) -> list[dict] | None:
+    """Rebuild an existing draft's print areas with fit-to-area placement (fixes art cut off by older drafts)."""
+    try:
+        prod = pf.product(shop_id, product_id)
+        image_id = prod["print_areas"][0]["placeholders"][0]["images"][0]["id"]
+    except Exception:
+        return None
+    pf.image_dims(image_id)
+    return build_product({"title": "", "description": "", "tags": []}, image_id, cat["bp"]["id"], cat["prov"]["id"], rows,
+                         prof.get("placement", {}), cat["variants"])["print_areas"]
